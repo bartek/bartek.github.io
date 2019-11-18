@@ -1,7 +1,6 @@
 {% extends "base.html" %}
-{% block content %}
-<h1><a href='{{ url_for("index") }}'>👋 Hello, I'm Bartek</a></h1>
 
+{% block content %}
     <p>I'm a 30-something Polish dude raised mostly in Toronto, Canada, currently living
     in Boston, Massachusetts. Apart from building software, I spend most of my
     time being a loving father, cooking, travelling, and nerding out over
@@ -22,6 +21,10 @@
 
     <p>My current travel ambitions are to see more of the United States, now
     that I'm here (since September 2019)</p>
+
+    <p>I mostly read endless technical, non-fiction and use movies as a means of
+    escape. Regardless, I am compiling what I've enjoyed reading <a href='{{
+    url_for("page", path="/books") }}'>here</a></p>
 
     <p>You can also find me here:</p>
 

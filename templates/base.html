@@ -26,6 +26,9 @@ li {
 </style>
 </head>
 <body>
+    {% block title %}
+    <h1><a href='{{ url_for("index") }}'>👋 Hello, I'm Bartek</a></h1>
+    {% endblock %}
     {% block content %}
     {% endblock content %}
 </body>
