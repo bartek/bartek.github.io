@@ -1,0 +1,43 @@
+title: Books I've enjoyed
+data: data/books.json
+---
+
+<p>I've set a goal of reading 12 books in 2020. On this page, I list the books I
+have read, am reading, or failed to read (started, couldn't finish)</p>
+
+<p>I have a bad habit of reading plenty of 5-10 minute pieces, love the news, and consume plenty of podcasts. However,
+I struggle to sit down with a book. Taking my time back is one an important goal of 2020 for me, hence, the desire
+to sit down, relax, and enjoy a quality paperback.</p>
+
+<h2>2020 Book shelf</h2>
+
+<div class='book-shelf'>
+  {% for book in books %}
+  <div class='book'>
+    <a href='{{ book.GoodreadsURL }}'><img src='{{ book.CoverURL }}'></a>
+  </div>
+  {% endfor %}
+</div>
+
+<table class='pure-table'>
+<thead>
+<tr>
+  <th></th>
+  <th>Title</th>
+  <th>Author</th>
+  <th>Category</th>
+  <th>Pages</th>
+</tr>
+</thead>
+<tbody>
+{% for book in books %}
+<tr>
+  <td>{{ loop.index }}</td>
+  <td><a href='{{ book.GoodreadsURL }}'>{{ book.Title }}</a></td>
+  <td>{{ book.Author }}</td>
+  <td>{{ book.Category }} {{ book.SubCategory }}</td>
+  <td>{{ book.Pages }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>

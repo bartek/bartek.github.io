@@ -1,0 +1,69 @@
+{
+    "books": [
+        {
+        "Title": "Basic Economics",
+        "Subtitle": "A Citizen's Guide to the Economy",
+        "Author": "Thomas Sowell",
+        "Published": "12/24/2003",
+        "Read": "",
+        "Category": "Nonfiction",
+        "SubCategory": "Economics",
+        "Rating": 4,
+        "Pages": 640,
+        "CoverURL": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1388328985l/3023.jpg",
+        "GoodreadsURL": "https://www.goodreads.com/book/show/3023.Basic_Economics?from_search=true&qid=ntOgwdXXMx&rank=2"
+        },
+        {
+        "Title": "Permanent Record",
+        "Subtitle": "",
+        "Author": "Edward Snowden",
+        "Published": "9/17/2019",
+        "Read": "12/1/2019",
+        "Category": "Nonfiction",
+        "SubCategory": "Biography",
+        "Rating": 4,
+        "Pages": 339,
+        "CoverURL": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1564666396l/46223297.jpg",
+        "GoodreadsURL": "https://www.goodreads.com/book/show/46223297-permanent-record?from_search=true&qid=re1yXTMNzz&rank=1"
+        },
+        {
+        "Title": "Designing Data-Intensive Applications",
+        "Subtitle": "",
+        "Author": "Martin Kleppmann",
+        "Published": "4/25/2015",
+        "Read": "",
+        "Category": "Nonfiction",
+        "SubCategory": "Computer Science",
+        "Rating": 5,
+        "Pages": 562,
+        "CoverURL": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1415816873l/23463279.jpg",
+        "GoodreadsURL": "https://www.goodreads.com/book/show/23463279-designing-data-intensive-applications?from_search=true&qid=flLlt6ui5w&rank=1"
+        },
+        {
+        "Title": "Slime",
+        "Subtitle": "How Algae created us, plague us, and just might save us",
+        "Author": "Ruth Kasinger",
+        "Published": "",
+        "Read": "",
+        "Category": "Nonfiction",
+        "SubCategory": "Science",
+        "Rating": 5,
+        "Pages": 320,
+        "CoverURL": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1555159111l/40796205.jpg",
+        "GoodreadsURL": "https://www.goodreads.com/book/show/40796205-slime?from_search=true&qid=ABGATe1JAM&rank=1"
+        },
+        {
+        "Title": "Resilient Management",
+        "Subtitle": "",
+        "Author": "Lara Hogan",
+        "Published": "",
+        "Read": "",
+        "Category": "Nonfiction",
+        "SubCategory": "Management",
+        "Rating": 5,
+        "Pages": 105,
+        "CoverURL": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1557845913l/45767533._SY475_.jpg",
+        "GoodreadsURL": "https://www.goodreads.com/book/show/45767533-resilient-management?from_search=true&qid=jX3ksmoO2C&rank=1"
+        }
+    ]
+}
