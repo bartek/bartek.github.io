@@ -68,7 +68,7 @@ def discover_pages(app: Flask) -> List[dict]:
             # If the file name is index, strip the name and add a pointer
             # from the base directory to the full content.
             if name_without_extension == 'index':
-                page_index[buiild_path.rsplit('/', 1)[0]] = page
+                page_index[build_path.rsplit('/', 1)[0]] = page
 
     app.page_index = page_index
     return app
