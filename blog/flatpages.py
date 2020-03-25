@@ -32,8 +32,8 @@ def jinja_parse(content: str, context: dict) -> str:
     if 'data' in context:
         with open(os.path.join(BASE_DIR, 'pages', context['data'])) as f:
             context['data'] = json.loads(f.read())
-    
-    render_context = context.get('data', None)
+
+    render_context = context.get('data', {})
     return t.render(**render_context)
     
 filetypes = {
