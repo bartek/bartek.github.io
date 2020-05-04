@@ -4,11 +4,32 @@
     <meta charset='utf-8'>
     <title> Bartek Ciszkowski </title>
     <link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://andybrewer.github.io/mvp/mvp.css">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style type='text/css'>
 body {
     margin: 1em 10em;
-    font-family: "Merriweather", "PT Serif", Georgia, "Times New Roman", serif
+    font-family: "Merriweather", "PT Serif", Georgia, "Times New Roman", serif;
+    margin: 0;
+    overflow-x: hidden;
+    padding: 1rem 0;
+}
+
+footer,
+header,
+main {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 1rem 1rem;
+}
+
+section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 h1 {
@@ -43,10 +64,14 @@ li {
 </head>
 <body>
     {% block title %}
-    <h1><a href='{{ url_for("index") }}'>👋 Hello, I'm Bartek</a></h1>
+    <header>
+      <h1><a href='{{ url_for("index") }}'>👋 Hello, I'm Bartek</a></h1>
+    </header>
     {% endblock %}
+    <main>
     {% block content %}
     {% endblock content %}
+    </main>
 </body>
 </html>
 

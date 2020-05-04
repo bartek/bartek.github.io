@@ -5,7 +5,8 @@ data: data/books.json
 <p>I've set a goal of reading 12 books in 2020. On this page, I list the books I
 have read, am reading, or failed to read (started, couldn't finish)</p>
 
-<p>I have a bad habit of reading plenty of 5-10 minute pieces, love the news, and consume plenty of podcasts. However,
+<p>I have a bad habit of reading plenty of 5-10 minute pieces, love anything
+technical, and consume plenty of podcasts. However,
 I struggle to sit down with a book. Taking my time back is an important goal of
 2020 for me, hence the need to sit down and read.</p>
 
@@ -27,6 +28,7 @@ I struggle to sit down with a book. Taking my time back is an important goal of
   <th>Author</th>
   <th>Category</th>
   <th>Pages</th>
+  <th>Status</th>
 </tr>
 </thead>
 <tbody>
@@ -37,6 +39,7 @@ I struggle to sit down with a book. Taking my time back is an important goal of
   <td>{{ book.Author }}</td>
   <td>{{ book.Category }} {{ book.SubCategory }}</td>
   <td>{{ book.Pages }}</td>
+  <td>{{ book.Status }}</td>
 </tr>
 {% endfor %}
 </tbody>
