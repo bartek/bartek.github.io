@@ -35,11 +35,9 @@ So what was ideal for me?
 
 ## Enter GoAccess
 
-Immediately, this seemed to meet my primary crtiera, with further consideration
+Immediately, this seemed to meet my primary criteria, with further consideration
 for tracking more interesting metrics like application response times. So, I
-gave [GoAccess](https://goaccess.io/) a try.
-
-Installation was trivial and with a simple command, I had output:
+gave [GoAccess](https://goaccess.io/) a try. Installation was trivial and with a simple command, I had output:
 
     ./goaccess /var/log/nginx/access.log
 
@@ -72,8 +70,8 @@ more information!
 
 ![GoAccess Multiple Logs](/static/analytics-google/goaccess-multilog.png)
 
-Of course, because of the platform we're on (Linux!), we can limit the amount of
-access logs. For example, assuming I rotated logs on a daily basis and wanted 
+Of course, because of the platform we're on (Linux!), we can compose the data
+our application will capture in various ways. For example, assuming I rotated logs on a daily basis and wanted 
 the last 15 days of log files (including today):
 
     zcat /var/log/nginx/access.log.{1..15}.gz | ./goccess /var/log/nginx/access.log -
