@@ -1,6 +1,17 @@
 {% extends "base.html" %}
 
+{% block title %}
+<h1>
+    <span><a href='/'>&laquo;</a></span>
+    {{ page.title }} 
+</h1>
+<p class='published-date'>Published {{ page.date.strftime('%b %d %Y') }}</p>
+{% endblock %}
+
+
+
 {% block content %}
-    <h2>{{ page.title }}</h2>
+<article>
     {{ page.html|safe }}
+</article>
 {% endblock content %}

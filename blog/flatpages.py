@@ -1,13 +1,14 @@
+from datetime import datetime
+from itertools import takewhile
+from typing import List
 import json
 import logging
 import os
-from itertools import takewhile
-from typing import List
 
-import markdown
-import yaml
 from flask import Flask, render_template
 from jinja2 import Environment
+import markdown
+import yaml
 
 BASE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../')
 
@@ -19,6 +20,7 @@ config = {
 }
 
 logger = logging.getLogger(__name__)
+
 
 def jinja_parse(content: str, context: dict) -> str:
     """
@@ -35,11 +37,13 @@ def jinja_parse(content: str, context: dict) -> str:
 
     render_context = context.get('data', {})
     return t.render(**render_context)
-    
+
+
 filetypes = {
-    'md': lambda c, _: markdown.markdown,
+    'md': lambda c, _: markdown.markdown(c),
     'jinja2': jinja_parse,
 }
+
 
 def discover_pages(app: Flask) -> List[dict]:
     """
@@ -73,6 +77,7 @@ def discover_pages(app: Flask) -> List[dict]:
     app.page_index = page_index
     return app
 
+
 def parse_page(path: str, content: str) -> dict:
     """
     Given the contents of a Markdown file, parse
@@ -86,8 +91,18 @@ def parse_page(path: str, content: str) -> dict:
     try:
         meta = yaml.safe_load(meta)
     except yaml.scanner.ScannerError as exc:
-        logger.fatal("Could not parse YAML. Make sure it's valid, and use a three-dashed line (---) to separate YAML config with content.")
+        logger.fatal(
+            "Could not parse YAML. Make sure it's valid, and use a three-dashed line (---) to separate YAML config with content.")
+        logger.info("Failed configuration %s" % meta)
         raise exc
+
+    # If we have a date key, convert to a date object
+    if meta.get('date'):
+        try:
+            meta['date'] = datetime.strptime(meta['date'], "%m-%d-%Y")
+        except Exception as exc:
+            logger.fatal("Malformed date in meta %s" % meta)
+            raise exc
 
     content = '\n'.join(lines)
 
@@ -102,7 +117,8 @@ def parse_page(path: str, content: str) -> dict:
         **{'html': html},
     )
 
-def get_page(path: str, encoding: str=None) -> dict:
+
+def get_page(path: str, encoding: str = None) -> dict:
     """
     Accept a path in the vein of the blog, open it
     within the filesystem, and parse its contents

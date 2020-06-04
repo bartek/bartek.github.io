@@ -60,14 +60,24 @@ li {
 .book img {
     max-width: 160px;
 }
+
+.published-date {
+    font-size: 0.8rem;
+}
+
+article {
+    padding: 0 1rem;
+    border: 2px solid #6D5ACF;
+}
+
 </style>
 </head>
 <body>
-    {% block title %}
     <header>
+    {% block title %}
       <h1><a href='{{ url_for("index") }}'>👋 Hello, I'm Bartek</a></h1>
-    </header>
     {% endblock %}
+    </header>
     <main>
     {% block content %}
     {% endblock content %}
