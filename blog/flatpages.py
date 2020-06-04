@@ -58,6 +58,10 @@ def discover_pages(app: Flask) -> List[dict]:
             if not name.endswith(tuple(config['extensions'])):
                 continue
 
+            # Ignore anything with this convention
+            if name.startswith('_'):
+                continue
+
             name_without_extension = os.path.splitext(name)[0]
 
             # The path that'll be used for build output
