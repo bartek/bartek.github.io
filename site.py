@@ -1,6 +1,6 @@
 import sys
 
-from flask import Flask, abort, render_template
+from flask import Flask, abort, render_template, redirect
 from flask_frozen import Freezer
 
 from blog.flatpages import discover_pages
@@ -23,12 +23,22 @@ def pages():
     for key in app.page_index.keys():
         yield 'page', {'path': key}
 
+@app.route('/p/<path:path>/')
+def page_with_prefix(path):
+    """
+    Updated URL for pages. Previous URLS should perma-redirect to this scheme.
+    """
+    p = app.page_index.get(path)
+    if not p:
+        abort(404)
+    return render_template('page.html', page=p)
+
 @app.route('/<path:path>/')
 def page(path):
     p = app.page_index.get(path)
     if not p:
         abort(404)
-    return render_template('page.html', page=p)
+    return redirect(f'/p/{path}', code=301)
 
 if __name__ == '__main__':
     if len(sys.argv) > 1 and sys.argv[1] == "build":
