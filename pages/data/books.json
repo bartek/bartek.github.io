@@ -5,7 +5,7 @@
         "Subtitle": "A Citizen's Guide to the Economy",
         "Author": "Thomas Sowell",
         "Published": "12/24/2003",
-        "Status": "Unfinished, waiting for next cottage trip",
+        "Status": "Unfinished, waiting for pandemic to end",
         "Category": "Nonfiction",
         "SubCategory": "Economics",
         "Rating": 4,
@@ -90,6 +90,33 @@
         "Pages": 289,
         "CoverURL": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1556221385l/45303387._SX318_.jpg",
         "GoodreadsURL": "https://www.goodreads.com/en/book/show/45303387-an-elegant-puzzle"
+        },
+        {
+        "Title": "The Making of Prince of Persia: Journals 1985-1993",
+        "Subtitle": "",
+        "Author": "Jordan Mechner",
+        "Published": "",
+        "Status": "Completed",
+        "Category": "Nonfiction",
+        "SubCategory": "Video games",
+        "Rating": 5,
+        "Pages": 336,
+        "CoverURL": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1585588886l/52824295._SX318_.jpg",
+        "GoodreadsURL": "https://www.goodreads.com/book/show/52824295-the-making-of-prince-of-persia"
+        },
+        {
+        "Title": "A Sense of Values",
+        "Subtitle": "",
+        "Author": "Lewis Chase",
+        "Published": "",
+        "Status": "Completed",
+        "Category": "Nonfiction",
+        "SubCategory": "Philosophy",
+        "Rating": 4,
+        "Pages": 69,
+        "CoverURL": "https://s.gr-assets.com/assets/nophoto/book/blank-133x176-8b769f39ba6687a82d2eef30bdf46977.jpg",
+        "GoodreadsURL": "https://www.goodreads.com/book/show/4526093-a-sense-of-values?from_search=true&from_srp=true&qid=A1T3roM1xO&rank=1"
         }
+
     ]
 }
