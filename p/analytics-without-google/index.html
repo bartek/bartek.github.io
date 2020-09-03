@@ -55,10 +55,19 @@ li {
 
 .book {
     padding: 20px;
+    max-width: 160px;
 }
 
 .book img {
     max-width: 160px;
+}
+
+.book .title {
+    font-size: 1rem;
+}
+
+.book .subtitle {
+    font-size: 0.8rem;
 }
 
 .published-date {
@@ -159,15 +168,16 @@ output options. Leveraging the operating system, I can use other tools to
 specify what kind of data I want parsed and GoAccess treats it all the same.</p>
 <h2>Giving it a go</h2>
 <p>I scoured the web for a few more options, finding a few others like
-<a href="https://www.goatcounter.com/">GoatCounter</a> but it didn't match my full
-criteria (in this case, it isn't self-hosted).</p>
+<a href="https://www.goatcounter.com/">GoatCounter</a> <s>but it didn't match my full
+criteria (in this case, it isn't self-hosted)</s> which looks like a viable
+option to review if I hit a wall with GoAccess.</p>
 <p>What I further liked about GoAccess is I could run it on a separate machine, transferring
 logs from multiple servers into one place, then creating my necessary
-dashboards. This plays nicely with the fact that I'm running Digital Ocean
-Droplet's, which although don't go kaboom on their own, I make a tendency myself
-to erase and start from scratch (just testing my resiliency in re-provisioning
-servers)</p>
-<p>GoAccess reminded me how beautiful composable tools like it are. Its feature set is
+dashboards; this isn't a specific feature of GoAccess, but a feature of the Unix
+philosophy. This flexibility works well with my seemingly ephemeral Digital Ocean
+Droplets, which don't go kaboom on their own, but rather suffer from my own
+tendencies to erase and start from scratch.</p>
+<p>GoAccess reminded me how beautiful composable tools are. Its feature set is
 minimal and it plays nicely with the tools already available to us on a *nix
 platform. Do one thing and do it well -- words of wisdom.</p>
 </article>
