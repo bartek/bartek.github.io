@@ -5,7 +5,7 @@
         "Subtitle": "A Citizen's Guide to the Economy",
         "Author": "Thomas Sowell",
         "Published": "12/24/2003",
-        "Status": "Unfinished, waiting for pandemic to end",
+        "Status": "Unfinished",
         "Category": "Nonfiction",
         "SubCategory": "Economics",
         "Rating": 4,
@@ -129,6 +129,19 @@
         "Pages": 122,
         "CoverURL": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1594784873l/52523856._SX318_.jpg",
         "GoodreadsURL": "https://www.goodreads.com/book/show/52523856-hell-yeah-or-no?from_search=true&from_srp=true&qid=SSmde5rcAq&rank=2"
+        },
+        {
+        "Title": "This Changes Everything",
+        "Subtitle": "Capitalism vs. The Climate",
+        "Author": "Naomi Klein",
+        "Published": "",
+        "Status": "Up to Chapter 5. Intend to complete, had to return to library",
+        "Category": "Nonfiction",
+        "SubCategory": "Politics",
+        "Rating": 5,
+        "Pages": 576,
+        "CoverURL": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1418103804l/21913812.jpg",
+        "GoodreadsURL": "https://www.goodreads.com/book/show/21913812-this-changes-everything"
         }
 
     ]

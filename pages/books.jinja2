@@ -1,5 +1,5 @@
-title: Books I've enjoyed
-date: 06-03-2020
+title: Books I've read (partially and fully)
+date: 09-03-2020
 data: data/books.json
 ---
 
@@ -17,31 +17,8 @@ I struggle to sit down with a book. Taking my time back is an important goal of
   {% for book in books %}
   <div class='book'>
     <a href='{{ book.GoodreadsURL }}'><img src='{{ book.CoverURL }}'></a>
+    <p>{{ book.Title }}</p>
+    <p class='subtitle'>{{ book.Status }}</p>
   </div>
   {% endfor %}
 </div>
-
-<table class='pure-table'>
-<thead>
-<tr>
-  <th></th>
-  <th>Title</th>
-  <th>Author</th>
-  <th>Category</th>
-  <th>Pages</th>
-  <th>Status</th>
-</tr>
-</thead>
-<tbody>
-{% for book in books %}
-<tr>
-  <td>{{ loop.index }}</td>
-  <td><a href='{{ book.GoodreadsURL }}'>{{ book.Title }}</a></td>
-  <td>{{ book.Author }}</td>
-  <td>{{ book.Category }} {{ book.SubCategory }}</td>
-  <td>{{ book.Pages }}</td>
-  <td>{{ book.Status }}</td>
-</tr>
-{% endfor %}
-</tbody>
-</table>

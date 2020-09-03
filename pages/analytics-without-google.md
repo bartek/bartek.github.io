@@ -83,16 +83,17 @@ specify what kind of data I want parsed and GoAccess treats it all the same.
 ## Giving it a go
 
 I scoured the web for a few more options, finding a few others like
-[GoatCounter](https://www.goatcounter.com/) but it didn't match my full
-criteria (in this case, it isn't self-hosted).
+[GoatCounter](https://www.goatcounter.com/) <s>but it didn't match my full
+criteria (in this case, it isn't self-hosted)</s> which looks like a viable
+option to review if I hit a wall with GoAccess.
 
 What I further liked about GoAccess is I could run it on a separate machine, transferring
 logs from multiple servers into one place, then creating my necessary
-dashboards. This plays nicely with the fact that I'm running Digital Ocean
-Droplet's, which although don't go kaboom on their own, I make a tendency myself
-to erase and start from scratch (just testing my resiliency in re-provisioning
-servers)
+dashboards; this isn't a specific feature of GoAccess, but a feature of the Unix
+philosophy. This flexibility works well with my seemingly ephemeral Digital Ocean
+Droplets, which don't go kaboom on their own, but rather suffer from my own
+tendencies to erase and start from scratch.
 
-GoAccess reminded me how beautiful composable tools like it are. Its feature set is
+GoAccess reminded me how beautiful composable tools are. Its feature set is
 minimal and it plays nicely with the tools already available to us on a *nix
 platform. Do one thing and do it well -- words of wisdom.

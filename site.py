@@ -14,16 +14,19 @@ freezer = Freezer(app)
 # up into something more sane.
 discover_pages(app)
 
-@app.route('/')
+
+@app.route("/")
 def index():
-    return render_template('index.html')
+    return render_template("index.html")
+
 
 @freezer.register_generator
 def pages():
     for key in app.page_index.keys():
-        yield 'page', {'path': key}
+        yield "page", {"path": key}
 
-@app.route('/p/<path:path>/')
+
+@app.route("/p/<path:path>/")
 def page_with_prefix(path):
     """
     Updated URL for pages. Previous URLS should perma-redirect to this scheme.
@@ -31,16 +34,18 @@ def page_with_prefix(path):
     p = app.page_index.get(path)
     if not p:
         abort(404)
-    return render_template('page.html', page=p)
+    return render_template("page.html", page=p)
 
-@app.route('/<path:path>/')
+
+@app.route("/<path:path>/")
 def page(path):
     p = app.page_index.get(path)
     if not p:
         abort(404)
-    return redirect(f'/p/{path}', code=301)
+    return redirect(f"/p/{path}", code=301)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "build":
         freezer.freeze()
     else:
