@@ -142,7 +142,19 @@
         "Pages": 576,
         "CoverURL": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1418103804l/21913812.jpg",
         "GoodreadsURL": "https://www.goodreads.com/book/show/21913812-this-changes-everything"
+        },
+        {
+        "Title": "A Brief History of Time",
+        "Subtitle": "",
+        "Author": "Stephen Hawking",
+        "Published": "",
+        "Status": "Completed",
+        "Category": "Nonfiction",
+        "SubCategory": "Cosmology",
+        "Rating": 5,
+        "Pages": 256,
+        "CoverURL": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1333578746l/3869.jpg",
+        "GoodreadsURL": "https://www.goodreads.com/book/show/3869.A_Brief_History_of_Time"
         }
-
     ]
 }
