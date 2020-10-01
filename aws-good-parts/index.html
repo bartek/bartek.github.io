@@ -1,0 +1,252 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title> Bartek Ciszkowski </title>
+    <link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://andybrewer.github.io/mvp/mvp.css">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style type='text/css'>
+body {
+    margin: 1em 10em;
+    font-family: "Merriweather", "PT Serif", Georgia, "Times New Roman", serif;
+    margin: 0;
+    overflow-x: hidden;
+    padding: 1rem 0;
+}
+
+footer,
+header,
+main {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 1rem 1rem;
+}
+
+section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+h1 {
+    font-weight: 400;
+}
+
+h1 a { text-decoration: none; }
+h1 a:hover { text-decoration: underline; }
+
+p {
+    line-height: 1.4em;
+}
+
+li {
+    line-height: 1.4em;
+}
+
+.book-shelf {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.book {
+    padding: 20px;
+    max-width: 160px;
+}
+
+.book img {
+    max-width: 160px;
+}
+
+.book .title {
+    font-size: 1rem;
+}
+
+.book .subtitle {
+    font-size: 0.8rem;
+}
+
+.published-date {
+    font-size: 0.8rem;
+}
+
+article {
+    padding: 0 1rem;
+    border: 2px solid #6D5ACF;
+}
+
+article p>img {
+    max-height: 500px;
+    max-width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    display: inline;
+}
+
+</style>
+</head>
+<body>
+    <header>
+    
+<h1>
+    <span><a href='/'>&laquo;</a></span>
+    The Good Parts of AWS 
+</h1>
+<p class='published-date'>Last updated Sep 30 2020</p>
+
+    </header>
+    <main>
+    
+<article>
+    <p>This page is primarily a compilation of material from the book with the same
+title, <a href="https://gumroad.com/l/aws-good-parts">The Good Parts of AWS</a>.</p>
+<p>I wanted to compile this for myself. Having spent much of my career working with
+*nix enviornments that I can SSH into and have full control over, I became quite
+comfortable in managing such servers and navigating my way through <code>iptables</code>,
+<code>nginx</code>, and more!</p>
+<p>Then AWS came along and it all felt like a black box to me. This post is a
+summary of the knowledge I've obtained thus far and should continue to grow over
+time. It is incomplete, but figured I'd push what I have so far.</p>
+<h2>DynamoDB</h2>
+<ul>
+<li>Compared to relational databases, DynamoDB requires you to do most of the data
+    querying within your application. If you want to aggregate, filter, or sort,
+    you have to do that yourself, after you receive the requested data range.
+    This characteristic will be one of the most important aspects of determining
+    whether DynamoDB is a viable choice for your needs.</li>
+<li>Storage can get expensive, but generally the deciding factor comes to down
+    request pricing.</li>
+<li>Start with on-demand pricing before considering provisioned capacity</li>
+</ul>
+<h2>S3</h2>
+<ul>
+<li>If you're storing data -- whatever it is -- S3 should be the very first thing
+    to consider.</li>
+<li>Think of it as a highly durable hash table.</li>
+<li>It's cheap to store a lot. $23.55/TB/month using the default storage class.</li>
+<li>While storage costs are cheap, request pricing can be expensive.</li>
+<li>Consider who is touching your S3 files. Humans or computers? When the latter,
+    request pricing becomes an important aspect of S3's viability for your use
+    case.</li>
+<li>Bucket names are unique globally. Common mitigation is to always add your AWS
+    acocunt ID to the bucket name.</li>
+<li>Buckets can be open, so you may find yourself uploading to someone elses
+    bucket! Thankfully there's an API to check if you own the bucket, but watch
+    out for this easy slip up!</li>
+</ul>
+<h2>EC2</h2>
+<ul>
+<li>Allows you to get a complete computer in the cloud in a matter of seconds.</li>
+<li>If you can run it on your computer, you can likely run it on EC2. You don't
+    have to adapt your application to your host (for the most part).</li>
+<li>Most consequential decision you'll have to make is selecting an instance type
+    (256 different types at time of writing)</li>
+<li>Can pay for time of instance or reserve instances for 1- or 3-year
+    committments in exchange for reduced pricing.</li>
+<li>Spot instances are another cost saving option where you save by allowing EC2
+    to take away your instance whenever it wants. Some use cases can handle
+    this!</li>
+<li>Network security is daunting. Defaults are reasonable starting point. You'll
+    need to look into the security group and the VPC ACL.</li>
+</ul>
+<h2>EC2 Auto Scaling</h2>
+<ul>
+<li>Amazon sells you this, but it's been rarely seen used successfully.</li>
+<li>Ask yourself if your EC2 costs are high enough that any reduction in usage
+    will be materially significant? If your EC2 bill would go down by 30% --
+    would that be a big deal for your business? If not, the effort and
+    complexity of getting Auto Scaling working properly is likely not going to
+    be worth it.</li>
+<li>If fluctuations are not significant or abrupt, not smooth, auto scaling will
+    almost certainly not work well for you.</li>
+<li>There are secondary features which can't be ignored. The ability for an
+    instance to be automatically replaced when unhealthy. The other benefit is
+    how easy it is to update desired capacity, you get a dial that you can turn
+    up and down!</li>
+</ul>
+<h2>Lambda</h2>
+<ul>
+<li>Abstract everything away into a function interface. Take input, produce output
+    (or side effects)</li>
+<li>Consider Lambda when code should be part of the infrastructure (not the
+    application)</li>
+<li>Lambda lets you hook into your application and introduce new capabilities. For
+    example, S3 doesn't come with an API to resize an image after uploading, but
+    this is a good use for Lambda.</li>
+<li>Keep it small. Lambda's risks will reveal themselves as the complexity of your
+    application (or, function) grows</li>
+<li>Limitations may go away with time and they should be noted. Cold starts,
+    limits to code bundle, network bandwidth.</li>
+<li>There are limitations inherent to how Lambda works which likely won't go away.</li>
+</ul>
+<h2>ELB</h2>
+<ul>
+<li>Comes in three variants, only two we need to care about for non-legacy
+    software: Application (ALB), and Network (NLB), and Classic (legacy)</li>
+<li>ALBs are proper reverse proxies which sit between the internet and your
+    application.</li>
+<li>NLBs behave like load balancers, but they work by routing network packets
+    rather than by proxying HTTP requests. An NLB is more like a very
+    sophisticated network router.</li>
+<li>Both do not validate cerficiates. Amazon provides this as a built-in, however
+    remember that Amazon is now a man-in-the-middle itself. Amazon will be
+    decrypting your network traffic and re-encrypting it when forwarding it to
+    your application.</li>
+</ul>
+<h2>CloudFormation</h2>
+<ul>
+<li>You almost always want to use it (or a similar tool). Heavy initial investment
+    that can pay off.</li>
+<li>Define resources as a YAML script (JSON also supported but less common), then
+    you point CloudFormation to your Amazon account and it creates all the
+    resources you defined.</li>
+<li>It is idempotent. Multiple runs won't do anything unless they have to.</li>
+<li>Careful to modify services controlled by CloudFormation manually.
+    Unpredictable behaviour will ensue!</li>
+<li>Recommendation is to let CloudFormation deal with all the AWS things that are
+    either static or change very rarely; such as VPC configurations, security
+    groups, load balancers, deployment pipelines, and IAM roles.</li>
+</ul>
+<h2>RDS</h2>
+<ul>
+<li>Provides on demand databases and supports all major platforms (MySQL,
+    PostgreSQL, Oracle)</li>
+<li>Ensure right-sizing of instances is considered. High cost to run an instance
+    that is unnecessary. Heavy monitoring and iterative modification will yield
+    cost savings.</li>
+<li>Provisioned IOPS provide a predictable, reliable amount of I/O but again can
+    be costly.</li>
+<li>Just like EC2 has reduced pricing through reserved instances </li>
+</ul>
+<h2>Elasticache</h2>
+<ul>
+<li>Caching-as-a-service running Memcached or Redis protocol-compliant server
+    nodes.</li>
+<li>More or less twice as expensive for on-demand but prices drop quite quickly
+    when looking at reserved instances.</li>
+</ul>
+<h2>Appendix</h2>
+<h3>Provisioned Capacity</h3>
+<p>Significant cost savings with an upfront payment</p>
+<h3>On-demand (Spot) Pricing</h3>
+<p>Low capacity management burden, higher costs</p>
+<h3>Compute</h3>
+<p>AWS represents the computing power of its machines in Elastic Compute Units, and
+4 ECUs represent more or less the power of a modern CPU.</p>
+<h2>Resources</h2>
+<ul>
+<li><a href="https://gumroad.com/l/aws-good-parts?recommended_by=search">The Good Parts of AWS</a></li>
+<li><a href="https://www.ec2instances.info/">ec2instances.info</a></li>
+<li><a href="https://david-codes.hatanian.com/2019/06/09/aws-costs-every-programmer-should-now.html">AWS costs every programmer should know</a></li>
+</ul>
+</article>
+
+    </main>
+</body>
+</html>
