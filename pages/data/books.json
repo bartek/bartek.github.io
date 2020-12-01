@@ -155,6 +155,19 @@
         "Pages": 256,
         "CoverURL": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1333578746l/3869.jpg",
         "GoodreadsURL": "https://www.goodreads.com/book/show/3869.A_Brief_History_of_Time"
+        },
+        {
+        "Title": "Red Moon",
+        "Subtitle": "",
+        "Author": "Kim Stanley Robinson",
+        "Published": "",
+        "Status": "Completed",
+        "Category": "Fiction",
+        "SubCategory": "Science Fiction",
+        "Rating": 4,
+        "Pages": 446,
+        "CoverURL": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1520263303l/38496710._SY475_.jpg",
+        "GoodreadsURL": "https://www.goodreads.com/book/show/38496710-red-moon"
         }
     ]
 }
