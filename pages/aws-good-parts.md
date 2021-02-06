@@ -134,6 +134,13 @@ time. It is incomplete, but figured I'd push what I have so far.
 * More or less twice as expensive for on-demand but prices drop quite quickly
     when looking at reserved instances.
 
+## Redshift
+
+* Fully managed petabyte-scale (big!) data warehouse service
+* Redshift Spectrum is a feature available in Redshift which allows querying of S3 data
+  directly.
+* 
+
 
 ## Appendix
 

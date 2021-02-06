@@ -3,22 +3,19 @@ date: 09-03-2020
 data: data/books.json
 ---
 
-<p>I've set a goal of reading 12 books in 2020. On this page, I list the books I
-have read, am reading, or failed to read (started, couldn't finish)</p>
+<ul>
+<li>In 2020, I set a goal to read 12 books. To many people, that's not much but I hadn't completed a book in awhile (mostly using my reading capacity for online articles). I logged 13, completed 11 of those (or 3,395 pages), and started a couple more.</li>
+<li>I haven't set a goal in 2021 but continue to dedicate time to reading. We'll see how it goes!</li>
+</li>
 
-<p>I have a bad habit of reading plenty of 5-10 minute pieces, love anything
-technical, and consume plenty of podcasts. However,
-I struggle to sit down with a book. Taking my time back is an important goal of
-2020 for me, hence the need to sit down and read.</p>
-
-<h2>2020 Book shelf</h2>
+<h2>Book Shelf</h2>
 
 <div class='book-shelf'>
-  {% for book in books %}
+  {% for book in books|sort(attribute="Date", reverse=True) %}
   <div class='book'>
     <a href='{{ book.GoodreadsURL }}'><img src='{{ book.CoverURL }}'></a>
     <p>{{ book.Title }}</p>
-    <p class='subtitle'>{{ book.Status }}</p>
+    <p class='subtitle'>{{ book.Status }} (Added {{ book.Date }})</p>
   </div>
   {% endfor %}
 </div>
