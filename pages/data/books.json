@@ -3,6 +3,7 @@
         {
         "Title": "Basic Economics",
         "Subtitle": "A Citizen's Guide to the Economy",
+        "Date": "2020-01-01",
         "Author": "Thomas Sowell",
         "Published": "12/24/2003",
         "Status": "Unfinished",
@@ -16,6 +17,7 @@
         {
         "Title": "Permanent Record",
         "Subtitle": "",
+        "Date": "2020-01-01",
         "Author": "Edward Snowden",
         "Published": "9/17/2019",
         "Status": "Completed",
@@ -29,6 +31,7 @@
         {
         "Title": "Designing Data-Intensive Applications",
         "Subtitle": "",
+        "Date": "2020-01-01",
         "Author": "Martin Kleppmann",
         "Published": "4/25/2015",
         "Status": "Completed",
@@ -42,6 +45,7 @@
         {
         "Title": "Slime",
         "Subtitle": "How Algae created us, plague us, and just might save us",
+        "Date": "2020-01-01",
         "Author": "Ruth Kasinger",
         "Published": "",
         "Status": "Completed",
@@ -55,6 +59,7 @@
         {
         "Title": "Resilient Management",
         "Subtitle": "",
+        "Date": "2020-02-01",
         "Author": "Lara Hogan",
         "Published": "",
         "Status": "Completed (twice over, so good!)",
@@ -68,6 +73,7 @@
         {
         "Title": "The Five Dysfunctions of a Team",
         "Subtitle": "",
+        "Date": "2020-02-01",
         "Author": "Patrick Lencioni",
         "Published": "",
         "Status": "Completed",
@@ -81,9 +87,10 @@
         {
         "Title": "An Elegant Puzzle: Systems of Engineering Management",
         "Subtitle": "",
+        "Date": "2020-04-01",
         "Author": "Will Larson",
         "Published": "",
-        "Status": "In progress",
+        "Status": "Reviewed",
         "Category": "Nonfiction",
         "SubCategory": "Management",
         "Rating": 3,
@@ -94,6 +101,7 @@
         {
         "Title": "The Making of Prince of Persia: Journals 1985-1993",
         "Subtitle": "",
+        "Date": "2020-07-01",
         "Author": "Jordan Mechner",
         "Published": "",
         "Status": "Completed",
@@ -107,6 +115,7 @@
         {
         "Title": "A Sense of Values",
         "Subtitle": "",
+        "Date": "2020-08-01",
         "Author": "Lewis Chase",
         "Published": "",
         "Status": "Completed",
@@ -120,6 +129,7 @@
         {
         "Title": "Hell Yeah or No: what's worth doing",
         "Subtitle": "what's worth doing",
+        "Date": "2020-08-13",
         "Author": "Derek Sivers",
         "Published": "",
         "Status": "Completed",
@@ -133,6 +143,7 @@
         {
         "Title": "This Changes Everything",
         "Subtitle": "Capitalism vs. The Climate",
+        "Date": "2020-09-01",
         "Author": "Naomi Klein",
         "Published": "",
         "Status": "Up to Chapter 5. Intend to complete, had to return to library",
@@ -146,6 +157,7 @@
         {
         "Title": "A Brief History of Time",
         "Subtitle": "",
+        "Date": "2020-10-30",
         "Author": "Stephen Hawking",
         "Published": "",
         "Status": "Completed",
@@ -159,6 +171,7 @@
         {
         "Title": "Red Moon",
         "Subtitle": "",
+        "Date": "2020-12-01",
         "Author": "Kim Stanley Robinson",
         "Published": "",
         "Status": "Completed",
@@ -168,6 +181,34 @@
         "Pages": 446,
         "CoverURL": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1520263303l/38496710._SY475_.jpg",
         "GoodreadsURL": "https://www.goodreads.com/book/show/38496710-red-moon"
+        },
+        {
+        "Title": "Night",
+        "Date": "2021-01-15",
+        "Subtitle": "",
+        "Author": "Elie Wiesel",
+        "Published": "",
+        "Status": "Completed",
+        "Category": "Nonfiction",
+        "SubCategory": "History",
+        "Rating": 5,
+        "Pages": 115,
+        "CoverURL": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1575073611l/1617.jpg",
+        "GoodreadsURL": "https://www.goodreads.com/book/show/1617.Night"
+        },
+        {
+        "Title": "Kafka: The Definitive Guide",
+        "Date": "2021-02-05",
+        "Subtitle": "",
+        "Author": "Neha Narkhede",
+        "Published": "",
+        "Status": "Reviewed",
+        "Category": "Nonfiction",
+        "SubCategory": "Computer Science",
+        "Rating": 4,
+        "Pages": 322,
+        "CoverURL": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1451245484l/28321010.jpg",
+        "GoodreadsURL": "https://www.goodreads.com/book/show/28321010-kafka"
         }
     ]
 }

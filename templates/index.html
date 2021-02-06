@@ -1,19 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <p>I'm a 30-something Polish-Canadian dude who's lived in many places and visited
+    <p>I'm a 30-something Polish-Canadian who's lived in many places and visited
     plenty more. Born in Poland, mostly raised in Ontario, and now live in
     Halifax, Nova Scotia. Apart from building things, I spend most of my time
     being a father, cooking, travelling, and nerding out over (and advocating for!) public transit</p>
 
     <h3>A little more about me</h3>
 
-    <p>I work at <a href='https://www.gadventures.com'>G Adventures</a>, a
-    travel company focused on community tourism and using travel as a means of wealth distribution.
+    <p>During the day, I work at <a href='https://www.wattpad.com'>Wattpad</a> as a platform engineer. I write Go, support clients interfacing with our platform, and stare at data. Previously,
+    I spent many years at <a href='{{ url_for("page", path="/gadventures") }}'>G Adventures</a>.</p>
 
-    I've been at G for awhile and have compiled a mini G resume, <a href='{{ url_for("page", path="/gadventures") }}'>here</a>
-
-    <p>I like to read, but always feel I should do more. <a href='{{ url_for("page", path="/books") }}'>For 2020, I've compiled a virtual book shelf</a></p>
+    <p>In 2020, I realized I hadn't read a novel proper in awhile and decided to get back on track. I now compile what I've read in a <a href='{{ url_for("page", path="/books") }}'>virtual book shelf</a>.</p>
 
     <h3>Active projects</h3>
 
