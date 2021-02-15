@@ -10,6 +10,8 @@ from jinja2 import Environment
 import markdown
 import yaml
 
+from .pygments import CodeBlockExtension
+
 BASE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../")
 
 config = {
@@ -20,7 +22,6 @@ config = {
 }
 
 logger = logging.getLogger(__name__)
-
 
 def jinja_parse(content: str, context: dict) -> str:
     """
@@ -43,7 +44,7 @@ def jinja_parse(content: str, context: dict) -> str:
 
 
 filetypes = {
-    "md": lambda c, _: markdown.markdown(c),
+    "md": lambda c, _: markdown.markdown(c, extensions=[CodeBlockExtension()]),
     "jinja2": jinja_parse,
 }
 
