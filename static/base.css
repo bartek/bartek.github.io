@@ -1,0 +1,89 @@
+body {
+    margin: 1em 10em;
+    font-family: "Merriweather", "PT Serif", Georgia, "Times New Roman", serif;
+    margin: 0;
+    overflow-x: hidden;
+    padding: 1rem 0;
+}
+
+footer,
+header,
+main {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 1rem 1rem;
+}
+
+section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+h1 {
+    font-weight: 400;
+}
+
+h1 a { text-decoration: none; }
+h1 a:hover { text-decoration: underline; }
+
+p {
+    line-height: 1.4em;
+}
+
+li {
+    line-height: 1.4em;
+}
+
+.book-shelf {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.book {
+    padding: 20px;
+    max-width: 160px;
+}
+
+.book img {
+    max-width: 160px;
+}
+
+.book .title {
+    font-size: 1rem;
+}
+
+.book .subtitle {
+    font-size: 0.8rem;
+}
+
+.published-date {
+    font-size: 0.8rem;
+}
+
+article {
+    padding: 0 1rem;
+    border: 2px solid #6D5ACF;
+}
+
+article p>img {
+    max-height: 500px;
+    max-width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    display: inline;
+}
+
+/* Customizations for pygments code rendering */
+.code {
+    background-color: #262626;
+}
+
+/* pygments (or Markdown, unsure) adds a <br> at the end of each code block
+ * and it's not necessary. Hide only the last one */
+.code br:last-of-type {
+    display: none;
+}
