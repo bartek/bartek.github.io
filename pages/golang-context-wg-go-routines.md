@@ -78,8 +78,8 @@ When the program is run, we observe the sequence of _"Received job ..."_ message
     Received job 5
     2021/02/08 21:31:00 Completed doing 6 things.
 
-The results don't print consistently! This makes sense as we know that go routines
-won't block the lines beneath them unless we do something about it. We can add a
+The results don't print consistently! This makes sense as we know that goroutines are not
+blocking so unless we do somethign about it, code after them will execute immediately. We can add a
 `WaitGroup` to improve flow. First, define it in the `var` block:
 
     [sourcecode:go]
@@ -192,10 +192,10 @@ Modify the ticker interval; remove the previous call to `doSomething`, optionall
     }
     [/sourcecode]
 
-Run the application and try to exit again. You'll notice two things:
+Run the application and try to exit again.
 
-* The WaitGroup continues to wait until all go routines are finished. The `doAPICall`
-  function blocks until a response is returned from the `httpstat.us` API, and that can
+* The WaitGroup continues to wait until all go routines are finished. 
+* The `doAPICall` function blocks until a response is returned from the `httpstat.us` API, and that can
   range anywhere from `1000` to `4000` ms.
 * Depending on when you try to terminate the application, it can be difficult to do so (you may
   not notice this on first pass, run it a few times and try to terminate at different
