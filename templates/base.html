@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset='utf-8'>
-    <title> Bartek Ciszkowski </title>
+    <title>{% block title %} Bartek Ciszkowski {% endblock %}</title>
     <link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://andybrewer.github.io/mvp/mvp.css">
     <link rel="stylesheet" href="/static/base.css">
@@ -14,7 +14,7 @@
 </head>
 <body>
     <header>
-    {% block title %}
+    {% block header %}
       <h1><a href='{{ url_for("index") }}'>👋 Hello, I'm Bartek</a></h1>
     {% endblock %}
     </header>
