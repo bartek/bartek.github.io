@@ -252,9 +252,12 @@ the application is terminated, `ctx.Done` takes precedence and the function retu
 not concerning itself with the response of the request. The WaitGroup continues to do its
 specific job and the flow of the application during termination is much improved!
 
-There's many ways this can be expanded or used, so please consider it a starting point. I
-initially struggled understanding how I could use `WaitGroup` and `context.WithCancel` in
-combination, so I hope this was useful!
+One of the underlying philosophies in Go is _Don't communicate by sharing memory; share
+memory by communicating_. Here, we used channels to pass references between goroutines,
+and that allowed us to improve the flow of our application. There's many ways we could
+take this further, for example, we don't collect the responses or errors from the API
+across goroutines. Thankfully, Go makes that trivial to arrange, so consider this a
+starting point and if you'd like to take this further, try playing with such ideas!
 
 For reference, here's the code in its entirety:
 
