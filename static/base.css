@@ -80,6 +80,8 @@ article p>img {
 /* Customizations for pygments code rendering */
 .code {
     background-color: #262626;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* pygments (or Markdown, unsure) adds a <br> at the end of each code block

@@ -46,8 +46,8 @@ Received job 4
 Received job 5
 2021/02/08 21:31:00 Completed doing 6 things.
 </code></pre>
-<p>The results don't print consistently! This makes sense as we know that go routines
-won't block the lines beneath them unless we do something about it. We can add a
+<p>The results don't print consistently! This makes sense as we know that goroutines are not
+blocking so unless we do somethign about it, code after them will execute immediately. We can add a
 <code>WaitGroup</code> to improve flow. First, define it in the <code>var</code> block:</p>
 <div class="code"><div class="highlight"><pre><span></span>    <span class="kd">var</span> <span class="p">(</span><br />        <span class="p">..</span><br />        <span class="nx">wg</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><br />    <span class="p">)</span><br />    <br /></pre></div><br /></div>
 
@@ -99,10 +99,10 @@ so follow the in-line commentary as necessary:</p>
 <code>jobs</code> channel (we won't use it further), and add a call to <code>doAPICall</code>:</p>
 <div class="code"><div class="highlight"><pre><span></span>    <span class="k">for</span> <span class="nx">n</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">n</span> <span class="p">&lt;</span> <span class="nx">batchSize</span><span class="p">;</span> <span class="nx">n</span><span class="o">++</span> <span class="p">{</span><br />        <span class="nx">wg</span><span class="p">.</span><span class="nx">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><br />        <span class="k">go</span> <span class="nx">doAPICall</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">wg</span><span class="p">)</span><br />    <span class="p">}</span><br />    <br /></pre></div><br /></div>
 
-<p>Run the application and try to exit again. You'll notice two things:</p>
+<p>Run the application and try to exit again.</p>
 <ul>
-<li>The WaitGroup continues to wait until all go routines are finished. The <code>doAPICall</code>
-  function blocks until a response is returned from the <code>httpstat.us</code> API, and that can
+<li>The WaitGroup continues to wait until all go routines are finished. </li>
+<li>The <code>doAPICall</code> function blocks until a response is returned from the <code>httpstat.us</code> API, and that can
   range anywhere from <code>1000</code> to <code>4000</code> ms.</li>
 <li>Depending on when you try to terminate the application, it can be difficult to do so (you may
   not notice this on first pass, run it a few times and try to terminate at different
