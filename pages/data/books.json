@@ -209,6 +209,35 @@
         "Pages": 322,
         "CoverURL": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1451245484l/28321010.jpg",
         "GoodreadsURL": "https://www.goodreads.com/book/show/28321010-kafka"
+        },
+        {
+        "Title": "The Golem and the Jinni",
+        "Date": "2021-02-20",
+        "Subtitle": "",
+        "Author": "Helene Weckeer",
+        "Published": "",
+        "Status": "Completed",
+        "Category": "Fiction",
+        "SubCategory": "Fantasy",
+        "Rating": 4,
+        "Pages": 486,
+        "CoverURL": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1349205573l/15819028.jpg",
+        "GoodreadsURL": "https://www.goodreads.com/book/show/15819028-the-golem-and-the-jinni"
+        },
+        {
+        "Title": "The Bear and the Nightingale",
+        "Date": "2021-03-15",
+        "Subtitle": "",
+        "Author": "Katherine Arden",
+        "Published": "",
+        "Status": "Completed",
+        "Category": "Fiction",
+        "SubCategory": "Fantasy",
+        "Rating": 5,
+        "Pages": 319,
+        "CoverURL": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1611440212l/25489134._SX318_.jpg",
+        "GoodreadsURL": "https://www.goodreads.com/book/show/25489134-the-bear-and-the-nightingale"
         }
+
     ]
 }
