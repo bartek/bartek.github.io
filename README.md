@@ -1,3 +1,4 @@
 # justbartek.ca
 
-Hello!
+My little place on the internet
+
