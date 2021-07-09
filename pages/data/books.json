@@ -237,7 +237,34 @@
         "Pages": 319,
         "CoverURL": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1611440212l/25489134._SX318_.jpg",
         "GoodreadsURL": "https://www.goodreads.com/book/show/25489134-the-bear-and-the-nightingale"
+        },
+        {
+        "Title": "Fatelessness",
+        "Date": "2021-07-09",
+        "Subtitle": "",
+        "Author": "Imre Kertész, Tim Wilkinson (Translator)",
+        "Published": "",
+        "Status": "Completed",
+        "Category": "Fiction",
+        "SubCategory": "Historical Fiction",
+        "Rating": 5,
+        "Pages": 262,
+        "CoverURL": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1348898439l/318335.jpg",
+        "GoodreadsURL": "https://www.goodreads.com/book/show/318335.Fatelessness"
+        },
+        {
+        "Title": "The Invention of Nature",
+        "Date": "2021-07-09",
+        "Subtitle": "Alexander von Humboldt's New World ",
+        "Author": "Andrea Wulf",
+        "Published": "",
+        "Status": "Completed",
+        "Category": "Nonfiction",
+        "SubCategory": "Science",
+        "Rating": 5,
+        "Pages": 473,
+        "CoverURL": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1452449264l/23995249.jpg",
+        "GoodreadsURL": "https://www.goodreads.com/book/show/23995249-the-invention-of-nature"
         }
-
     ]
 }
