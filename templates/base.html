@@ -13,12 +13,13 @@
 
 </head>
 <body>
-    <header>
     {% block header %}
+    <header>
       <h1><a href='{{ url_for("index") }}'>👋 Hello, I'm Bartek</a></h1>
-    {% endblock %}
     </header>
+    {% endblock %}
     <main>
+    {% block hero %}{% endblock %}
     {% block content %}
     {% endblock content %}
     </main>
