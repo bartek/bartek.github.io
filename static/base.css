@@ -1,24 +1,70 @@
 body {
-    margin: 1em 10em;
     font-family: "Merriweather", "PT Serif", Georgia, "Times New Roman", serif;
-    margin: 0;
-    overflow-x: hidden;
-    padding: 1rem 0;
+
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 footer,
 header,
 main {
-    max-width: 1080px;
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
     padding: 1rem 1rem;
+    max-width: 700px;
+    width: calc(100% - 32px);
 }
 
+main {
+    overflow: hidden;
+    flex-grow: 1;
+    flex-shrink: 0;
+    background: #fff;
+}
+
+header {
+    flex-grow: 0;
+    flex-shrink: 0;
+    text-align: left;
+    height: 100px;
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100%;
+}
+
+.home {
+    margin-right: 24px;
+}
+
+nav a {
+    margin-right: 12px;
+}
+
+
+
+/* FIXME: Still used? */
 section {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
+
+article p>img {
+    max-height: 500px;
+    max-width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    display: inline;
+}
+
 
 h1 {
     font-weight: 400;
@@ -27,12 +73,9 @@ h1 {
 h1 a { text-decoration: none; }
 h1 a:hover { text-decoration: underline; }
 
-p {
-    line-height: 1.4em;
-}
-
-li {
-    line-height: 1.4em;
+p, li {
+    font-size: 1rem;
+    line-height: 1.825em;
 }
 
 .book-shelf {
@@ -62,20 +105,6 @@ li {
     font-size: 0.8rem;
 }
 
-article {
-    padding: 0 1rem;
-    border: 2px solid #6D5ACF;
-}
-
-article p>img {
-    max-height: 500px;
-    max-width: 100%;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    margin-left: auto;
-    margin-right: auto;
-    display: inline;
-}
 
 /* Customizations for pygments code rendering */
 .code {
