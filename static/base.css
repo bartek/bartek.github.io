@@ -1,6 +1,5 @@
 body {
     font-family: "Merriweather", "PT Serif", Georgia, "Times New Roman", serif;
-
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -20,7 +19,6 @@ main {
     overflow: hidden;
     flex-grow: 1;
     flex-shrink: 0;
-    background: #fff;
 }
 
 header {
