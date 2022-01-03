@@ -84,11 +84,11 @@ p, li {
 
 .book {
     padding: 20px;
-    max-width: 160px;
+    max-width: 120px;
 }
 
 .book img {
-    max-width: 160px;
+    max-width: 120px;
 }
 
 .book .title {
