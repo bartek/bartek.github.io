@@ -56,6 +56,9 @@ be added)
 ## Learning
 
 * If you're watching something at 2x speed, it's not worth watching.
+* Don't try to figure out what your life is about. It's too big a question. Just
+  figure out what the next three years look like.
+* If you're not sure you can carry it all, take two trips. (apply to most things)
 
 [^1]: https://fergus-mccullough.com/index.php/2021/04/09/against-alcohol/
 [^2]: https://www.theguardian.com/food/2021/jul/06/caffeine-coffee-tea-invisible-addiction-is-it-time-to-give-up
