@@ -1,0 +1,146 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>weeknotes WK1</title>
+    <link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://andybrewer.github.io/mvp/mvp.css">
+    <link rel="stylesheet" href="/static/base.css">
+    <link rel="stylesheet" href="/static/pygments.css">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+    
+<header>
+        <nav>
+        <a href="/" class="home">Home</a>
+        <a href="https://twitter.com/bartekci"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><title>Twitter icon</title><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path></svg></a>
+        <a href="https://github.com/bartek"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><title>GitHub icon</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg></a>
+    </nav>
+</header>
+
+    <main>
+    
+<h1>weeknotes WK1</h1>
+<p class='published-date'>Last updated Jul 08 2022</p>
+
+    
+<article>
+    <p>Inspired by other <a href="https://simonwillison.net/tags/weeknotes/">weeknotes</a> and the
+desire to capture the knowledge, thoughts, questions I encounter each week in a
+place that is not exclusive to me. Week 1!</p>
+<h2>Starting things &amp; streaks</h2>
+<p>For the most part, I feel like a fairly disciplined individual and am well set
+in my routines and habits. But there's lots of things I want to do, with little
+time to fit it in. Trying to mash them in all at once is also difficult and the
+wrong approach.</p>
+<p>My oldest has been learning french in school and now that summer is here, I
+thought it'd be fun to continue some of that learning. So, I downloaded
+<a href="https://streaksapp.com/">Streaks</a> for iOS and am on a 6 day Duolingo streak.
+Nothing impressive, but I'm going to work my way towards some fun vocabulary
+that him and I can share. Upside is that Duolingo Kids is a great product.</p>
+<p>Hopefully once I get this as a habit (only 15 min a day of Duolingo!) I can
+follow through with dedicating 30 minutes a day to my
+<a href="https://github.com/bartek/zigboy">Gameboy emulator</a>. A little trickier due to the heavy
+context you need to immerse yourself in, so we'll see.</p>
+<p>And yes, I'm using that app to manage my <code>weeknotes</code> streak (starting today!)</p>
+<h2>An introduction to AI-powered semantic search</h2>
+<p>This
+<a href="https://www.youtube.com/watch?v=7ozfzKLTFV4&amp;list=PLq-odUc2x7i8eaYHVXSOadHrVE9tEU2QR">video</a>
+was a great introduction into the world of semantic &amp; supervised search, history
+of the tooling, and the shift towards this "new paradigm". As someone who has
+minimal experience in this space, I enjoyed this talk. Notes of interest:</p>
+<ul>
+<li>
+<p>Traditional keyword search typically used when you have sparse document
+  representations. An inverted index gets you quite far.</p>
+</li>
+<li>
+<p>New paradigm and the tooling around it is about retrieving documents using
+  nearest neighbour search. BERT is big here. All the classic tools (like
+  Elastic) are now supporting vector / nearest neighbour search, but not without
+  problems.</p>
+</li>
+<li>
+<p>Supervised search is another technique. You need labelled data, and you give
+  the machine those labelled examples. Common trap is to train with an
+  inappropriate data set (flying a car to drive a train).</p>
+</li>
+<li>
+<p><a href="https://microsoft.github.io/msmarco/">MS Marco</a> is a huge data set from
+  Microsoft (8.8m passages, 500k labelled). Real queries sampled from bing. It's
+  very hard to get <em>good</em> labelled data</p>
+</li>
+<li>
+<p>When you don't have labelled data, BM25 is a good baseline and starting point.</p>
+</li>
+</ul>
+<h2>Go reflection and custom marshalling</h2>
+<p>At work, I encountered a fun Go problem where I need to marshal any arbitrary
+struct into a JSON representation that modifies the JSON output at the field
+level, while ensuring only specified fields from the struct are marshalled.</p>
+<p>Basically, you go from something like this:</p>
+<div class="code"><div class="highlight"><pre><span></span><span class="kd">type</span><span class="w"> </span><span class="nx">Book</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span><br /><span class="w">   </span><span class="nx">Author</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;author&quot;`</span><span class="w"></span><br /><span class="w">   </span><span class="nx">Title</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;title&quot;`</span><span class="w"></span><br /><span class="w">   </span><span class="nx">LastIndexed</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="s">`json:&quot;last_indexed&quot;`</span><span class="w"></span><br /><span class="p">}</span><span class="w"></span><br /></pre></div><br /></div>
+
+<p>To this:</p>
+<div class="code"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span><br /><span class="w">   </span><span class="nt">&quot;author&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span><br /><span class="w">      </span><span class="nt">&quot;assign&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Kim Stanley Robison&quot;</span><span class="p">,</span><span class="w"></span><br /><span class="w">   </span><span class="p">},</span><span class="w"></span><br /><span class="w">   </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span><br /><span class="w">      </span><span class="nt">&quot;assign&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Red Mars (Trilogy #1)&quot;</span><span class="w"></span><br /><span class="w">   </span><span class="p">}</span><span class="w"></span><br /><span class="p">}</span><span class="w"></span><br /></pre></div><br /></div>
+
+<p>Note the lack of <code>last_indexed</code> in the output. In this case, it is not a
+writeable field. However, we do want it to be marshalled (and unmarshalled) in
+other cases. </p>
+<p>At compile time, we know which fields can be assigned this operator (not all
+fields can be marshalled this way). We know the types which we'd like to provide this custom marshalling, and we don't want to overload <code>MarshalJSON</code>.</p>
+<p>The immediate idea was to implement a custom marshaler, but that overloads the
+JSON tag. Not all fields should be in this output. We could use an auxiliary
+struct though:</p>
+<div class="code"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">b</span><span class="w"> </span><span class="nx">Book</span><span class="p">)</span><span class="w"> </span><span class="nx">MarshalJSON</span><span class="p">()</span><span class="w"> </span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span><br /><span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">Marshal</span><span class="p">(</span><span class="o">&amp;</span><span class="kd">struct</span><span class="p">{</span><span class="w"></span><br /><span class="w">        </span><span class="nx">Author</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;author&quot;`</span><span class="w"></span><br /><span class="w">        </span><span class="nx">Title</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;title&quot;`</span><span class="w"></span><br /><span class="w">   </span><span class="p">}{</span><span class="w"></span><br /><span class="w">        </span><span class="nx">Author</span><span class="p">:</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">Author</span><span class="p">,</span><span class="w"></span><br /><span class="w">        </span><span class="nx">Title</span><span class="p">:</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">Title</span><span class="p">,</span><span class="w"></span><br /><span class="w">   </span><span class="p">})</span><span class="w"></span><br /><span class="p">}</span><span class="w"></span><br /></pre></div><br /></div>
+
+<p>This overloads the marshaler which isn't great. We could of course have a
+custom method, <code>MarshalJSONWritable()</code>. This works, but it gets cumbersome with
+a lot of fields and many types. Now the behaviour for what is writeable is
+sprinkled in many places, and can be worsened if there's particular behaviour
+we'd need to implement for each marshaler. (I hinted with the <code>assign</code> key
+that there may be more than one operator to consider)</p>
+<p>So what next? I took inspiration from the <code>json</code> tag itself and pondered
+implementing a custom struct tag. Struct tags are small pieces of metadata
+attached to a struct which provides instructions to other parts of your Go code
+as to how it should work with this struct. I can enrich the struct with a custom
+tag, signalling that these are writeable.</p>
+<div class="code"><div class="highlight"><pre><span></span><span class="kd">type</span><span class="w"> </span><span class="nx">Book</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span><br /><span class="w">   </span><span class="nx">Author</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;author&quot; assign:&quot;author&quot;`</span><span class="w"></span><br /><span class="w">   </span><span class="nx">Title</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;title&quot; assign:&quot;title&quot;`</span><span class="w"></span><br /><span class="w">   </span><span class="nx">LastIndexed</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="s">`json:&quot;last_indexed&quot;`</span><span class="w"></span><br /><span class="p">}</span><span class="w"></span><br /></pre></div><br /></div>
+
+<p>I then wrote a simple function which uses reflect to find fields with this tag,
+checking for a few additional traits, like <code>omitempty</code>. An example of that,
+snipped for brevity:</p>
+<div class="code"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="nx">assignableFields</span><span class="p">(</span><span class="nx">v</span><span class="w"> </span><span class="nx">any</span><span class="p">)</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">any</span><span class="w"> </span><span class="p">{</span><span class="w"></span><br /><span class="w">    </span><span class="nx">keys</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">reflect</span><span class="p">.</span><span class="nx">TypeOf</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span><span class="w"></span><br /><span class="w">    </span><span class="nx">values</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">reflect</span><span class="p">.</span><span class="nx">ValueOf</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span><span class="w"></span><br />&nbsp;<br /><span class="w">    </span><span class="nx">assignable</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">fields</span><span class="p">{}</span><span class="w"></span><br /><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">keys</span><span class="p">.</span><span class="nx">NumField</span><span class="p">();</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w"></span><br /><span class="w">            </span><span class="nx">field</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">keys</span><span class="p">.</span><span class="nx">Field</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span><span class="w"></span><br /><span class="w">            </span><span class="nx">value</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">values</span><span class="p">.</span><span class="nx">Field</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span><span class="w"></span><br /><span class="w">            </span><span class="nx">tag</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">field</span><span class="p">.</span><span class="nx">Tag</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">assignTagName</span><span class="p">)</span><span class="w"></span><br />&nbsp;<br /><span class="w">            </span><span class="c1">// ... tag checks and omitempty snipped</span><span class="w"></span><br />&nbsp;<br /><span class="w">            </span><span class="nx">assignable</span><span class="p">[</span><span class="nx">tag</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">value</span><span class="p">.</span><span class="nx">Interface</span><span class="p">()</span><span class="w"></span><br /><span class="w">    </span><span class="p">}</span><span class="w"></span><br />&nbsp;<br /><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">assignable</span><span class="w"></span><br /><span class="p">}</span><span class="w"></span><br /></pre></div><br /></div>
+
+<p>The output is the assignable fields inside a <code>map[string]any</code> which can now be
+marshalled as prescribed by the underlying types. With this, the behaviour around
+the <code>assign</code> tag is in a single method (<code>assignableFields</code>) and I can package
+all possible operators in one space. There's possibly a bit of digging to
+understand what this <code>assign</code> tag is and where its behaviour is defined, but
+that's something I will work through.</p>
+<p>I found this solution to be more elegant than auxiliary structs and custom
+marshalling but it might surprise me as it gets primed through use. We'll see!</p>
+<h2>TIL</h2>
+<ul>
+<li>Skip index: This came up in a chat about
+  <a href="https://clickhouse.com/">ClickHouse</a>. In a traditional relational database,
+  we create indexes and may create "secondary" indexes to a table to improve
+  query performance, in particular, to reduce the possibility of table scans.
+  ClickHouse isn't 1:1 with relational databases, so they introduce the concept
+  of skip indexes. This different type of index enables ClickHouse to skip
+  reading significant chunks of data that are guaranteed to have no matching
+  values. More
+  <a href="https://clickhouse.com/docs/en/guides/improving-query-performance/skipping-indexes/">here</a></li>
+</ul>
+<h2>End</h2>
+<p>This was a long weeknotes and it's my first. I'm going to imagine future ones
+will be less ambitious. Either way, this was fun.</p>
+</article>
+
+    </main>
+</body>
+</html>
