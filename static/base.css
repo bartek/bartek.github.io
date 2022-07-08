@@ -105,9 +105,11 @@ p, li {
 
 
 /* Customizations for pygments code rendering */
+pre {
+    margin: 1rem;
+}
 .code {
     background-color: #262626;
-    overflow: scroll;
     -webkit-overflow-scrolling: touch;
 }
 
