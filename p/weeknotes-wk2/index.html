@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>weeknotes WK2</title>
+    <link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://andybrewer.github.io/mvp/mvp.css">
+    <link rel="stylesheet" href="/static/base.css">
+    <link rel="stylesheet" href="/static/pygments.css">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+    
+<header>
+        <nav>
+        <a href="/" class="home">Home</a>
+        <a href="https://twitter.com/bartekci"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><title>Twitter icon</title><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path></svg></a>
+        <a href="https://github.com/bartek"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><title>GitHub icon</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg></a>
+    </nav>
+</header>
+
+    <main>
+    
+<h1>weeknotes WK2</h1>
+<p class='published-date'>Last updated Jul 15 2022</p>
+
+    
+<article>
+    <h2>Streaks continued</h2>
+<p>As mentioned last week, I downloaded <a href="https://streaksapp.com/">Streaks</a> for iOS
+in order to get myself into new habits. These notes and Duolingo specifically.</p>
+<p>Duolingo was hit and miss. I streaked for 5 days only to miss a day, then got
+back, and then missed another day. I've been allotting the evening for Duolingo
+time, and I believe that's most appropriate based on my schedule, but the kids
+can be exhausting (our youngest decided to have some bad nights after a few
+very good weeks of sleep)</p>
+<p>At least I am here for week two :)</p>
+<h2>Go reflection and custom marshalling</h2>
+<p>As a follow up to <a href="../weeknotes-wk1">last weeks</a> thinking, the solution I ended up was quite similar
+to what was described. However, I ended up using a dependency! Turns out much of
+what I was attempting to accomplish, which can be summarized by converting an
+arbitrary <code>any</code> struct to <code>map[string]interface{}</code> in order to further massage
+the data is handled by <a href="https://github.com/fatih/structs">github.com/fatih/structs</a>.</p>
+<p>Fatih is well known in the Go community, and although this project is read-only,
+it is stable, well tested, and does more extensively what I was already doing
+with reflect.</p>
+<p>Mildly validating to see that others faced such a problem and built tooling to
+support it. The library handles the custom struct tag issue as well, which is
+great!</p>
+<h2>Reading</h2>
+<ul>
+<li>
+<p><a href="https://www.goodreads.com/book/show/59696349-build">Build: An Unorthodox Guide to Making Things Worth Making</a>. I've now been working at a startup for 8 months and the mentality, energy, drive, and potential for burn around the space is really meshing with what I want right now. I'm getting excited about what we're building, but also getting excited to build more myself. The book begins with highlights from the story of <a href="https://www.justwatch.com/ca/movie/general-magic">General Magic</a>, which was one of those mystical (and anti-pattern filled) startups creating something seemingly revolutionary that ultimately, was not a desirable product for anyone but the engineers who were making it.</p>
+</li>
+<li>
+<p><a href="https://ourworldindata.org/us-life-expectancy-low">Why is life expectancy in the US lower than in other rich
+  countries?</a> was a widely
+  shared blog post from the Our World in Data team. Frustrating to see that many
+  of the most preventable deaths (homicide, opiod overdose, and road accidents)
+  can be preventable with the right supports. Inequality of course, makes a
+  showing.</p>
+</li>
+</ul>
+<h2>TIL</h2>
+<ul>
+<li><code>Monotonically</code> is a new word for me. In simplest terms, this means something
+  that goes up or stalls, but never goes down. For example, the number of people
+  born this year is increasing monotonically. Once someone is born, they cannot
+  be unborn. Conversely, world population or birth rates are not monotonic.
+  Although usually going up, it may go down. With <a href="https://ourworldindata.org/grapher/crude-birth-rate">birth rates
+  decreasing</a>, maybe the
+  world population may hit a down slope in the coming decades?</li>
+</ul>
+</article>
+
+    </main>
+</body>
+</html>
