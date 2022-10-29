@@ -241,6 +241,28 @@
         "Pages": 288,
         "CoverURL": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1606111590l/56015023._SY475_.jpg",
         "GoodreadsURL": "https://www.goodreads.com/book/show/56015023-this-is-your-mind-on-plants"
+        },
+        {
+        "Title": "Build",
+        "Date": "2022-09-10",
+        "Subtitle": "",
+        "Author": "Tony Fadell",
+        "Published": "",
+        "Category": "Startups",
+        "Pages": 380,
+        "CoverURL": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1652120231i/59696349.jpg",
+        "GoodreadsURL": "https://www.goodreads.com/book/show/59696349-build"
+        },
+        {
+        "Title": "Conscious",
+        "Date": "2022-10-28",
+        "Subtitle": "",
+        "Author": "Annaka Harris",
+        "Published": "",
+        "Category": "Our World",
+        "Pages": 120,
+        "CoverURL": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1551281961i/41571759.jpg",
+        "GoodreadsURL": "https://www.goodreads.com/book/show/41571759-conscious"
         }
     ]
 }
