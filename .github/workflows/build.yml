@@ -25,6 +25,20 @@ jobs:
         run: |
           pip install -r ./requirements.txt
           python site.py build
+      - name: Upload to droplet
+        run: |
+          mkdir -p ~/.ssh
+          touch ~/.ssh/id_rsa ~/.ssh/known_hosts
+          chmod 700 ~/.ssh
+          chmod 600 ~/.ssh/id_rsa ~/.ssh/known_hosts
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          scp \
+            -o StrictHostKeyChecking=yes \
+            -P ${{ secrets.SSH_PORT }} \
+            -o CheckHostIP=no \
+            -r ./build/* \
+            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.SSH_TARGET_DIR }}
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
