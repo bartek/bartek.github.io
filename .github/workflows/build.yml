@@ -26,6 +26,7 @@ jobs:
           pip install -r ./requirements.txt
           python site.py build
       - name: Upload to droplet
+        shell: bash
         run: |
           mkdir -p ~/.ssh
           touch ~/.ssh/id_rsa ~/.ssh/known_hosts
@@ -37,11 +38,5 @@ jobs:
             -o StrictHostKeyChecking=yes \
             -P ${{ secrets.SSH_PORT }} \
             -o CheckHostIP=no \
-            -r ./build/* \
-            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.SSH_TARGET_DIR }}
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@releases/v3
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: build
+            -r build/* \
+            bartekc@${{ secrets.SSH_HOST }}:/home/bartekc/justbartek.ca
