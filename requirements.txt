@@ -1,4 +1,4 @@
-Flask==2.1.1
+Flask==2.3.2
 Frozen-Flask==0.18
 Markdown==3.3.6
 pyyaml==6.0
