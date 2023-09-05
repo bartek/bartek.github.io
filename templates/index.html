@@ -33,12 +33,12 @@
     <h3>Blog</h3>
 
     <ul>
+        <li><a href='{{ url_for("page_with_prefix", path="food-notes") }}'>foodnotes</a></li>
         <li><a href='{{ url_for("page_with_prefix", path="1300") }}'>1,300</a></li>
         <li><a href='{{ url_for("page_with_prefix", path="git-fixup") }}'>Refining my git workflow with --fixup</a></li>
         <li><a href='{{ url_for("page_with_prefix", path="wisdom") }}'>Developing Wisdom</a></li>
         <li><a href='{{ url_for("page_with_prefix", path="golang-context-wg-go-routines") }}'>Using Go's Context and WaitGroup to gracefully handle goroutines</a></li>
         <li><a href='{{ url_for("page_with_prefix", path="aws-good-parts") }}'>the good parts of aws</a></li>
-        <li><a href='{{ url_for("page_with_prefix", path="mushrooms-ns") }}'>mushrooms of nova scotia</a></li>
         <li><a href='{{ url_for("page_with_prefix", path="analytics-without-google") }}'>analytics without google</a></li>
         <li><a href='{{ url_for("page_with_prefix", path="tasklist") }}'>the task list</a></li>
     </ul>
