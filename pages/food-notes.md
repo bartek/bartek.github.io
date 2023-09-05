@@ -1,4 +1,5 @@
 title: foodnotes
+date: 09-05-2023
 ---
 
 I cook — a lot — for the whole family. These are my notes as they come to me.
