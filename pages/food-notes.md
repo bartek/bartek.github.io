@@ -6,6 +6,8 @@ I cook — a lot — for the whole family. These are my notes as they come to me
 It's a combination of culinary discoveries as well as tips that are typically
 applicable to a variety of dishes.
 
+* 09/26/2023: Never throw a chicken carcass away. Use it for stock or gravy, then rid of it. Also, I prefer to burn my onion (on the BBQ side burner) for additional unami in the stock.
+* 09/26/2023: Making your own bread is one of life's greatest hacks.
 * 09/07/2023: Always toast your spices.
 * 09/05/2023: TikTok (specifically, [@haileecatalano](https://www.tiktok.com/@haileecatalano?lang=en)) changed how I make pizza sauce. Previously would cook pasata with spices, herbs, oil. Now, I dump a canned of Kirkland diced tomato into a bowl, add spices (salt, pepper, choice of dry herbs), and a drizzle of honey. Mash that up, done! Beautiful & bright pizza sauce.
 * 09/05/2023: To make an excellent pomodoro, it can be as simple as butter, onion, and good (canned or fresh) tomatoes. The onion poaches in the tomato sauce and the butter adds a creamy flavour & texture. Once the onion is translucent it is removed, and the sauce is done (season to your liking)
