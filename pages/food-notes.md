@@ -6,7 +6,7 @@ I cook — a lot — for the whole family. These are my notes as they come to me
 It's a combination of culinary discoveries as well as tips that are typically
 applicable to a variety of dishes.
 
-* 11/08/2023: Katsu Curry is a wonderful confluence of my childhood and modern food interests in one. The fried pork loin takes me back, and the rich curry (with apple! key!) elevates everything to a place my current palate. My goto recipe is from [a wonderful Japanese couple](https://www.cabagges.world/tokyo-katsu-curry)
+* 11/08/2023: Katsu Curry is a wonderful confluence of my childhood and modern food interests in one. The fried pork loin takes me back, and the rich curry (with apple! key!) elevates everything to a place my current palate highly appreciates. My goto recipe is from [a wonderful Japanese couple](https://www.cabagges.world/tokyo-katsu-curry)
 * 09/26/2023: Never throw a chicken carcass away. Use it for stock or gravy, then rid of it. Also, I prefer to burn my onion (on the BBQ side burner) for additional unami in the stock.
 * 09/26/2023: Making your own bread is one of life's greatest hacks.
 * 09/07/2023: Always toast your spices.
