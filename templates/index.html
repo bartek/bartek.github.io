@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% macro weeknote(n) %}
+    <td><a href="{{ url_for("page_with_prefix", path="weeknotes-wk" ~ n) }}">WK{{ n }}</a></td>
+{% endmacro %}
+
 {% block content %}
     <p>I'm a 30-something Polish Canadian currently residing in Halifax, Nova
     Scotia (likely my forever home!) with my wife and two kids. I spend most of
@@ -18,15 +22,15 @@
     <p>an attempt to capture weekly thoughts, learnings, questions</p>
     <table>
         <tr>
-            <td><a href="{{ url_for("page_with_prefix", path="weeknotes-wk1") }}">WK1</a></td>
-            <td><a href="{{ url_for("page_with_prefix", path="weeknotes-wk2") }}">WK2</a></td>
-            <td><a href="{{ url_for("page_with_prefix", path="weeknotes-wk3") }}">WK3</a></td>
-            <td><a href="{{ url_for("page_with_prefix", path="weeknotes-wk4") }}">WK4</a></td>
-            <td><a href="{{ url_for("page_with_prefix", path="weeknotes-wk5") }}">WK5</a></td>
+            {{ weeknote(1) }}
+            {{ weeknote(2) }}
+            {{ weeknote(3) }}
+            {{ weeknote(4) }}
+            {{ weeknote(5) }}
         </tr>
         <tr>
-            <td><a href="{{ url_for("page_with_prefix", path="weeknotes-wk6") }}">WK6</a></td>
-            <td><a href="{{ url_for("page_with_prefix", path="weeknotes-wk7") }}">WK7</a></td>
+            {{ weeknote(6) }}
+            {{ weeknote(7) }}
         </tr>
     </table>
 
@@ -46,10 +50,9 @@
     <h3>You can also find me here:</h3>
 
     <ul>
-        <li><a href='https://github.com/bartek'>github/bartek</a></li>
-        <li><a href='https://twitter.com/bartekci'>twitter/bartekci</a></li>
-        <li><a rel='me' href='https://m.justbartek.ca/@bartek'>@bartek@justbartek.ca</a></li>
-        <li><a href='https://stackoverflow.com/users/95509/bartek'>stack overflow</a></li>
+        <li><a rel='me' href='https://github.com/bartek'>github/bartek</a></li>
+        <li><a rel='me' href='https://twitter.com/bartekci'>twitter/bartekci</a></li>
+        <li><a rel='me' href='https://stackoverflow.com/users/95509/bartek'>stack overflow</a></li>
     </ul>
 
     <p>Although I have lingering profiles on Facebook and LinkedIn, I do not
