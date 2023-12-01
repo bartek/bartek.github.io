@@ -36,6 +36,11 @@ nav {
     height: 100%;
 }
 
+blockquote {
+    font-size: 1.0em;
+    padding: 1.0rem 0.5rem;
+}
+
 .home {
     margin-right: 24px;
 }
