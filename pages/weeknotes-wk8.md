@@ -2,6 +2,8 @@ title: weeknotes WK8
 date: 11-26-2023
 ---
 
+Back after a (one year plus) hiatus!
+
 ## Japanese
 
 I am slowly making an attempt at learning elementary Japanese. I don't have a concrete goal, and to be honest, I don't anticipate being able to read, write, or speak the language anytime soon. Instead, I'm treating this as an exercise in building some additional muscles in the brain.
