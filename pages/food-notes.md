@@ -6,6 +6,7 @@ I cook — a lot — for the whole family. These are my notes as they come to me
 It's a combination of culinary discoveries as well as tips that are typically
 applicable to a variety of dishes.
 
+* 12/09/2023: Leftover mashed potatoes make a great reason to have [kopytka](https://en.wikipedia.org/wiki/Kopytka). Of course, boiling potatoes purposely for the dish is just fine too. (There's a niceness to the texture when freshly boiled potatoes can be put through a ricer)
 * 12/09/2023: Crepes were our flat bread growing up. My mother would make a large batch in the morning, we'd enjoy for breakfast, and a pile would sit throughout the day. Quick snack with a slice of ham after school, or my favourite: strawberry jam. They are fool-proof, despite their usual decadent presentation. 2 eggs, one heaping  cup of flour, pinch salt/sugar, then whatever dairy's in the fridge — usually a mix of yogourt and kefir. Whisk until thick, let sit for a bit, then dilute with water, done! Not as hard as the world makes it out to be :)
 * 11/08/2023: Katsu Curry is a wonderful confluence of my childhood and modern food interests in one. The fried pork loin takes me back, and the rich curry (with apple! key!) elevates everything to a place my current palate highly appreciates. My goto recipe is from [a wonderful Japanese couple](https://www.cabagges.world/tokyo-katsu-curry)
 * 09/26/2023: Never throw a chicken carcass away. Use it for stock or gravy, then rid of it. Also, I prefer to burn my onion (on the BBQ side burner) for additional unami in the stock.
