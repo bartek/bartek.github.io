@@ -32,11 +32,9 @@ jobs:
         with:
           repository: bartek/hfxbenches
           path: ./hfxbenches
-      - name: Copy hfxbenches files to build directory
+      - name: Copy hfxbenches GeoJSON to build directory
         run: |
-          mkdir -p build/hfxbenches
-          cp hfxbenches/index.html build/hfxbenches
-          cp hfxbenches/data.geojson build/hfxbenches
+          cp hfxbenches/data.geojson build/static/hfxbenches.geojson
       - name: Upload to droplet
         shell: bash
         run: |
