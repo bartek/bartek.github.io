@@ -32,6 +32,13 @@ def page_with_prefix(path):
         abort(404)
     return render_template("page.html", page=page)
 
+@app.route("/hfxbenches/")
+def hfxbenches():
+    """
+    Pointer to github.com/bartek/hfxbenches build
+    """
+    return render_template("hfxbenches/index.html", token=os.environ.get('MAPBOX_TOKEN'))
+
 @app.route("/<path:path>/")
 def page(path):
     p = app.page_index.get(path)
