@@ -72,14 +72,13 @@ def discover_pages(app: Flask) -> List[dict]:
 
             # The path we need to find the file, has extension.
             full_path = os.path.join(relative_path, name)
-            page = get_page(full_path)
 
-            page_index[build_path] = page
+            page_index[build_path] = full_path
 
             # If the file name is index, strip the name and add a pointer
             # from the base directory to the full content.
             if name_without_extension == "index":
-                page_index[build_path.rsplit("/", 1)[0]] = page
+                page_index[build_path.rsplit("/", 1)[0]] = full_path
 
     app.page_index = page_index
     return app
