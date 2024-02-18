@@ -3,17 +3,11 @@ import sys
 from flask import Flask, abort, render_template, redirect
 from flask_frozen import Freezer
 
-from blog.flatpages import discover_pages
+from blog.flatpages import discover_pages, get_page
 
 app = Flask(__name__)
 freezer = Freezer(app)
-
-# Upon app load, we store all page content into memory. This is obviously
-# obscene but warrants itself sufficient at time of writing. If I ever
-# get around to writing more than a couple of things on here, I'll blow this
-# up into something more sane.
 discover_pages(app)
-
 
 @app.route("/")
 def index():
@@ -31,10 +25,11 @@ def page_with_prefix(path):
     """
     Updated URL for pages. Previous URLS should perma-redirect to this scheme.
     """
-    p = app.page_index.get(path)
-    if not p:
+    full_path = app.page_index.get(path)
+    page = get_page(full_path)
+    if not page:
         abort(404)
-    return render_template("page.html", page=p)
+    return render_template("page.html", page=page)
 
 
 @app.route("/<path:path>/")
