@@ -27,6 +27,15 @@ jobs:
           python site.py build
         env:
           MAPBOX_TOKEN: ${{ secrets.MAPBOX_TOKEN }}
+      - name: Clone bartek/hfxbenches
+        uses: actions/checkout@v4
+        with:
+          repository: bartek/hfxbenches
+      - name: Copy hfxbenches files to build directory
+        run: |
+          mkdir build/hfxbenches
+          cp hfxbenches/index.html build/hfxbenches
+          cp hfxbenches/data.geojson build/hfxbenches
       - name: Upload to droplet
         shell: bash
         run: |
