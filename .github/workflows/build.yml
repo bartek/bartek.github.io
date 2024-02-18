@@ -31,9 +31,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: bartek/hfxbenches
+          path: ./hfxbenches
       - name: Copy hfxbenches files to build directory
         run: |
-          mkdir build/hfxbenches
+          mkdir -p build/hfxbenches
           cp hfxbenches/index.html build/hfxbenches
           cp hfxbenches/data.geojson build/hfxbenches
       - name: Upload to droplet
