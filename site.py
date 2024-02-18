@@ -1,4 +1,5 @@
 import sys
+import os
 
 from flask import Flask, abort, render_template, redirect
 from flask_frozen import Freezer
@@ -31,6 +32,12 @@ def page_with_prefix(path):
         abort(404)
     return render_template("page.html", page=page)
 
+@app.route("/hfxbenches/")
+def hfxbenches():
+    """
+    Pointer to github.com/bartek/hfxbenches build
+    """
+    return render_template("hfxbenches/index.html", token=os.environ.get('MAPBOX_TOKEN'))
 
 @app.route("/<path:path>/")
 def page(path):

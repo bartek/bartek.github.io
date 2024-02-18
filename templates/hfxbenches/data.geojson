@@ -1,0 +1,619 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.635455",
+          "44.6612916666667"
+        ]
+      },
+      "properties": {
+        "Type": "Park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.6349716666667",
+          "44.6613416666667"
+        ]
+      },
+      "properties": {
+        "Type": "Park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.6373747001726",
+          "44.6522213577393"
+        ]
+      },
+      "properties": {
+        "Type": "School"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.6378666666667",
+          "44.6520366666667"
+        ]
+      },
+      "properties": {
+        "Size": "cluster",
+        "Type": "School"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.6353216666667",
+          "44.6608616666667"
+        ]
+      },
+      "properties": {
+        "Type": "Park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.6305",
+          "44.6530883333333"
+        ]
+      },
+      "properties": {
+        "Type": "Public"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.635145",
+          "44.6611283333333"
+        ]
+      },
+      "properties": {
+        "Type": "Park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.59268",
+          "44.6482416666667"
+        ]
+      },
+      "properties": {
+        "Type": "Public"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.6295616666667",
+          "44.657405"
+        ]
+      },
+      "properties": {
+        "Type": "Public"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.62345",
+          "44.65475"
+        ]
+      },
+      "properties": {
+        "Type": "Public",
+        "Size": "cluster"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.5921240682588",
+          "44.6480551411721"
+        ]
+      },
+      "properties": {
+        "Type": "Public"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.6349366666667",
+          "44.6607783333333"
+        ]
+      },
+      "properties": {
+        "Type": "Park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.629555",
+          "44.6574333333333"
+        ]
+      },
+      "properties": {
+        "Type": "Public"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.621595",
+          "44.6544033333333"
+        ]
+      },
+      "properties": {
+        "Type": "Public"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.650275",
+          "44.657345"
+        ]
+      },
+      "properties": {
+        "Type": "Public"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.6351166666667",
+          "44.6609116666667"
+        ]
+      },
+      "properties": {
+        "Type": "Park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.6285166666667",
+          "44.641605"
+        ]
+      },
+      "properties": {
+        "Type": "Public"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.6197161009149",
+          "44.6533226391249"
+        ]
+      },
+      "properties": {
+        "Type": "Park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.6349116666667",
+          "44.6611416666667"
+        ]
+      },
+      "properties": {
+        "Type": "Park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.63485",
+          "44.6610716666667"
+        ]
+      },
+      "properties": {
+        "Type": "Park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.6580083333333",
+          "44.6659916666667"
+        ]
+      },
+      "properties": {
+        "Type": "Public"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.5965716666667",
+          "44.6457283333333"
+        ]
+      },
+      "properties": {
+        "Type": "Public"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.6377833333333",
+          "44.6517416666667"
+        ]
+      },
+      "properties": {
+        "Type": "School"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.5933416666667",
+          "44.64785"
+        ]
+      },
+      "properties": {
+        "Type": "Public"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.59653",
+          "44.6457366666667"
+        ]
+      },
+      "properties": {
+        "Type": "Public"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.5927",
+          "44.6484833333333"
+        ]
+      },
+      "properties": {
+        "Type": "Public"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.62255",
+          "44.6540333333333"
+        ]
+      },
+      "properties": {
+        "Type": "Public"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.5925116666667",
+          "44.6484416666667"
+        ]
+      },
+      "properties": {
+        "Type": "Public"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.6310583333333",
+          "44.650525"
+        ]
+      },
+      "properties": {
+        "Type": "Public"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.63787",
+          "44.65202"
+        ]
+      },
+      "properties": {
+        "Size": "cluster",
+        "Type": "School"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.592725",
+          "44.6481866666667"
+        ]
+      },
+      "properties": {
+        "Type": "Public"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.635475",
+          "44.66127"
+        ]
+      },
+      "properties": {
+        "Type": "Park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.6183616666667",
+          "44.6470333333333"
+        ]
+      },
+      "properties": {
+        "Type": "School"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.592575",
+          "44.6483466666667"
+        ]
+      },
+      "properties": {
+        "Type": "Public"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.634705",
+          "44.6611783333333"
+        ]
+      },
+      "properties": {
+        "Type": "Park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.6182690894496",
+          "44.6470925548005"
+        ]
+      },
+      "properties": {
+        "Type": "School"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.6159033333333",
+          "44.6607466666667"
+        ]
+      },
+      "properties": {
+        "Type": "Public"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.5984283333333",
+          "44.6589666666667"
+        ]
+      },
+      "properties": {
+        "Type": "Public"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.58738",
+          "44.649105"
+        ]
+      },
+      "properties": {
+        "Type": "Public"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.5983666666667",
+          "44.6589083333333"
+        ]
+      },
+      "properties": {
+        "Type": "Public"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.58727",
+          "44.6492216666667"
+        ]
+      },
+      "properties": {
+        "Type": "Public"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.6048466666667",
+          "44.6650166666667"
+        ]
+      },
+      "properties": {
+        "Type": "Public"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.6011083333333",
+          "44.662555"
+        ]
+      },
+      "properties": {
+        "Type": "Public"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.60648",
+          "44.66608"
+        ]
+      },
+      "properties": {
+        "Type": "Public"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.587375",
+          "44.649105"
+        ]
+      },
+      "properties": {
+        "Type": "Public"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.6026216666667",
+          "44.663525"
+        ]
+      },
+      "properties": {
+        "Type": "Public"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.5991833333333",
+          "44.6618466666667"
+        ]
+      },
+      "properties": {
+        "Type": "Public"
+      }
+    }
+  ]
+}
