@@ -35,6 +35,14 @@ jobs:
       - name: Copy hfxbenches GeoJSON to build directory
         run: |
           cp hfxbenches/data.geojson build/static/hfxbenches.geojson
+      - name: Clone bartek/hfxbikeparking
+        uses: actions/checkout@v4
+        with:
+          repository: bartek/hfxbikeparking
+          path: ./hfxbenches
+      - name: Copy hfxbikeparking GeoJSON to build directory
+        run: |
+          cp hfxbikeparking/data.geojson build/static/hfxbikeparking.geojson
       - name: Upload to droplet
         shell: bash
         run: |
