@@ -39,6 +39,13 @@ def hfxbenches():
     """
     return render_template("hfxbenches/index.html", token=os.environ.get('MAPBOX_TOKEN'))
 
+@app.route("/hfxbikeparking/")
+def hfxbikeparking():
+    """
+    Pointer to github.com/bartek/hfxbikeparking build
+    """
+    return render_template("hfxbikeparking/index.html", token=os.environ.get('MAPBOX_TOKEN'))
+
 @app.route("/<path:path>/")
 def page(path):
     p = app.page_index.get(path)
