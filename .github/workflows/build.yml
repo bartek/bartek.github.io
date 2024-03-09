@@ -39,7 +39,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: bartek/hfxbikeparking
-          path: ./hfxbenches
+          path: ./hfxbikeparking
       - name: Copy hfxbikeparking GeoJSON to build directory
         run: |
           cp hfxbikeparking/data.geojson build/static/hfxbikeparking.geojson
