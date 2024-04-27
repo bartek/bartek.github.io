@@ -274,6 +274,28 @@
         "Pages": 120,
         "CoverURL": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1529682044i/40611510.jpg",
         "GoodreadsURL": "https://www.goodreads.com/book/show/40611510-the-last-lecture"
+        },
+        {
+        "Title": "The Soul of a New Machine",
+        "Date": "2024-02-01",
+        "Subtitle": "",
+        "Author": "Tracy Kidder",
+        "Published": "",
+        "Category": "Startups",
+        "Pages": 293,
+        "CoverURL": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1627012239i/7090.jpg",
+        "GoodreadsURL": "https://www.goodreads.com/book/show/7090.The_Soul_of_a_New_Machine"
+        },
+        {
+        "Title": "All Systems Red",
+        "Date": "2024-04-27",
+        "Subtitle": "",
+        "Author": "Martha Wells",
+        "Published": "",
+        "Category": "Science Fiction",
+        "Pages": 144,
+        "CoverURL": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1631585309i/32758901.jpg",
+        "GoodreadsURL": "https://www.goodreads.com/book/show/32758901-all-systems-red?"
         }
     ]
 }
