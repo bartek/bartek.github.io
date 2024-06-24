@@ -123,3 +123,48 @@ pre {
 .code br:last-of-type {
     display: none;
 }
+
+/* Image galleries. Use like so:
+* <div class="grid">
+  <div class="item left">
+    <img src="/night_sky.jpg">
+  </div>
+  <div class="item upper_right">
+    <img src="/jupiter.jpg">
+  </div>
+  <div class="item lower_right">
+    <img src="/iss.jpg">
+  </div>
+</div>
+*
+* Ref:
+* https://alexwlchan.net/2022/supposedly-simple-image-layout/
+*/
+.grid {
+  display: grid;
+  grid-template-columns: calc(66% - 5px) calc(34% - 5px);
+  grid-template-rows:    calc(50% - 5px) calc(50% - 5px);
+  grid-gap: 10px;
+  aspect-ratio: 16 / 9;
+}
+
+.grid .left {
+  grid-column: 1 / 2;
+  grid-row:    1 / span 2;
+}
+
+.grid .upper_right {
+  grid-column: 2 / 2;
+  grid-row:    1 / 2;
+}
+
+.grid .lower_right {
+  grid-column: 2 / 2;
+  grid-row:    2 / 2;
+}
+
+.grid .item img {
+  width:  100%;
+  height: 100%;
+  object-fit: cover;
+}
