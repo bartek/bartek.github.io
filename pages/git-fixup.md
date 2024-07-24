@@ -15,7 +15,7 @@ This allowed me to commit earlier, more often, and not worry about quality until
 I had reached my goal.
 
 My initial usage of fixup and squash is perhaps typical, but what I would
-consider messy. Taking a commit log, which has not yet been pushed for review:
+consider messy. An example commit log:
 
     pick 3f0d667 scratch work
     pick 6add648 added component A
@@ -26,8 +26,8 @@ consider messy. Taking a commit log, which has not yet been pushed for review:
 There was no guarantee each individual commit would build or tests pass. If I
 made a mistake in commit `3f0d667`, it would be resolved in a followup scrappy
 commit. Everything would eventually squash into a single commit, so I had little
-concern for quality of commits. When the work was complete, I'd rebase. It
-consistently looked like so:
+concern for quality of commits. When the work was complete, my call to
+interactive rebase consistently looked like so:
 
     reword 3f0d667 scratch work
     fixup 6add648 added component A
@@ -44,13 +44,13 @@ By the book, this isn't optimal, or even correct usage of git. It did enable a
 workflow that was otherwise sufficient for delivering code but it's important to
 regularly challenge your understanding and improve.
 
-## A better commit story with --fixup
+## A better commit & peer review story with --fixup
 
 In the described workflow, my output resulted in feature branches which
 generally contained a single commit, and I had abstained from creating PRs which
 go beyond a particular cognitive load. If I wanted to tell a broader story,
 I'd chain multiple PRs and branch off branches until the story was complete. It
-was workable but uh, challenging at times (rebase hell, anyone?)
+was workable but uh, challenging at times (rebase hell!)
 
 Rigid would be one way to describe this workflow. A single PR could not tell a
 broader story unless I jumped through the aforementioned hoops. I was producing
@@ -102,8 +102,11 @@ A couple things to resolve, I could target specific commits for fixup:
     git commit --fixup=3f0d667 fixup! Introduce Component A
     git commit --fixup=8558c32 fixup! Wire Up Components
 
-
-git log then looked like so:
+These temporary `fixup!` commits are great during review, as they provide the
+diff between my original change, and what changes have been proposed in review.
+I typically link the `fixup!` in the relevant peer review comment on GitHub,
+allowing the reviewer to quickly see the results of their feedback. By the end
+of review, git log make look like so:
 
     3f0d667 Introduce Component A
     6add648 Introduce Component B
@@ -129,7 +132,7 @@ hone-in on a particular commit and not concern themselves with the broader
 picture.
 
 Of course, maintaining a size threshold for PRs is important, but I'm not too
-concerned about the idea of small PRs either. Those reviewing my code may be
+concerned about this need for small PRs either. Those reviewing my code may be
 comfortable with the introduced Component A & B, but may not be sure about how
 I've wired things up. The reviewers could step through those commits and
 conditionally approve the PR in that the first two commits could be merged.
