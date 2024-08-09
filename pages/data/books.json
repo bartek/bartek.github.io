@@ -295,7 +295,29 @@
         "Category": "Science Fiction",
         "Pages": 144,
         "CoverURL": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1631585309i/32758901.jpg",
-        "GoodreadsURL": "https://www.goodreads.com/book/show/32758901-all-systems-red?"
+        "GoodreadsURL": "https://www.goodreads.com/book/show/32758901-all-systems-red"
+        },
+        {
+        "Title": "Endurance",
+        "Date": "2024-07-20",
+        "Subtitle": "Shackleton's Incredible Voyage",
+        "Author": "Alfred Lansing",
+        "Published": "",
+        "Category": "History",
+        "Pages": 282,
+        "CoverURL": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1391329559i/139069.jpg",
+        "GoodreadsURL": "https://www.goodreads.com/book/show/139069.Endurance"
+        },
+        {
+        "Title": "Hard Rain Falling",
+        "Date": "2024-08-08",
+        "Subtitle": "",
+        "Author": "Don Carpenter",
+        "Published": "",
+        "Category": "Crime/Noir",
+        "Pages": 308,
+        "CoverURL": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1682851327i/6553843.jpg",
+        "GoodreadsURL": "https://www.goodreads.com/book/show/6553843-hard-rain-falling"
         }
     ]
 }
