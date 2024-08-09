@@ -10,7 +10,7 @@ data: data/books.json
   <div class='book'>
     <a href='{{ book.GoodreadsURL }}'><img src='{{ book.CoverURL }}'></a>
     <p>{{ book.Title }}</p>
-    <p class='subtitle'>{{ book.Status }} (Added {{ book.Date }})</p>
+    <p class='subtitle'>{{ book.Category }} (Added {{ book.Date }})</p>
   </div>
   {% endfor %}
 </div>
