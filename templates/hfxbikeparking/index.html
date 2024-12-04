@@ -87,25 +87,54 @@
         .then(data => {
             L.geoJSON(data, {
                 pointToLayer: function(feature, latlng) {
+                    let radius = feature.properties.Size !== undefined
+                        ? feature.properties.Size
+                        : 3;
+
                     return L.circleMarker(latlng, {
-                        radius: 3,
+                        radius: radius,
                         color: "#000",
                         weight: 1,
                         opacity: 1,
                         fillOpacity: 0.8
                     });
                 },
+                onEachFeature: function(feature, layer) {
+                    // Create a popup with feature properties
+                    if (feature.properties) {
+                        const popupContent = `
+                            <strong>Type:</strong> ${feature.properties.Type}<br>
+                            <strong>Size:</strong> ${feature.properties.Size}<br>
+                        `;
+
+                        layer.bindPopup(popupContent, {
+                            className: 'feature-popup',
+                            maxWidth: 300
+                        });
+
+                        // Add hover interactions
+                        layer.on({
+                            mouseover: function(e) {
+                                layer.openPopup();
+                                layer.setStyle({
+                                    weight: 3,
+                                    color: '#ffff00' // Highlight with yellow border
+                                });
+                            },
+                            mouseout: function(e) {
+                                layer.closePopup();
+                                layer.setStyle({
+                                    weight: 1,
+                                    color: '#000'
+                                });
+                            }
+                        });
+                    }
+                },
                 style: function(feature) {
-                    props = {
+                    return {
                         fillColor: getColor(feature.properties.Type),
                     }
-
-                    switch(feature.properties.Size) {
-                        case "cluster": props.radius = 6; break;
-                        default: props.radius = 3; break;
-                    }
-
-                    return props;
                 }
             }).addTo(map);
         }).
