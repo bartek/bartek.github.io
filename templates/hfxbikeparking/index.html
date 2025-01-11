@@ -19,16 +19,29 @@
           border-radius: 50%;
           display: inline-block;
         }
+        #location-error {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ff6b6b;
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+            z-index: 1000;
+            display: none;
+        }
     </style>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
         crossorigin=""></script>
 </head>
 <body>
+  <div id="location-error">Unable to get your location</div>
   <div id="map"></div>
   <script>
     var map = L.map('map').setView([44.641070, -63.582687], 13);
-    
+
     L.tileLayer(
         'https://api.mapbox.com/styles/v1/mapbox/emerald-v8/tiles/{z}/{x}/{y}?access_token={{ token }}', {
           tileSize: 512,
@@ -79,6 +92,62 @@
         return div;
     }
     legend.addTo(map);
+
+    // Function to handle successful location retrieval
+    function locationSuccess(position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+
+        // Create or update user location marker
+        if (userMarker) {
+            userMarker.setLatLng([latitude, longitude]);
+        } else {
+            userMarker = L.marker([latitude, longitude], {
+                title: 'Your Location',
+                icon: L.divIcon({
+                    className: 'user-location',
+                    html: '<div style="background-color: #4A90E2; width: 16px; height: 16px; border-radius: 50%; border: 3px solid white; box-shadow: 0 0 5px rgba(0,0,0,0.5);"></div>'
+                })
+            }).addTo(map);
+        }
+
+        // Center map on user location and zoom in
+        map.setView([latitude, longitude], 16);
+        document.getElementById('location-error').style.display = 'none';
+    }
+
+    // Function to handle location errors
+    function locationError(error) {
+        const errorDiv = document.getElementById('location-error');
+        errorDiv.style.display = 'block';
+
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+                errorDiv.textContent = "Location access denied. Please enable location services.";
+                break;
+            case error.POSITION_UNAVAILABLE:
+                errorDiv.textContent = "Location information unavailable.";
+                break;
+            case error.TIMEOUT:
+                errorDiv.textContent = "Location request timed out.";
+                break;
+            default:
+                errorDiv.textContent = "An unknown error occurred getting location.";
+                break;
+        }
+    }
+
+    // Request user location when page loads
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(locationSuccess, locationError, {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0
+        });
+    } else {
+        document.getElementById('location-error').textContent = "Geolocation is not supported by your browser";
+        document.getElementById('location-error').style.display = 'block';
+    }
 
     fetch('/static/hfxbikeparking.geojson')
         .then(response => {
