@@ -1,6 +1,7 @@
 <html>
 <head>
     <title> Public Bike Parking in Halifax </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
         crossorigin=""/>
@@ -171,35 +172,39 @@
                 },
                 onEachFeature: function(feature, layer) {
                     // Create a popup with feature properties
-                    if (feature.properties) {
-                        const popupContent = `
-                            <strong>Type:</strong> ${feature.properties.Type}<br>
-                            <strong>Size:</strong> ${feature.properties.Size}<br>
-                        `;
-
-                        layer.bindPopup(popupContent, {
-                            className: 'feature-popup',
-                            maxWidth: 300
-                        });
-
-                        // Add hover interactions
-                        layer.on({
-                            mouseover: function(e) {
-                                layer.openPopup();
-                                layer.setStyle({
-                                    weight: 3,
-                                    color: '#ffff00' // Highlight with yellow border
-                                });
-                            },
-                            mouseout: function(e) {
-                                layer.closePopup();
-                                layer.setStyle({
-                                    weight: 1,
-                                    color: '#000'
-                                });
-                            }
-                        });
+                    if (!feature.properties) {
+                        return;
                     }
+
+                    let popupContent = `<strong>Type:</strong> ${feature.properties.Type}<br>`;
+
+                    if (feature.properties.Size !== undefined) {
+                        popupContent += `<strong>Size:</strong> ${feature.properties.Size}<br>`;
+
+                    }
+
+                    layer.bindPopup(popupContent, {
+                        className: 'feature-popup',
+                        maxWidth: 300
+                    });
+
+                    // Add hover interactions
+                    layer.on({
+                        mouseover: function(e) {
+                            layer.openPopup();
+                            layer.setStyle({
+                                weight: 3,
+                                color: '#ffff00' // Highlight with yellow border
+                            });
+                        },
+                        mouseout: function(e) {
+                            layer.closePopup();
+                            layer.setStyle({
+                                weight: 1,
+                                color: '#000'
+                            });
+                        }
+                    });
                 },
                 style: function(feature) {
                     return {
