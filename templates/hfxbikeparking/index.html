@@ -62,8 +62,6 @@
             case 'Wave Corral': return "#eb9d71";
             case 'Wheel Slot Corral': return "#ae96dc";
             case 'Triangle Corral': return "#eec36f";
-            case 'Loop': return "#77cf9d";
-            case 'Other': return "#d4a15f";
             case 'Ornamental': return "#b0b06f";
             default: return "#a2a2a2";
         }
@@ -81,9 +79,8 @@
             'Wave Corral',
             'Wheel Slot Corral',
             'Triangle Corral',
-            'Loop',
-            'Other',
             'Ornamental',
+            'Other',
         ];
         for (var i = 0; i < categories.length; i++) {
             div.innerHTML += 
@@ -183,6 +180,10 @@
                     if (feature.properties.Size !== undefined) {
                         popupContent += `<strong>Size:</strong> ${feature.properties.Size}<br>`;
 
+                    }
+
+                    if (feature.properties.description !== "") {
+                        popupContent += `<strong>Note:</strong> ${feature.properties.description}<br>`;
                     }
 
                     layer.bindPopup(popupContent, {
