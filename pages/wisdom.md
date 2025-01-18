@@ -55,6 +55,7 @@ be added)
 
 ## Learning
 
+* "If something feels too hard to start, it just means that the first step isn’t small enough." - Ms. Edson via Dr. Becky Kennedy. There are as many permutations of this phrase as there are people, but I really enjoyed the way this was framed. The points below are not dissimilar to this.
 * If you're watching something at 2x speed, it's not worth watching.
 * Don't try to figure out what your life is about. It's too big a question. Just
   figure out what the next three years look like.
