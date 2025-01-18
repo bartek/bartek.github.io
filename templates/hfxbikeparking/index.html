@@ -182,7 +182,7 @@
 
                     }
 
-                    if (feature.properties.description !== "") {
+                    if (feature.properties.description !== null && feature.properties.description !== undefined) {
                         popupContent += `<strong>Note:</strong> ${feature.properties.description}<br>`;
                     }
 
