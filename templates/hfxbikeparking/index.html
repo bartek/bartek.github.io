@@ -44,6 +44,7 @@
   <div id="map"></div>
   <script>
     var map = L.map('map').setView([44.641070, -63.582687], 13);
+    var bikeLayer;
     var userMarker;
 
     L.tileLayer(
@@ -138,6 +139,28 @@
         }
     }
 
+    function logVisiblePoints() {
+        if (!bikeLayer) return;
+
+        const bounds = map.getBounds();
+        const visiblePoints = [];
+
+        bikeLayer.eachLayer(function(layer) {
+            if (bounds.contains(layer.getLatLng())) {
+                const properties = layer.feature.properties;
+                visiblePoints.push({
+                    type: properties.Type,
+                    size: properties.Size,
+                    description: properties.description,
+                    location: layer.getLatLng()
+                });
+            }
+        });
+
+        console.log('Visible bike parking points:', visiblePoints);
+        console.log('Total visible points:', visiblePoints.length);
+    }
+
     // Request user location when page loads
     if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(locationSuccess, locationError, {
@@ -155,7 +178,7 @@
             return response.json();
         })
         .then(data => {
-            L.geoJSON(data, {
+            bikeLayer = L.geoJSON(data, {
                 pointToLayer: function(feature, latlng) {
                     let radius = feature.properties.Size !== undefined
                         ? feature.properties.Size
@@ -215,6 +238,10 @@
                     }
                 }
             }).addTo(map);
+
+            // Add event listeners for map movements
+            map.on('moveend', logVisiblePoints);
+            map.on('zoomend', logVisiblePoints);
         }).
         catch(error => {
             console.error('Error loading or parsing GeoJSON file:', error);
