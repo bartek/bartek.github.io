@@ -6,6 +6,8 @@ I cook — a lot — for the whole family. These are my notes as they come to me
 It's a combination of culinary discoveries as well as tips that are typically
 applicable to a variety of dishes.
 
+* 01/28/2025: Put a fried egg on it!
+* 01/28/2025: Many times when you think you need more salt, you actually need more acid. Throw in some vinegar (or lemon juice, etc) instead of the salt. Thanks [Deb Perlman](https://smittenkitchen.com/)
 * 12/03/2024: Chicken Soup/Stock: Breast is best for flavour, feet/wings for texture. Don't overcook the breast, and take it out once it's fully cooked (low simmer). Then, cook the rest of the carcass for collagen extraction.
 * 05/15/2024: I love chicken wings. My goto pantry mix that I almost always have on hand: For 700grams of wings, 2tsp cumin, 1tsp salt, pepper to taste, 20ml oyster sauce, 2tsp baking powder. Mix and marinate. Separately, mix 40ml honey, 40ml soy sauce, 1tsp each ginger, onion, and garlic powder. Baste onto wings before & during roasting or barbeque.
 * 04/14/2024: Don't buy packet gravy: Fry onion and garlic, then add re-hydrated dry, or fresh mushrooms. Add salt, a good glug of soy sauce, lots of black pepper, and dried herbs of choice. Cook off excess moisture. Incorporate flour to gently coat mixture, and finally add stock or water+bouillon (both work) to desired consistency. This has more depth and takes only a few minutes to compile.
