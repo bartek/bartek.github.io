@@ -22,25 +22,12 @@
           border-radius: 50%;
           display: inline-block;
         }
-        #location-error {
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #ff6b6b;
-            color: white;
-            padding: 10px;
-            border-radius: 4px;
-            z-index: 1000;
-            display: none;
-        }
     </style>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
         crossorigin=""></script>
 </head>
 <body>
-  <div id="location-error">Unable to get your location</div>
   <div id="map"></div>
   <script>
     var map = L.map('map').setView([44.641070, -63.582687], 13);
@@ -95,6 +82,25 @@
     }
     legend.addTo(map);
 
+
+    function locationError(error) {
+        let message = 'An unknown error occurred';
+        switch (error.code) {
+            case error.PERMISSION_DENIED:
+                message = 'You denied the request for Geolocation';
+                break;
+            case error.POSITION_UNAVAILABLE:
+                message = 'Location information is unavailable';
+                break;
+            case error.TIMEOUT:
+                message = 'The request to get user location timed out';
+                break;
+            case error.UNKNOWN_ERROR:
+                message = 'An unknown error occurred';
+                break;
+        }
+        console.log(message);
+    }
     // Function to handle successful location retrieval
     function locationSuccess(position) {
         const latitude = position.coords.latitude;
@@ -115,28 +121,6 @@
 
         // Center map on user location and zoom in
         map.setView([latitude, longitude], 16);
-        document.getElementById('location-error').style.display = 'none';
-    }
-
-    // Function to handle location errors
-    function locationError(error) {
-        const errorDiv = document.getElementById('location-error');
-        errorDiv.style.display = 'block';
-
-        switch(error.code) {
-            case error.PERMISSION_DENIED:
-                errorDiv.textContent = "Location access denied. Please enable location services.";
-                break;
-            case error.POSITION_UNAVAILABLE:
-                errorDiv.textContent = "Location information unavailable.";
-                break;
-            case error.TIMEOUT:
-                errorDiv.textContent = "Location request timed out.";
-                break;
-            default:
-                errorDiv.textContent = "An unknown error occurred getting location.";
-                break;
-        }
     }
 
     function logVisiblePoints() {
@@ -152,6 +136,7 @@
                     type: properties.Type,
                     size: properties.Size,
                     description: properties.description,
+                    filename: properties.filename,
                     location: layer.getLatLng()
                 });
             }
@@ -207,6 +192,10 @@
 
                     if (feature.properties.description !== null && feature.properties.description !== undefined) {
                         popupContent += `<strong>Note:</strong> ${feature.properties.description}<br>`;
+                    }
+
+                    if (feature.properties.filename !== undefined) {
+                        popupContent += `<p><img src="/static/hfxbikeparking/${feature.properties.filename}" alt="Bike Parking Image" style="max-width: 100%;"></p>`;
                     }
 
                     layer.bindPopup(popupContent, {
