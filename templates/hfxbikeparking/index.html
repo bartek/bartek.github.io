@@ -22,6 +22,53 @@
           border-radius: 50%;
           display: inline-block;
         }
+
+        .feature-popup .leaflet-popup-content-wrapper {
+            border-radius: 8px;
+        }
+
+        .feature-popup .leaflet-popup-content {
+            margin: 13px;
+            width: auto !important;
+        }
+
+        .popup-content {
+            margin-bottom: 8px;
+        }
+
+        .popup-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+        }
+
+        /* Media queries for responsive popup sizing */
+        @media screen and (min-width: 768px) {
+            .feature-popup {
+                min-width: 300px;
+            }
+
+            .feature-popup .leaflet-popup-content {
+                width: 450px !important;
+            }
+
+            .popup-image {
+                max-height: 350px;
+                object-fit: cover;
+            }
+        }
+
+        @media screen and (max-width: 767px) {
+            .feature-popup .leaflet-popup-content {
+                width: 280px !important;
+            }
+
+            .popup-image {
+                max-height: 200px;
+                object-fit: cover;
+            }
+        }
     </style>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
@@ -200,7 +247,7 @@
 
                     layer.bindPopup(popupContent, {
                         className: 'feature-popup',
-                        maxWidth: 300
+                        maxWidth: 400
                     });
 
                     // Add hover interactions
