@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .collage-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 8px;
+      padding: 16px;
+    }
+
+    .collage-item {
+      position: relative;
+      padding-bottom: 100%;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    .collage-item img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .collage-item img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Lightbox styles */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 1000;
+      cursor: pointer;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90vh;
+      margin: auto;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  </style>
+</head>
+<body>
+  <div class="collage-container" id="collage"></div>
+  <div class="lightbox" id="lightbox"></div>
+
+  <script>
+    // Define your array of image paths
+    const images = [
+    "20241217_082907.jpeg",
+    "20241217_083003.jpeg",
+    "IMG_0197.jpeg",
+    "IMG_0198.jpeg",
+    "IMG_0199.jpeg",
+    "IMG_0200.jpeg",
+    "IMG_0273.jpeg",
+    "IMG_0274.jpeg",
+    "IMG_0275.jpeg",
+    "IMG_0276.jpeg",
+    "IMG_0277.jpeg",
+    "IMG_0288.jpeg",
+    "IMG_0825.jpeg",
+    "IMG_0828.jpeg",
+    "IMG_0829.jpeg",
+    "IMG_0830.jpeg",
+    "IMG_0831.jpeg",
+    "IMG_0832.jpeg",
+    "IMG_0833.jpeg",
+    "IMG_0834.jpeg",
+    "IMG_0835.jpeg",
+    "IMG_0836.jpeg",
+    "IMG_0837.jpeg",
+    "IMG_0838.jpeg",
+    "IMG_0839.jpeg",
+    "IMG_0840.jpeg",
+    "IMG_0846.jpeg",
+    "IMG_0847.jpeg",
+    "IMG_0848.jpeg",
+    "IMG_0849.jpeg",
+    "IMG_0851.jpeg",
+    "IMG_0852.jpeg",
+    "IMG_0853.jpeg",
+    "IMG_0854.jpeg",
+    "IMG_0882.jpeg",
+    "IMG_0883.jpeg",
+    "IMG_0884.jpeg",
+    "IMG_0885.jpeg",
+    "IMG_0886.jpeg",
+    "IMG_0931.jpeg",
+    "IMG_0932.jpeg",
+    "IMG_0933.jpeg",
+    "IMG_0938.jpeg",
+    "IMG_0939.jpeg",
+    "IMG_0940.jpeg",
+    "IMG_0941.jpeg",
+    "IMG_0942.jpeg",
+    "IMG_0943.jpeg",
+    "IMG_0944.jpeg",
+    "IMG_0945.jpeg",
+    "IMG_0946.jpeg",
+    "IMG_0947.jpeg",
+    "IMG_0948.jpeg",
+    "IMG_0949.jpeg",
+    "IMG_0950.jpeg",
+    "IMG_0951.jpeg",
+    "IMG_0952.jpeg",
+    "IMG_0953.jpeg",
+    "IMG_0954.jpeg",
+    "IMG_0955.jpeg",
+    "IMG_0956.jpeg",
+    "IMG_0957.jpeg",
+    "IMG_0958.jpeg",
+    "IMG_0959.jpeg",
+    "IMG_0960.jpeg",
+    "IMG_0961.jpeg",
+    "IMG_0962.jpeg",
+    "IMG_0963.jpeg",
+    "IMG_0964.jpeg",
+    "IMG_0965.jpeg",
+    "IMG_0966.jpeg",
+    "IMG_0967.jpeg",
+    "IMG_0968.jpeg",
+    "IMG_0969.jpeg",
+    "IMG_0970.jpeg",
+    "IMG_0971.jpeg",
+    "IMG_0972.jpeg",
+    "IMG_0973.jpeg",
+    "IMG_0974.jpeg",
+    "IMG_0975.jpeg",
+    "IMG_0976.jpeg",
+    "IMG_0977.jpeg",
+    "IMG_0978.jpeg",
+    "IMG_0979.jpeg",
+    "IMG_0980.jpeg",
+    "IMG_0981.jpeg",
+    "IMG_0982.jpeg",
+    "IMG_0983.jpeg",
+    "IMG_0984.jpeg",
+    "IMG_0985.jpeg",
+    "IMG_0986.jpeg",
+    "IMG_0987.jpeg",
+    "IMG_0988.jpeg",
+    "IMG_0989.jpeg",
+    "IMG_0990.jpeg",
+    "IMG_0991.jpeg",
+    "IMG_0992.jpeg",
+    "IMG_0994.jpeg",
+    "IMG_0995.jpeg",
+    "IMG_0996.jpeg",
+    "IMG_0997.jpeg",
+    "IMG_1087.jpeg",
+    "IMG_1088.jpeg",
+    "IMG_1089.jpeg",
+    "IMG_1090.jpeg",
+    "IMG_1091.jpeg",
+    "IMG_1092.jpeg",
+    "IMG_1093.jpeg",
+    "IMG_1094.jpeg",
+    "IMG_1095.jpeg",
+    "IMG_1096.jpeg",
+    "IMG_1097.jpeg",
+    "IMG_1098.jpeg",
+    "IMG_1099.jpeg",
+    "IMG_1100.jpeg",
+    "IMG_1101.jpeg",
+    "IMG_1116.jpeg",
+    "IMG_1117.jpeg",
+    "IMG_1118.jpeg",
+    "IMG_1119.jpeg",
+    "IMG_1120.jpeg",
+    "IMG_1121.jpeg",
+    "IMG_1122.jpeg",
+    "IMG_1123.jpeg",
+    "IMG_1124.jpeg",
+    "IMG_1125.jpeg",
+    "IMG_1126.jpeg",
+    "IMG_1127.jpeg",
+    "IMG_1128.jpeg",
+    "IMG_1129.jpeg",
+    "IMG_1252.jpeg",
+    "IMG_1253.jpeg",
+    "IMG_1254.jpeg",
+    "IMG_1266.jpeg",
+    "IMG_1267.jpeg",
+    "IMG_1268.jpeg",
+    "IMG_1288.jpeg",
+    "IMG_1289.jpeg",
+    "IMG_1290.jpeg",
+    "IMG_1291.jpeg",
+    "IMG_1294.jpeg",
+    "IMG_1297.jpeg",
+    "IMG_1643.jpeg",
+    "IMG_1652.jpeg",
+    "IMG_1653.jpeg",
+    "IMG_1663.jpeg",
+    "IMG_1664.jpeg",
+    "IMG_1665.jpeg",
+    "IMG_1666.jpeg",
+    "IMG_1667.jpeg",
+    "IMG_1700.jpeg",
+    "IMG_1701.jpeg",
+    "IMG_1702.jpeg",
+    "IMG_1703.jpeg",
+    "IMG_1705.jpeg",
+    "IMG_1706.jpeg",
+    "IMG_1727.jpeg",
+    "IMG_1903.jpeg",
+    "IMG_1904.jpeg",
+    "IMG_1905.jpeg",
+    "IMG_1906.jpeg",
+    "IMG_1934.jpeg",
+    "IMG_2859.jpeg",
+    "IMG_2860.jpeg",
+    "IMG_2861.jpeg",
+    "IMG_2862.jpeg",
+    "IMG_2863.jpeg",
+    "IMG_2864.jpeg",
+    "IMG_2893.jpeg",
+    "IMG_2896.jpeg",
+    "IMG_2899.jpeg",
+    "IMG_3112.jpeg",
+    "IMG_3113.jpeg",
+    "IMG_3114.jpeg",
+    "IMG_3115.jpeg",
+    "IMG_3116.jpeg",
+    "IMG_3117.jpeg",
+    "IMG_3118.jpeg",
+    "IMG_3119.jpeg",
+    "IMG_3120.jpeg",
+    "IMG_3121.jpeg",
+    "IMG_3122.jpeg",
+    "IMG_3123.jpeg",
+    "IMG_3124.jpeg",
+    "IMG_3125.jpeg",
+    "IMG_3127.jpeg",
+    "IMG_3128.jpeg",
+    "IMG_3129.jpeg",
+    "IMG_3130.jpeg",
+    "IMG_3131.jpeg",
+    "IMG_3132.jpeg",
+    "IMG_3138.jpeg",
+    "IMG_3152.jpeg",
+    "IMG_3153.jpeg",
+    "IMG_3154.jpeg",
+    "IMG_3155.jpeg",
+    "IMG_3156.jpeg",
+    "IMG_3157.jpeg",
+    "IMG_3158.jpeg",
+    "IMG_3159.jpeg",
+    "IMG_3160.jpeg",
+    "IMG_3161.jpeg",
+    "IMG_3162.jpeg",
+    "IMG_3163.jpeg",
+    "IMG_3164.jpeg",
+    "IMG_3165.jpeg",
+    "IMG_3166.jpeg",
+    "IMG_3169.jpeg",
+    "IMG_3170.jpeg",
+    "IMG_3171.jpeg",
+    "IMG_3172.jpeg",
+    "IMG_3173.jpeg",
+    "IMG_3174.jpeg",
+    "IMG_3175.jpeg",
+    "IMG_3176.jpeg",
+    "IMG_3177.jpeg",
+    "IMG_3178.jpeg",
+    "IMG_3179.jpeg",
+    "IMG_3180.jpeg",
+    "IMG_3181.jpeg",
+    "IMG_3183.jpeg",
+    "IMG_3190.jpeg",
+    "IMG_3192.jpeg",
+    "IMG_3194.jpeg",
+    "IMG_3195.jpeg",
+    "IMG_3196.jpeg",
+    "IMG_3203.jpeg",
+    "IMG_3204.jpeg",
+    "IMG_3209.jpeg",
+    "IMG_3210.jpeg",
+    "IMG_3211.jpeg",
+    "IMG_3212.jpeg",
+    "IMG_3213.jpeg",
+    "IMG_3214.jpeg",
+    "IMG_3215.jpeg",
+    "IMG_3216.jpeg",
+    "IMG_3217.jpeg",
+    "IMG_3231.jpeg",
+    "IMG_3232.jpeg",
+    "IMG_3256.jpeg",
+    "IMG_8716.jpeg",
+    "IMG_8717.jpeg",
+    "IMG_8718.jpeg",
+    "IMG_8719.jpeg",
+    "IMG_8720.jpeg",
+    "IMG_8721.jpeg",
+    "IMG_8722.jpeg",
+    "IMG_8723.jpeg",
+    "IMG_8724.jpeg",
+    "IMG_8725.jpeg",
+    "IMG_8726.jpeg",
+    "IMG_8727.jpeg",
+    "IMG_8728.jpeg",
+    "IMG_8729.jpeg",
+    "IMG_8731.jpeg",
+    "IMG_8732.jpeg",
+    "IMG_8733.jpeg",
+    "IMG_8734.jpeg",
+    "IMG_8735.jpeg",
+    "IMG_8736.jpeg",
+    "IMG_8737.jpeg",
+    "IMG_8738.jpeg",
+    "IMG_8739.jpeg",
+    "IMG_8740.jpeg",
+    "IMG_8741.jpeg",
+    "IMG_8742.jpeg",
+    "IMG_8743.jpeg",
+    "IMG_8744.jpeg",
+    "IMG_8745.jpeg",
+    "IMG_8746.jpeg",
+    "IMG_8747.jpeg",
+    "IMG_8750.jpeg",
+    "IMG_8751.jpeg",
+    "IMG_8752.jpeg",
+    "IMG_8753.jpeg",
+    "IMG_8754.jpeg",
+    "IMG_8755.jpeg",
+    "IMG_8756.jpeg",
+    "IMG_8757.jpeg",
+    "IMG_8758.jpeg",
+    "IMG_8759.jpeg",
+    "IMG_8760.jpeg",
+    "IMG_8761.jpeg",
+    "IMG_8762.jpeg",
+    "IMG_8763.jpeg",
+    "IMG_8764.jpeg",
+    "IMG_8765.jpeg",
+    "IMG_8766.jpeg",
+    "IMG_8767.jpeg",
+    "IMG_8768.jpeg",
+    "IMG_8769.jpeg",
+    "IMG_8770.jpeg",
+    "IMG_8771.jpeg",
+    "IMG_8772.jpeg",
+    "IMG_8773.jpeg",
+    "IMG_8774.jpeg",
+    "IMG_8775.jpeg",
+    "IMG_8776.jpeg",
+    "IMG_8777.jpeg",
+    "IMG_8778.jpeg",
+    "IMG_8779.jpeg",
+    "IMG_8780.jpeg",
+    "IMG_8781.jpeg",
+    "IMG_8782.jpeg",
+    "IMG_8783.jpeg",
+    "IMG_8784.jpeg",
+    "IMG_8785.jpeg",
+    "IMG_8786.jpeg",
+    "IMG_8787.jpeg",
+    "IMG_8788.jpeg",
+    "IMG_8789.jpeg",
+    "IMG_8790.jpeg",
+    "IMG_8791.jpeg",
+    "IMG_8792.jpeg",
+    "IMG_8793.jpeg",
+    "IMG_8794.jpeg",
+    "IMG_8795.jpeg",
+    "IMG_8994.jpeg",
+    "IMG_8995.jpeg",
+    "IMG_8996.jpeg",
+    "IMG_8997.jpeg",
+    "IMG_8998.jpeg",
+    "IMG_8999.jpeg",
+    "IMG_9001.jpeg",
+    "Image 1.jpeg",
+    "Image.jpeg"
+];
+
+    // Create collage
+    const collage = document.getElementById('collage');
+    const lightbox = document.getElementById('lightbox');
+
+    images.forEach(src => {
+      const item = document.createElement('div');
+      item.className = 'collage-item';
+      
+      const img = document.createElement('img');
+      img.src = "/static/hfxbikeparking/" + src;
+      img.alt = 'Bike Parking';
+
+      item.appendChild(img);
+      collage.appendChild(item);
+    });
+
+    // Close lightbox when clicked
+    lightbox.addEventListener('click', () => {
+      lightbox.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
