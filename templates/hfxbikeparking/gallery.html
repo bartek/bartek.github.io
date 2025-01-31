@@ -14,6 +14,7 @@
       padding-bottom: 100%;
       overflow: hidden;
       border-radius: 8px;
+      background-color: #f0f0f0;
     }
 
     .collage-item img {
@@ -21,44 +22,43 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, opacity 0.3s ease;
       cursor: pointer;
+      opacity: 0;
+    }
+
+    .collage-item img.loaded {
+      opacity: 1;
     }
 
     .collage-item img:hover {
       transform: scale(1.05);
     }
 
-    /* Lightbox styles */
-    .lightbox {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
+    /* Loading animation */
+    .loading-placeholder {
+      position: absolute;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      z-index: 1000;
-      cursor: pointer;
+      background: linear-gradient(90deg, #f0f0f0 0%, #e0e0e0 50%, #f0f0f0 100%);
+      background-size: 200% 100%;
+      animation: loading 1.5s infinite;
     }
 
-    .lightbox img {
-      max-width: 90%;
-      max-height: 90vh;
-      margin: auto;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+    @keyframes loading {
+      0% {
+        background-position: 200% 0;
+      }
+      100% {
+        background-position: -200% 0;
+      }
     }
   </style>
 </head>
 <body>
   <div class="collage-container" id="collage"></div>
-  <div class="lightbox" id="lightbox"></div>
 
   <script>
-    // Define your array of image paths
     const images = [
     "20241217_082907.jpeg",
     "20241217_083003.jpeg",
@@ -388,25 +388,52 @@
     "Image.jpeg"
 ];
 
-    // Create collage
-    const collage = document.getElementById('collage');
-    const lightbox = document.getElementById('lightbox');
 
+    const collage = document.getElementById('collage');
+
+    // Create intersection observer
+    const observerOptions = {
+      root: null, // use viewport
+      rootMargin: '50px', // start loading slightly before the item comes into view
+      threshold: 0.1 // trigger when even 10% of the item is visible
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target.querySelector('img');
+          if (img && !img.src) {
+            img.src = img.dataset.src;
+            img.onload = () => {
+              img.classList.add('loaded');
+              entry.target.querySelector('.loading-placeholder').style.display = 'none';
+            };
+          }
+          observer.unobserve(entry.target); // Stop observing once loaded
+        }
+      });
+    }, observerOptions);
+
+    // Create collage items
     images.forEach(src => {
       const item = document.createElement('div');
       item.className = 'collage-item';
       
+      // Add loading placeholder
+      const placeholder = document.createElement('div');
+      placeholder.className = 'loading-placeholder';
+      item.appendChild(placeholder);
+      
+      // Create image but don't set src yet
       const img = document.createElement('img');
-      img.src = "/static/hfxbikeparking/" + src;
-      img.alt = 'Bike Parking';
-
+      img.dataset.src = src; // Store the src for later
+      img.alt = 'Collage image';
+      
       item.appendChild(img);
       collage.appendChild(item);
-    });
-
-    // Close lightbox when clicked
-    lightbox.addEventListener('click', () => {
-      lightbox.style.display = 'none';
+      
+      // Start observing the item
+      observer.observe(item);
     });
   </script>
 </body>
