@@ -1,72 +1,231 @@
 <html>
 <head>
-    <title> Public Bike Parking in Halifax </title>
+    <title>Public Bike Parking in Halifax</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg+xml" href="/static/hfxbikeparking-favicon.svg">
     <link rel="apple-touch-icon" href="/static/hfxbikeparking-favicon.svg">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
         crossorigin=""/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style type="text/css">
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        
         body {
             padding: 0;
             margin: 0;
+            overflow: hidden;
         }
+        
         #map { 
-            height: 100%;
-            width: 100%;
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+            z-index: 1;
         }
+        
         .circle {
-          height: 8px;
-          width: 8px;
-          border-radius: 50%;
-          display: inline-block;
+            height: 8px;
+            width: 8px;
+            border-radius: 50%;
+            display: inline-block;
         }
 
-        .feature-popup .leaflet-popup-content-wrapper {
-            border-radius: 8px;
+        /* Detail panel styles */
+        #detail-panel {
+            position: fixed;
+            top: 0;
+            right: -400px; /* Start off-screen */
+            width: 400px;
+            height: 100vh;
+            background-color: white;
+            box-shadow: -2px 0 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: right 0.3s ease-in-out;
+            overflow-y: auto;
+            padding: 20px;
         }
-
-        .feature-popup .leaflet-popup-content {
-            margin: 13px;
-            width: auto !important;
+        
+        #detail-panel.open {
+            right: 0;
         }
-
-        .popup-content {
-            margin-bottom: 8px;
+        
+        .panel-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-
-        .popup-image {
+        
+        .panel-close:hover {
+            background-color: rgba(0,0,0,0.1);
+        }
+        
+        .panel-content {
+            margin-top: 10px;
+            padding-right: 10px;
+        }
+        
+        .panel-image {
             width: 100%;
             height: auto;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .panel-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-right: 40px;
+        }
+        
+        .panel-info {
+            margin-bottom: 20px;
+        }
+        
+        .info-item {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        
+        .info-label {
+            font-weight: 600;
+            min-width: 70px;
+            margin-right: 10px;
+        }
+        
+        .info-value {
+            flex: 1;
+        }
+        
+        .panel-note {
+            background-color: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        /* Mobile modal styles */
+        #mobile-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2000;
+            overflow: hidden;
+        }
+        
+        .modal-content {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background-color: white;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            padding: 20px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: translateY(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        #mobile-modal.open .modal-content {
+            transform: translateY(0);
+        }
+        
+        .modal-header {
+            position: relative;
+            text-align: center;
+            padding-bottom: 15px;
+        }
+        
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0 30px;
+        }
+        
+        .modal-close {
+            position: absolute;
+            right: 0;
+            top: 0;
+            background: transparent;
+            border: none;
+            font-size: 18px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-close:hover {
+            background-color: rgba(0,0,0,0.1);
+        }
+        
+        .handle {
+            width: 40px;
+            height: 5px;
+            background-color: #ddd;
+            border-radius: 3px;
+            margin: 0 auto 15px;
+        }
+        
+        /* Legend styles */
+        .legend {
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+            line-height: 1.8;
+        }
+        
+        .legend strong {
             display: block;
-            border-radius: 4px;
+            margin-bottom: 5px;
         }
-
-        /* Media queries for responsive popup sizing */
-        @media screen and (min-width: 768px) {
-            .feature-popup {
-                min-width: 300px;
-            }
-
-            .feature-popup .leaflet-popup-content {
-                width: 450px !important;
-            }
-
-            .popup-image {
-                max-height: 350px;
-                object-fit: cover;
-            }
-        }
-
+        
+        /* Media queries */
         @media screen and (max-width: 767px) {
-            .feature-popup .leaflet-popup-content {
-                width: 280px !important;
+            #detail-panel {
+                display: none; /* Hide panel on mobile */
             }
-
-            .popup-image {
-                max-height: 200px;
-                object-fit: cover;
+            
+            .legend {
+                max-width: 240px;
+                font-size: 12px;
+                line-height: 1.6;
+            }
+        }
+        
+        @media screen and (min-width: 768px) {
+            #mobile-modal {
+                display: none !important; /* Always hide mobile modal on desktop */
+            }
+            
+            #map.panel-open {
+                width: calc(100vw - 400px);
             }
         }
     </style>
@@ -75,213 +234,369 @@
         crossorigin=""></script>
 </head>
 <body>
-  <div id="map"></div>
-  <script>
-    var map = L.map('map').setView([44.641070, -63.582687], 13);
-    var bikeLayer;
-    var userMarker;
+    <div id="map"></div>
+    
+    <!-- Desktop slide-in panel -->
+    <div id="detail-panel">
+        <button class="panel-close" aria-label="Close panel">
+            <i class="fas fa-times"></i>
+        </button>
+        <h2 class="panel-title">Bike Parking Details</h2>
+        <div class="panel-content">
+            <!-- Content will be dynamically inserted here -->
+        </div>
+    </div>
+    
+    <!-- Mobile modal -->
+    <div id="mobile-modal">
+        <div class="modal-content">
+            <div class="handle"></div>
+            <div class="modal-header">
+                <h3 class="modal-title">Bike Parking Details</h3>
+                <button class="modal-close" aria-label="Close modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Content will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        var map = L.map('map').setView([44.641070, -63.582687], 13);
+        var bikeLayer;
+        var userMarker;
+        var detailPanel = document.getElementById('detail-panel');
+        var mobileModal = document.getElementById('mobile-modal');
+        var panelContent = document.querySelector('.panel-content');
+        var modalBody = document.querySelector('.modal-body');
+        var activeLayer = null;
+        var isMobile = window.innerWidth < 768;
 
-    L.tileLayer(
-        'https://api.mapbox.com/styles/v1/mapbox/emerald-v8/tiles/{z}/{x}/{y}?access_token={{ token }}', {
-          tileSize: 512,
-          zoomOffset: -1,
-          attribution: '© <a href="https://www.mapbox.com/map-feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map);
+        // Add map tiles
+        L.tileLayer(
+            'https://api.mapbox.com/styles/v1/mapbox/emerald-v8/tiles/{z}/{x}/{y}?access_token={{ token }}', {
+              tileSize: 512,
+              zoomOffset: -1,
+              attribution: '© <a href="https://www.mapbox.com/map-feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
 
-    function getColor(typ) {
-        switch(typ) {
-            case 'Ring': return "#77bdca";
-            case 'Corral': return "#e77575";
-            case 'U Ring': return "#b480ad";
-            case 'Ring Corral': return "#80b285";
-            case 'Wave Corral': return "#eb9d71";
-            case 'Wheel Slot Corral': return "#ae96dc";
-            case 'Triangle Corral': return "#eec36f";
-            case 'Ornamental': return "#b0b06f";
-            default: return "#a2a2a2";
-        }
-    }
-
-    var legend = L.control({position: 'topright'});
-    legend.onAdd = function(map) {
-        var div = L.DomUtil.create('div', 'info legend');
-        labels = ['<strong>Categories</strong>'];
-        categories = [
-            'Ring',
-            'Corral',
-            'U Ring',
-            'Ring Corral',
-            'Wave Corral',
-            'Wheel Slot Corral',
-            'Triangle Corral',
-            'Ornamental',
-            'Other',
-        ];
-        for (var i = 0; i < categories.length; i++) {
-            div.innerHTML += 
-            labels.push(
-                '<i class="circle" style="background:' + getColor(categories[i]) + '"></i> ' +
-                    (categories[i] ? categories[i] : '+'));
-
-        }
-        div.innerHTML = labels.join('<br>');
-        return div;
-    }
-    legend.addTo(map);
-
-
-    function locationError(error) {
-        let message = 'An unknown error occurred';
-        switch (error.code) {
-            case error.PERMISSION_DENIED:
-                message = 'You denied the request for Geolocation';
-                break;
-            case error.POSITION_UNAVAILABLE:
-                message = 'Location information is unavailable';
-                break;
-            case error.TIMEOUT:
-                message = 'The request to get user location timed out';
-                break;
-            case error.UNKNOWN_ERROR:
-                message = 'An unknown error occurred';
-                break;
-        }
-        console.log(message);
-    }
-    // Function to handle successful location retrieval
-    function locationSuccess(position) {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
-
-        // Create or update user location marker
-        if (userMarker) {
-            userMarker.setLatLng([latitude, longitude]);
-        } else {
-            userMarker = L.marker([latitude, longitude], {
-                title: 'Your Location',
-                icon: L.divIcon({
-                    className: 'user-location',
-                    html: '<div style="background-color: #4A90E2; width: 16px; height: 16px; border-radius: 50%; border: 3px solid white; box-shadow: 0 0 5px rgba(0,0,0,0.5);"></div>'
-                })
-            }).addTo(map);
+        // Define colors for bike parking types
+        function getColor(typ) {
+            switch(typ) {
+                case 'Ring': return "#77bdca";
+                case 'Corral': return "#e77575";
+                case 'U Ring': return "#b480ad";
+                case 'Ring Corral': return "#80b285";
+                case 'Wave Corral': return "#eb9d71";
+                case 'Wheel Slot Corral': return "#ae96dc";
+                case 'Triangle Corral': return "#eec36f";
+                case 'Ornamental': return "#b0b06f";
+                default: return "#a2a2a2";
+            }
         }
 
-        // Center map on user location and zoom in
-        map.setView([latitude, longitude], 16);
-    }
+        // Add legend
+        var legend = L.control({position: 'topright'});
+        legend.onAdd = function(map) {
+            var div = L.DomUtil.create('div', 'legend');
+            labels = ['<strong>Categories</strong>'];
+            categories = [
+                'Ring',
+                'Corral',
+                'U Ring',
+                'Ring Corral',
+                'Wave Corral',
+                'Wheel Slot Corral',
+                'Triangle Corral',
+                'Ornamental',
+                'Other',
+            ];
+            for (var i = 0; i < categories.length; i++) {
+                labels.push(
+                    '<i class="circle" style="background:' + getColor(categories[i]) + '"></i> ' +
+                        (categories[i] ? categories[i] : '+'));
+            }
+            div.innerHTML = labels.join('<br>');
+            return div;
+        }
+        legend.addTo(map);
 
-    function logVisiblePoints() {
-        if (!bikeLayer) return;
+        // Handle location errors
+        function locationError(error) {
+            let message = 'An unknown error occurred';
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    message = 'You denied the request for Geolocation';
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    message = 'Location information is unavailable';
+                    break;
+                case error.TIMEOUT:
+                    message = 'The request to get user location timed out';
+                    break;
+                case error.UNKNOWN_ERROR:
+                    message = 'An unknown error occurred';
+                    break;
+            }
+            console.log(message);
+        }
 
-        const bounds = map.getBounds();
-        const visiblePoints = [];
+        // Function to handle successful location retrieval
+        function locationSuccess(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
 
-        bikeLayer.eachLayer(function(layer) {
-            if (bounds.contains(layer.getLatLng())) {
-                const properties = layer.feature.properties;
-                visiblePoints.push({
-                    type: properties.Type,
-                    size: properties.Size,
-                    description: properties.description,
-                    filename: properties.filename,
-                    location: layer.getLatLng()
+            // Create or update user location marker
+            if (userMarker) {
+                userMarker.setLatLng([latitude, longitude]);
+            } else {
+                userMarker = L.marker([latitude, longitude], {
+                    title: 'Your Location',
+                    icon: L.divIcon({
+                        className: 'user-location',
+                        html: '<div style="background-color: #4A90E2; width: 16px; height: 16px; border-radius: 50%; border: 3px solid white; box-shadow: 0 0 5px rgba(0,0,0,0.5);"></div>'
+                    })
+                }).addTo(map);
+            }
+
+            // Center map on user location and zoom in
+            map.setView([latitude, longitude], 16);
+        }
+
+        // Function to display feature details in panel or modal
+        function showFeatureDetails(feature) {
+            // Create content for both panel and modal
+            let content = '';
+            
+            // Display image if available
+            if (feature.properties.filename !== undefined) {
+                content += `<img src="/static/hfxbikeparking/${feature.properties.filename}" 
+                           alt="Bike Parking Image" class="panel-image">`;
+            }
+            
+            // Create info section
+            content += `<div class="panel-info">
+                        <div class="info-item">
+                            <div class="info-label">Type:</div>
+                            <div class="info-value">${feature.properties.Type}</div>
+                        </div>`;
+                        
+            if (feature.properties.Size !== undefined) {
+                content += `<div class="info-item">
+                            <div class="info-label">Size:</div>
+                            <div class="info-value">${feature.properties.Size}</div>
+                          </div>`;
+            }
+            
+            content += `</div>`;
+            
+            // Add description/note if available
+            if (feature.properties.description !== null && feature.properties.description !== undefined) {
+                content += `<div class="panel-note">
+                            <strong>Note:</strong> ${feature.properties.description}
+                          </div>`;
+            }
+            
+            // Update content in both desktop panel and mobile modal
+            panelContent.innerHTML = content;
+            modalBody.innerHTML = content;
+            
+            // Set titles
+            document.querySelector('.panel-title').textContent = `${feature.properties.Type} Bike Parking`;
+            document.querySelector('.modal-title').textContent = `${feature.properties.Type} Bike Parking`;
+            
+            // Show the appropriate display based on screen size
+            if (isMobile) {
+                mobileModal.classList.add('open');
+                mobileModal.style.display = 'block';
+            } else {
+                detailPanel.classList.add('open');
+                document.getElementById('map').classList.add('panel-open');
+                map.invalidateSize(); // Recalculate map size
+            }
+        }
+
+        // Function to close details display
+        function closeDetails() {
+            detailPanel.classList.remove('open');
+            mobileModal.classList.remove('open');
+            document.getElementById('map').classList.remove('panel-open');
+            
+            // Wait for animation to complete before hiding mobile modal
+            setTimeout(() => {
+                if (!mobileModal.classList.contains('open')) {
+                    mobileModal.style.display = 'none';
+                }
+            }, 300);
+            
+            map.invalidateSize();
+            
+            // Reset active marker style if exists
+            if (activeLayer) {
+                activeLayer.setStyle({
+                    weight: 1,
+                    color: '#000'
                 });
+                activeLayer = null;
+            }
+        }
+
+        // Add event listeners for panel and modal close buttons
+        document.querySelector('.panel-close').addEventListener('click', closeDetails);
+        document.querySelector('.modal-close').addEventListener('click', closeDetails);
+        
+        // Close when clicking outside the modal (mobile only)
+        mobileModal.addEventListener('click', function(e) {
+            if (e.target === mobileModal) {
+                closeDetails();
             }
         });
 
-        console.log('Visible bike parking points:', visiblePoints);
-        console.log('Total visible points:', visiblePoints.length);
-    }
-
-    // Request user location when page loads
-    if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(locationSuccess, locationError, {
-            enableHighAccuracy: true,
-            timeout: 5000,
-            maximumAge: 0
+        // Check for mobile/desktop on resize
+        window.addEventListener('resize', function() {
+            isMobile = window.innerWidth < 768;
+            
+            // If panel is open and user resizes to mobile, close panel and open modal
+            if (isMobile && detailPanel.classList.contains('open')) {
+                detailPanel.classList.remove('open');
+                document.getElementById('map').classList.remove('panel-open');
+                
+                if (activeLayer) {
+                    // Get feature data from active layer and show in modal
+                    const feature = activeLayer.feature;
+                    mobileModal.classList.add('open');
+                    mobileModal.style.display = 'block';
+                }
+            } 
+            // If modal is open and user resizes to desktop, close modal and open panel
+            else if (!isMobile && mobileModal.classList.contains('open')) {
+                mobileModal.classList.remove('open');
+                
+                if (activeLayer) {
+                    // Get feature data from active layer and show in panel
+                    detailPanel.classList.add('open');
+                    document.getElementById('map').classList.add('panel-open');
+                }
+            }
+            
+            map.invalidateSize();
         });
-    } else {
-        document.getElementById('location-error').textContent = "Geolocation is not supported by your browser";
-        document.getElementById('location-error').style.display = 'block';
-    }
 
-    fetch('/static/hfxbikeparking.geojson')
-        .then(response => {
-            return response.json();
-        })
-        .then(data => {
-            bikeLayer = L.geoJSON(data, {
-                pointToLayer: function(feature, latlng) {
-                    let radius = feature.properties.Size !== undefined
-                        ? feature.properties.Size
-                        : 3;
+        // Log visible points function
+        function logVisiblePoints() {
+            if (!bikeLayer) return;
 
-                    return L.circleMarker(latlng, {
-                        radius: radius,
-                        color: "#000",
-                        weight: 1,
-                        opacity: 1,
-                        fillOpacity: 0.8
+            const bounds = map.getBounds();
+            const visiblePoints = [];
+
+            bikeLayer.eachLayer(function(layer) {
+                if (bounds.contains(layer.getLatLng())) {
+                    const properties = layer.feature.properties;
+                    visiblePoints.push({
+                        type: properties.Type,
+                        size: properties.Size,
+                        description: properties.description,
+                        filename: properties.filename,
+                        location: layer.getLatLng()
                     });
-                },
-                onEachFeature: function(feature, layer) {
-                    // Create a popup with feature properties
-                    if (!feature.properties) {
-                        return;
-                    }
+                }
+            });
 
-                    let popupContent = `<strong>Type:</strong> ${feature.properties.Type}<br>`;
+            console.log('Visible bike parking points:', visiblePoints);
+            console.log('Total visible points:', visiblePoints.length);
+        }
 
-                    if (feature.properties.Size !== undefined) {
-                        popupContent += `<strong>Size:</strong> ${feature.properties.Size}<br>`;
+        // Request user location
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(locationSuccess, locationError, {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 0
+            });
+        }
 
-                    }
+        // Load and display bike parking data
+        fetch('/static/hfxbikeparking.geojson')
+            .then(response => response.json())
+            .then(data => {
+                bikeLayer = L.geoJSON(data, {
+                    pointToLayer: function(feature, latlng) {
+                        let radius = feature.properties.Size !== undefined
+                            ? feature.properties.Size
+                            : 3;
 
-                    if (feature.properties.description !== null && feature.properties.description !== undefined) {
-                        popupContent += `<strong>Note:</strong> ${feature.properties.description}<br>`;
-                    }
-
-                    if (feature.properties.filename !== undefined) {
-                        popupContent += `<p><img src="/static/hfxbikeparking/${feature.properties.filename}" alt="Bike Parking Image" style="max-width: 100%;"></p>`;
-                    }
-
-                    layer.bindPopup(popupContent, {
-                        className: 'feature-popup',
-                        maxWidth: 400
-                    });
-
-                    // Add hover interactions
-                    layer.on({
-                        mouseover: function(e) {
-                            layer.openPopup();
+                        return L.circleMarker(latlng, {
+                            radius: radius,
+                            color: "#000",
+                            weight: 1,
+                            opacity: 1,
+                            fillOpacity: 0.8
+                        });
+                    },
+                    onEachFeature: function(feature, layer) {
+                        // Instead of binding popup, add click handler
+                        layer.on('click', function(e) {
+                            // Reset style of previously active layer if exists
+                            if (activeLayer && activeLayer !== layer) {
+                                activeLayer.setStyle({
+                                    weight: 1,
+                                    color: '#000'
+                                });
+                            }
+                            
+                            // Set this layer as active and highlight it
+                            activeLayer = layer;
                             layer.setStyle({
                                 weight: 3,
                                 color: '#ffff00' // Highlight with yellow border
                             });
-                        },
-                        mouseout: function(e) {
-                            layer.closePopup();
-                            layer.setStyle({
-                                weight: 1,
-                                color: '#000'
-                            });
+                            
+                            // Show details in panel/modal
+                            showFeatureDetails(feature);
+                            
+                            // Stop propagation to prevent map click from closing panel
+                            L.DomEvent.stopPropagation(e);
+                        });
+                        
+                        // Add hover effect (but don't show popup)
+                        layer.on({
+                            mouseover: function(e) {
+                                if (layer !== activeLayer) {
+                                    layer.setStyle({
+                                        weight: 2,
+                                        color: '#ffff00' // Highlight with yellow border
+                                    });
+                                }
+                            },
+                            mouseout: function(e) {
+                                if (layer !== activeLayer) {
+                                    layer.setStyle({
+                                        weight: 1,
+                                        color: '#000'
+                                    });
+                                }
+                            }
+                        });
+                    },
+                    style: function(feature) {
+                        return {
+                            fillColor: getColor(feature.properties.Type),
                         }
-                    });
-                },
-                style: function(feature) {
-                    return {
-                        fillColor: getColor(feature.properties.Type),
                     }
-                }
-            }).addTo(map);
+                }).addTo(map);
 
-            // Add event listeners for map movements
-            map.on('moveend', logVisiblePoints);
-            map.on('zoomend', logVisiblePoints);
-        }).
-        catch(error => {
-            console.error('Error loading or parsing GeoJSON file:', error);
-        });
-  </script>
+                // Add event listeners for map movements
+                map.on('moveend', logVisiblePoints);
+                map.on('zoomend', logVisiblePoints);
+                
+                // Close panel/modal when clicking elsewhere on map
+                map.on('click', closeDetails);
+            })
+            .catch(error => {
+                console.error('Error loading or parsing GeoJSON file:', error);
+            });
+    </script>
 </body>
 </html>
