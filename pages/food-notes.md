@@ -6,6 +6,7 @@ I cook — a lot — for the whole family. These are my notes as they come to me
 It's a combination of culinary discoveries as well as tips that are typically
 applicable to a variety of dishes.
 
+* 04/29/2025: Over the weekend I picked up some sausages from the farmer's market and the only buns I could procure were of the Wonder Bread variety. They are OK, but not great. However, I steamed them and they morphed into something completely upgraded. So, sometimes, it's good to steam your buns!
 * 01/28/2025: Put a fried egg on it!
 * 01/28/2025: Many times when you think you need more salt, you actually need more acid. Throw in some vinegar (or lemon juice, etc) instead of the salt. Thanks [Deb Perlman](https://smittenkitchen.com/)
 * 12/03/2024: Chicken Soup/Stock: Breast is best for flavour, feet/wings for texture. Don't overcook the breast, and take it out once it's fully cooked (low simmer). Then, cook the rest of the carcass for collagen extraction.
