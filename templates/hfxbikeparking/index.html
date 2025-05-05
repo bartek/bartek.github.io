@@ -287,6 +287,7 @@
                 case 'Wheel Slot Corral': return "#ae96dc";
                 case 'Triangle Corral': return "#eec36f";
                 case 'Ornamental': return "#b0b06f";
+                case 'Locker': return "#7f7f7f";
                 default: return "#a2a2a2";
             }
         }
@@ -376,6 +377,16 @@
                             <div class="info-label">Type:</div>
                             <div class="info-value">${feature.properties.Type}</div>
                         </div>`;
+
+            // Date added per original capture.
+            if (feature.properties.date !== undefined ) {
+               let date = new Date(feature.properties.date);
+               content += `<div class="panel-info">
+                           <div class="info-item">
+                               <div class="info-label">Date Added:</div>
+                               <div class="info-value">${date.toDateString()}</div>
+                           </div>`;
+            }
                         
             if (feature.properties.Size !== undefined) {
                 content += `<div class="info-item">
@@ -383,20 +394,20 @@
                             <div class="info-value">${feature.properties.Size}</div>
                           </div>`;
             }
-            
+
             content += `</div>`;
-            
+
             // Add description/note if available
-            if (feature.properties.description !== null && feature.properties.description !== undefined) {
+            if (feature.properties.description !== undefined && feature.properties.description !== null) {
                 content += `<div class="panel-note">
                             <strong>Note:</strong> ${feature.properties.description}
                           </div>`;
             }
-            
+
             // Update content in both desktop panel and mobile modal
             panelContent.innerHTML = content;
             modalBody.innerHTML = content;
-            
+
             // Set titles
             document.querySelector('.panel-title').textContent = `${feature.properties.Type}`;
             document.querySelector('.modal-title').textContent = `${feature.properties.Type}`;
