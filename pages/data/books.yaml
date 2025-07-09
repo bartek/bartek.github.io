@@ -1,0 +1,310 @@
+books:
+  - title: "Basic Economics"
+    subtitle: "A Citizen's Guide to the Economy"
+    date: "2020-01-01"
+    author: "Thomas Sowell"
+    published: "12/24/2003"
+    category: "Nonfiction"
+    pages: 640
+    cover_url: "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1388328985l/3023.jpg"
+    goodreads_url: "https://www.goodreads.com/book/show/3023.Basic_Economics?from_search=true&qid=ntOgwdXXMx&rank=2"
+
+  - title: "Permanent Record"
+    subtitle: ""
+    date: "2020-01-01"
+    author: "Edward Snowden"
+    published: "9/17/2019"
+    category: "Biography"
+    pages: 339
+    cover_url: "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1564666396l/46223297.jpg"
+    goodreads_url: "https://www.goodreads.com/book/show/46223297-permanent-record?from_search=true&qid=re1yXTMNzz&rank=1"
+
+  - title: "Designing Data-Intensive Applications"
+    subtitle: ""
+    date: "2020-01-01"
+    author: "Martin Kleppmann"
+    published: "4/25/2015"
+    category: "Technical"
+    pages: 562
+    cover_url: "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1415816873l/23463279.jpg"
+    goodreads_url: "https://www.goodreads.com/book/show/23463279-designing-data-intensive-applications?from_search=true&qid=flLlt6ui5w&rank=1"
+
+  - title: "Slime"
+    subtitle: "How Algae created us, plague us, and just might save us"
+    date: "2020-01-01"
+    author: "Ruth Kasinger"
+    published: ""
+    category: "Our World"
+    pages: 320
+    cover_url: "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1555159111l/40796205.jpg"
+    goodreads_url: "https://www.goodreads.com/book/show/40796205-slime?from_search=true&qid=ABGATe1JAM&rank=1"
+
+  - title: "Resilient Management"
+    subtitle: ""
+    date: "2020-02-01"
+    author: "Lara Hogan"
+    published: ""
+    category: "Management"
+    pages: 105
+    cover_url: "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1557845913l/45767533._SY475_.jpg"
+    goodreads_url: "https://www.goodreads.com/book/show/45767533-resilient-management?from_search=true&qid=jX3ksmoO2C&rank=1"
+
+  - title: "The Five Dysfunctions of a Team"
+    subtitle: ""
+    date: "2020-02-01"
+    author: "Patrick Lencioni"
+    published: ""
+    category: "Management"
+    pages: 229
+    cover_url: "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1400841022l/21343.jpg"
+    goodreads_url: "https://www.goodreads.com/book/show/21343.The_Five_Dysfunctions_of_a_Team"
+
+  - title: "An Elegant Puzzle: Systems of Engineering Management"
+    subtitle: ""
+    date: "2020-04-01"
+    author: "Will Larson"
+    published: ""
+    category: "Management"
+    pages: 289
+    cover_url: "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1556221385l/45303387._SX318_.jpg"
+    goodreads_url: "https://www.goodreads.com/en/book/show/45303387-an-elegant-puzzle"
+
+  - title: "The Making of Prince of Persia: Journals 1985-1993"
+    subtitle: ""
+    date: "2020-07-01"
+    author: "Jordan Mechner"
+    published: ""
+    category: "Innovation & Creativity"
+    pages: 336
+    cover_url: "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1585588886l/52824295._SX318_.jpg"
+    goodreads_url: "https://www.goodreads.com/book/show/52824295-the-making-of-prince-of-persia"
+
+  - title: "A Sense of Values"
+    subtitle: ""
+    date: "2020-08-01"
+    author: "Lewis Chase"
+    published: ""
+    category: "Philosophy"
+    pages: 69
+    cover_url: "https://s.gr-assets.com/assets/nophoto/book/blank-133x176-8b769f39ba6687a82d2eef30bdf46977.jpg"
+    goodreads_url: "https://www.goodreads.com/book/show/4526093-a-sense-of-values?from_search=true&from_srp=true&qid=A1T3roM1xO&rank=1"
+
+  - title: "Hell Yeah or No: what's worth doing"
+    subtitle: "what's worth doing"
+    date: "2020-08-13"
+    author: "Derek Sivers"
+    published: ""
+    category: "Philosophy"
+    pages: 122
+    cover_url: "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1594784873l/52523856._SX318_.jpg"
+    goodreads_url: "https://www.goodreads.com/book/show/52523856-hell-yeah-or-no?from_search=true&from_srp=true&qid=SSmde5rcAq&rank=2"
+
+  - title: "A Brief History of Time"
+    subtitle: ""
+    date: "2020-10-30"
+    author: "Stephen Hawking"
+    published: ""
+    category: "Our World"
+    pages: 256
+    cover_url: "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1333578746l/3869.jpg"
+    goodreads_url: "https://www.goodreads.com/book/show/3869.A_Brief_History_of_Time"
+
+  - title: "Red Moon"
+    subtitle: ""
+    date: "2020-12-01"
+    author: "Kim Stanley Robinson"
+    published: ""
+    category: "Fiction"
+    pages: 446
+    cover_url: "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1520263303l/38496710._SY475_.jpg"
+    goodreads_url: "https://www.goodreads.com/book/show/38496710-red-moon"
+
+  - title: "Night"
+    date: "2021-01-15"
+    subtitle: ""
+    author: "Elie Wiesel"
+    published: ""
+    category: "History"
+    pages: 115
+    cover_url: "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1575073611l/1617.jpg"
+    goodreads_url: "https://www.goodreads.com/book/show/1617.Night"
+
+  - title: "Kafka: The Definitive Guide"
+    date: "2021-02-05"
+    subtitle: ""
+    author: "Neha Narkhede"
+    published: ""
+    category: "Technical"
+    pages: 322
+    cover_url: "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1451245484l/28321010.jpg"
+    goodreads_url: "https://www.goodreads.com/book/show/28321010-kafka"
+
+  - title: "The Golem and the Jinni"
+    date: "2021-02-20"
+    subtitle: ""
+    author: "Helene Weckeer"
+    published: ""
+    category: "Fiction"
+    pages: 486
+    cover_url: "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1349205573l/15819028.jpg"
+    goodreads_url: "https://www.goodreads.com/book/show/15819028-the-golem-and-the-jinni"
+
+  - title: "The Bear and the Nightingale"
+    date: "2021-03-15"
+    subtitle: ""
+    author: "Katherine Arden"
+    published: ""
+    category: "Fiction"
+    pages: 319
+    cover_url: "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1611440212l/25489134._SX318_.jpg"
+    goodreads_url: "https://www.goodreads.com/book/show/25489134-the-bear-and-the-nightingale"
+
+  - title: "Fatelessness"
+    date: "2021-07-09"
+    subtitle: ""
+    author: "Imre Kertész, Tim Wilkinson (Translator)"
+    published: ""
+    category: "History"
+    pages: 262
+    cover_url: "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1348898439l/318335.jpg"
+    goodreads_url: "https://www.goodreads.com/book/show/318335.Fatelessness"
+
+  - title: "The Invention of Nature"
+    date: "2021-07-09"
+    subtitle: "Alexander von Humboldt's New World"
+    author: "Andrea Wulf"
+    published: ""
+    category: "Our World"
+    pages: 473
+    cover_url: "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1452449264l/23995249.jpg"
+    goodreads_url: "https://www.goodreads.com/book/show/23995249-the-invention-of-nature"
+
+  - title: "Project Hail Mary"
+    date: "2021-10-01"
+    subtitle: ""
+    author: "Andy Weir"
+    published: ""
+    category: "Fiction"
+    pages: 476
+    cover_url: "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1597695864l/54493401.jpg"
+    goodreads_url: "https://www.goodreads.com/book/show/54493401-project-hail-mary"
+
+  - title: "The Checklist Manifesto"
+    date: "2021-11-01"
+    subtitle: "How to Get Things Right"
+    author: "Atul Gawande"
+    published: ""
+    category: "Productivity"
+    pages: 208
+    cover_url: "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1312061594l/6667514.jpg"
+    goodreads_url: "https://www.goodreads.com/book/show/6667514-the-checklist-manifesto"
+
+  - title: "The Frackers"
+    date: "2022-01-02"
+    subtitle: "The Outrageous Inside Story of the New Billionaire Wildcatters"
+    author: "Gregory Zuckerman"
+    published: ""
+    category: "Our World"
+    pages: 208
+    cover_url: "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1372054121l/17707481.jpg"
+    goodreads_url: "https://www.goodreads.com/book/show/17707481-the-frackers"
+
+  - title: "This Is Your Mind On Plants"
+    date: "2022-04-10"
+    subtitle: ""
+    author: "Michael Pollan"
+    published: ""
+    category: "Our World"
+    pages: 288
+    cover_url: "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1606111590l/56015023._SY475_.jpg"
+    goodreads_url: "https://www.goodreads.com/book/show/56015023-this-is-your-mind-on-plants"
+
+  - title: "Build"
+    date: "2022-09-10"
+    subtitle: ""
+    author: "Tony Fadell"
+    published: ""
+    category: "Startups"
+    pages: 380
+    cover_url: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1652120231i/59696349.jpg"
+    goodreads_url: "https://www.goodreads.com/book/show/59696349-build"
+
+  - title: "Conscious"
+    date: "2022-10-28"
+    subtitle: ""
+    author: "Annaka Harris"
+    published: ""
+    category: "Our World"
+    pages: 120
+    cover_url: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1551281961i/41571759.jpg"
+    goodreads_url: "https://www.goodreads.com/book/show/41571759-conscious"
+
+  - title: "The Last Lecture"
+    date: "2023-09-07"
+    subtitle: ""
+    author: "Randy Pausch, Jeffrey Zaslow"
+    published: ""
+    category: "Our World"
+    pages: 120
+    cover_url: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1529682044i/40611510.jpg"
+    goodreads_url: "https://www.goodreads.com/book/show/40611510-the-last-lecture"
+
+  - title: "The Soul of a New Machine"
+    date: "2024-02-01"
+    subtitle: ""
+    author: "Tracy Kidder"
+    published: ""
+    category: "Startups"
+    pages: 293
+    cover_url: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1627012239i/7090.jpg"
+    goodreads_url: "https://www.goodreads.com/book/show/7090.The_Soul_of_a_New_Machine"
+
+  - title: "All Systems Red"
+    date: "2024-04-27"
+    subtitle: ""
+    author: "Martha Wells"
+    published: ""
+    category: "Science Fiction"
+    pages: 144
+    cover_url: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1631585309i/32758901.jpg"
+    goodreads_url: "https://www.goodreads.com/book/show/32758901-all-systems-red"
+
+  - title: "Endurance"
+    date: "2024-07-20"
+    subtitle: "Shackleton's Incredible Voyage"
+    author: "Alfred Lansing"
+    published: ""
+    category: "History"
+    pages: 282
+    cover_url: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1391329559i/139069.jpg"
+    goodreads_url: "https://www.goodreads.com/book/show/139069.Endurance"
+
+  - title: "Hard Rain Falling"
+    date: "2024-08-08"
+    subtitle: ""
+    author: "Don Carpenter"
+    published: ""
+    category: "Crime/Noir"
+    pages: 308
+    cover_url: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1682851327i/6553843.jpg"
+    goodreads_url: "https://www.goodreads.com/book/show/6553843-hard-rain-falling"
+
+  - title: "No Longer Human"
+    date: "2025-01-01"
+    subtitle: ""
+    author: "Osamu Dazai"
+    published: "1/1/1948"
+    category: "Fiction"
+    pages: 176
+    cover_url: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1422638843i/194746.jpg"
+    goodreads_url: "https://www.goodreads.com/book/show/194746.No_Longer_Human"
+
+  - title: "The Bell Jar"
+    date: "2025-01-01"
+    subtitle: ""
+    author: "Sylvia Plath"
+    published: "1/1/1963"
+    category: "Fiction"
+    pages: 288
+    cover_url: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1668645154i/56616095.jpg"
+    goodreads_url: "https://www.goodreads.com/book/show/56616095-the-bell-jar"
