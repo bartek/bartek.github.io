@@ -339,6 +339,25 @@
             console.log(message);
         }
 
+        // Halifax bounds (approximate)
+        const halifaxBounds = {
+            north: 44.73,
+            south: 44.58,
+            east: -63.45,
+            west: -63.75
+        };
+
+        // Halifax peninsula center coordinates
+        const halifaxPeninsulaCenter = [44.6488, -63.5752];
+
+        // Function to check if coordinates are within Halifax bounds
+        function isWithinHalifaxBounds(lat, lng) {
+            return lat >= halifaxBounds.south && 
+                   lat <= halifaxBounds.north && 
+                   lng >= halifaxBounds.west && 
+                   lng <= halifaxBounds.east;
+        }
+
         // Function to handle successful location retrieval
         function locationSuccess(position) {
             const latitude = position.coords.latitude;
@@ -357,8 +376,14 @@
                 }).addTo(map);
             }
 
-            // Center map on user location and zoom in
-            map.setView([latitude, longitude], 16);
+            // Check if user is within Halifax bounds
+            if (isWithinHalifaxBounds(latitude, longitude)) {
+                // Use precise location if within Halifax
+                map.setView([latitude, longitude], 16);
+            } else {
+                // Center on Halifax peninsula if outside bounds
+                map.setView(halifaxPeninsulaCenter, 13);
+            }
         }
 
         // Function to display feature details in panel or modal
