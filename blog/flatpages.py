@@ -31,11 +31,10 @@ def jinja_parse(content: str, context: dict) -> str:
     t = env.from_string(content)
 
     # Silly, but makes life easy. If we identify a data key in the YAML context,
-    # extract that for rendering purposes. Assumes JSON data as well.
+    # extract that for rendering purposes. 
     if "data" in context:
-        data_option_choices = ["order"]
         with open(os.path.join(BASE_DIR, "pages", context["data"])) as f:
-            context["data"] = json.loads(f.read())
+            context["data"] = yaml.safe_load(f.read())
 
     render_context = context.get("data", {})
     return t.render(**render_context)
