@@ -333,6 +333,23 @@
                    lng <= halifaxBounds.east;
         }
 
+        function getRadiusForZoom(baseSize) {
+            const zoom = map.getZoom();
+            // Scale factor increases with zoom level. Multiplier is the main knob.
+            const scaleFactor = 1 + (zoom - 13) * 0.5;
+            return baseSize * Math.max(0.5, scaleFactor);
+        }
+
+        function updateMarkerSizes() {
+            if (!bikeLayer) return;
+            bikeLayer.eachLayer(function(layer) {
+                const baseSize = layer.feature.properties.Size !== undefined
+                    ? layer.feature.properties.Size
+                    : 3;
+                layer.setRadius(getRadiusForZoom(baseSize));
+            });
+        }
+
         // Function to handle successful location retrieval
         function locationSuccess(position) {
             const latitude = position.coords.latitude;
@@ -596,7 +613,8 @@
                 // Add event listeners for map movements
                 map.on('moveend', logVisiblePoints);
                 map.on('zoomend', logVisiblePoints);
-                
+                map.on('zoomend', updateMarkerSizes);
+
                 // Close panel/modal when clicking elsewhere on map
                 map.on('click', closeDetails);
             })
