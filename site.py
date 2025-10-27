@@ -39,6 +39,11 @@ def hfxbenches():
     """
     return render_template("hfxbenches/index.html", token=os.environ.get('MAPBOX_TOKEN'))
 
+@app.route("/hfxurbanforage")
+def hfxurbanforage():
+    return render_template("hfxurbanforage/index.html", token=os.environ.get('MAPBOX_TOKEN'))
+
+
 @app.route("/hfxbikeparking/gallery/")
 def bikegallery():
     return render_template("hfxbikeparking/gallery.html")

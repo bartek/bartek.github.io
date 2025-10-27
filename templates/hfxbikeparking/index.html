@@ -336,7 +336,7 @@
         function getRadiusForZoom(baseSize) {
             const zoom = map.getZoom();
             // Scale factor increases with zoom level. Multiplier is the main knob.
-            const scaleFactor = 1 + (zoom - 13) * 0.5;
+            const scaleFactor = 1 + (zoom - 13) * 0.3;
             return baseSize * Math.max(0.5, scaleFactor);
         }
 
