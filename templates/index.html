@@ -1,9 +1,5 @@
 {% extends "base.html" %}
 
-{% macro weeknote(n) %}
-    <td><a href="{{ url_for("page_with_prefix", path="weeknotes-wk" ~ n) }}">WK{{ n }}</a></td>
-{% endmacro %}
-
 {% block content %}
     <p>I'm a Polish Canadian currently residing in Halifax, Nova
     Scotia with my wife and two kids. I spend most of
@@ -23,37 +19,12 @@
     <p><a href='https://justbartek.ca/hfxbikeparking'><img src='/static/bike-parking.png' alt='bike parking map' style='width: 100%; max-width: 600px; margin: 0 auto; display: block;'></a></p>
 
 
-    <h3>weeknotes</h3>
-    <p>an attempt to capture weekly thoughts, learnings, questions</p>
-    <table>
-        <tr>
-            {{ weeknote(1) }}
-            {{ weeknote(2) }}
-            {{ weeknote(3) }}
-            {{ weeknote(4) }}
-            {{ weeknote(5) }}
-        </tr>
-        <tr>
-            {{ weeknote(6) }}
-            {{ weeknote(7) }}
-            {{ weeknote(8) }}
-            {{ weeknote(9) }}
-            {{ weeknote(10) }}
-        </tr>
-    </table>
-
-    <h3>Blog</h3>
+    <h3>Posts</h3>
 
     <ul>
-        <li><a href='{{ url_for("page_with_prefix", path="food-notes") }}'>foodnotes</a></li>
-        <li><a href='{{ url_for("page_with_prefix", path="blomidon") }}'>Blomidon Provincial Park</a></li>
-        <li><a href='{{ url_for("page_with_prefix", path="1300") }}'>1,300</a></li>
-        <li><a href='{{ url_for("page_with_prefix", path="git-fixup") }}'>Refining my git workflow with --fixup</a></li>
-        <li><a href='{{ url_for("page_with_prefix", path="wisdom") }}'>Developing Wisdom</a></li>
-        <li><a href='{{ url_for("page_with_prefix", path="golang-context-wg-go-routines") }}'>Using Go's Context and WaitGroup to gracefully handle goroutines</a></li>
-        <li><a href='{{ url_for("page_with_prefix", path="aws-good-parts") }}'>the good parts of aws</a></li>
-        <li><a href='{{ url_for("page_with_prefix", path="analytics-without-google") }}'>analytics without google</a></li>
-        <li><a href='{{ url_for("page_with_prefix", path="tasklist") }}'>the task list</a></li>
+        {% for post in posts %}
+        <li><a href='{{ url_for("page_with_prefix", path="posts/" ~ post.slug) }}'>{{ post.title }}</a></li>
+        {% endfor %}
     </ul>
 
     <h3>You can also find me here:</h3>

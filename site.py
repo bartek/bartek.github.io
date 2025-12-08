@@ -12,7 +12,13 @@ discover_pages(app)
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    posts = []
+    for key, full_path in app.page_index.items():
+        if key.startswith('posts/'):
+            page = get_page(full_path)
+            posts.append({'slug': key.replace('posts/', ''), 'title': page.get('title', key), 'date': page.get('date')})
+    posts.sort(key=lambda p: p['date'] or 0, reverse=True)
+    return render_template("index.html", posts=posts)
 
 
 @freezer.register_generator
@@ -31,18 +37,6 @@ def page_with_prefix(path):
     if not page:
         abort(404)
     return render_template("page.html", page=page)
-
-@app.route("/hfxbenches/")
-def hfxbenches():
-    """
-    Pointer to github.com/bartek/hfxbenches build
-    """
-    return render_template("hfxbenches/index.html", token=os.environ.get('MAPBOX_TOKEN'))
-
-
-@app.route("/hfxbikeparking/gallery/")
-def bikegallery():
-    return render_template("hfxbikeparking/gallery.html")
 
 @app.route("/hfxbikeparking/")
 def hfxbikeparking():
