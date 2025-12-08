@@ -3,6 +3,9 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
 footer,
@@ -79,6 +82,37 @@ h1 a:hover { text-decoration: underline; }
 p, li {
     font-size: 1rem;
     line-height: 1.825em;
+}
+
+/* Override MVP.css inline-block links for better text flow */
+main a {
+    display: inline;
+}
+
+/* Responsive weeknotes table */
+table {
+    width: 100%;
+}
+
+@media (max-width: 500px) {
+    table td {
+        display: block;
+        padding: 0.5rem 0;
+    }
+    table tr {
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Section spacing */
+h3 {
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+}
+
+h3:first-of-type {
+    margin-top: 1.5rem;
 }
 
 .book-shelf {
