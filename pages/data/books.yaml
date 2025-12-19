@@ -308,3 +308,13 @@ books:
     pages: 288
     cover_url: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1668645154i/56616095.jpg"
     goodreads_url: "https://www.goodreads.com/book/show/56616095-the-bell-jar"
+
+  - title: "Shattered City"
+    date: "2025-12-01"
+    subtitle: "The Halifax Explosion and the Road to Recovery"
+    author: "Janet F. Kitz"
+    published: "12/31/1989"
+    category: "History"
+    pages: 231
+    cover_url: "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1226891421i/560614.jpg"
+    goodreads_url: "https://www.goodreads.com/book/show/560614.Shattered_City"

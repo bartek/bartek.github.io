@@ -38,6 +38,11 @@ be added)
   Live minimally, experience big.
 * As your family grows, so too will the sparks of new traditions emerge. Try them out and nurture the ones that stick. Traditions, rituals, and ceremony in are an important bonding mechanism.
 
+## Finances
+
+* If possible, pay yourself first (a dollar saved is ~$2 dollars earned)
+* 
+
 ## Career
 
 * Be kind. Don't gate keep. Follow the Pac-Man Rule[^4]
