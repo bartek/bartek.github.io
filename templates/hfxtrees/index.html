@@ -240,12 +240,42 @@
 
         @media screen and (max-width: 767px) {
             #detail-panel { display: none; }
-            .filter-control { min-width: 170px; font-size: 12px; }
-            .legend-control { min-width: 140px; }
+            .filter-control {
+                min-width: auto;
+                max-width: 180px;
+                font-size: 12px;
+                padding: 8px 10px;
+            }
+            .filter-control.collapsed .filter-body { display: none; }
+            .filter-control h4 {
+                margin: 0;
+                border: none;
+                padding: 0;
+                cursor: pointer;
+            }
+            .filter-toggle {
+                display: inline;
+                margin-left: 4px;
+                font-size: 10px;
+            }
+            .legend-control {
+                min-width: auto;
+                max-width: 140px;
+                padding: 6px 10px;
+                max-height: 30vh;
+                font-size: 11px;
+            }
+            .legend-control.collapsed .legend-body { display: none; }
+            .legend-control h4 {
+                margin: 0;
+                cursor: pointer;
+                font-size: 12px;
+            }
         }
         @media screen and (min-width: 768px) {
             #mobile-modal { display: none !important; }
             #map.panel-open { width: calc(100vw - 400px); }
+            .filter-toggle { display: none; }
         }
     </style>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
@@ -387,7 +417,8 @@
         filterControl.onAdd = function() {
             var div = L.DomUtil.create('div', 'filter-control');
             div.innerHTML = `
-                <h4><i class="fas fa-filter"></i> Filters</h4>
+                <h4><i class="fas fa-filter"></i> Filters <i class="fas fa-chevron-down filter-toggle"></i></h4>
+                <div class="filter-body">
                 <div class="filter-section">
                     <label>Category</label>
                     <select id="category-filter">
@@ -424,6 +455,7 @@
                 <button class="filter-btn" id="apply-filter">Apply Filters</button>
                 <button class="filter-btn" id="reset-filter">Reset</button>
                 <div class="tree-count" id="tree-count"></div>
+                </div>
             `;
             L.DomEvent.disableClickPropagation(div);
             L.DomEvent.disableScrollPropagation(div);
@@ -435,7 +467,7 @@
         var legendControl = L.control({ position: 'bottomright' });
         legendControl.onAdd = function() {
             var div = L.DomUtil.create('div', 'legend-control');
-            var html = '<h4>Genus</h4>';
+            var html = '<h4>Genus <i class="fas fa-chevron-down filter-toggle"></i></h4><div class="legend-body">';
             for (var genus in genusColors) {
                 html += '<div class="legend-item" data-genus="' + genus + '">' +
                     '<span class="legend-dot" style="background:' + genusColors[genus] + '"></span>' +
@@ -443,13 +475,41 @@
             }
             html += '<div class="legend-item" data-genus="Other">' +
                 '<span class="legend-dot" style="background:' + otherColor + '"></span>' +
-                '<span class="legend-label">Other</span></div>';
+                '<span class="legend-label">Other</span></div></div>';
             div.innerHTML = html;
             L.DomEvent.disableClickPropagation(div);
             L.DomEvent.disableScrollPropagation(div);
             return div;
         };
         legendControl.addTo(map);
+
+        // Collapse filter & legend on mobile by default
+        if (isMobile) {
+            document.querySelector('.filter-control').classList.add('collapsed');
+            document.querySelector('.filter-control .filter-toggle').classList.replace('fa-chevron-down', 'fa-chevron-right');
+            document.querySelector('.legend-control').classList.add('collapsed');
+            document.querySelector('.legend-control .filter-toggle').classList.replace('fa-chevron-down', 'fa-chevron-right');
+        }
+
+        // Toggle collapse on h4 click (mobile)
+        document.querySelector('.filter-control h4').addEventListener('click', function() {
+            var ctrl = this.closest('.filter-control');
+            ctrl.classList.toggle('collapsed');
+            var toggle = this.querySelector('.filter-toggle');
+            if (toggle) {
+                toggle.classList.toggle('fa-chevron-right', ctrl.classList.contains('collapsed'));
+                toggle.classList.toggle('fa-chevron-down', !ctrl.classList.contains('collapsed'));
+            }
+        });
+        document.querySelector('.legend-control h4').addEventListener('click', function() {
+            var ctrl = this.closest('.legend-control');
+            ctrl.classList.toggle('collapsed');
+            var toggle = this.querySelector('.filter-toggle');
+            if (toggle) {
+                toggle.classList.toggle('fa-chevron-right', ctrl.classList.contains('collapsed'));
+                toggle.classList.toggle('fa-chevron-down', !ctrl.classList.contains('collapsed'));
+            }
+        });
 
         // Populate species dropdown from data
         function populateSpeciesFilter(data) {
