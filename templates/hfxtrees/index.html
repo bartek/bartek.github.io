@@ -515,8 +515,8 @@
         function populateSpeciesFilter(data) {
             var species = {};
             data.features.forEach(function(f) {
-                var name = f.properties.SP_COMM || 'Unknown';
-                var sci = f.properties.SP_SCIEN || '';
+                var name = f.properties.c || 'Unknown';
+                var sci = f.properties.s || '';
                 var key = name + (sci ? ' (' + sci + ')' : '');
                 if (!species[key]) {
                     species[key] = { count: 0, sci: sci };
@@ -543,11 +543,11 @@
 
             treeLayer = L.geoJSON(data, {
                 pointToLayer: function(feature, latlng) {
-                    var dbh = feature.properties.DBH || 1;
+                    var dbh = feature.properties.d || 1;
                     var baseRadius = Math.max(2, Math.min(dbh * 1.2, 10));
                     return L.circleMarker(latlng, {
                         radius: baseRadius,
-                        fillColor: getColor(feature.properties.SP_SCIEN),
+                        fillColor: getColor(feature.properties.s),
                         color: '#000',
                         weight: 0.5,
                         opacity: 0.8,
@@ -613,19 +613,19 @@
 
                 // Category filter
                 if (catVal) {
-                    if (getCategory(p.SP_SCIEN) !== catVal) return false;
+                    if (getCategory(p.s) !== catVal) return false;
                 }
 
                 // Species filter
                 if (speciesVal) {
-                    var name = p.SP_COMM || 'Unknown';
-                    var sci = p.SP_SCIEN || '';
+                    var name = p.c || 'Unknown';
+                    var sci = p.s || '';
                     var key = name + (sci ? ' (' + sci + ')' : '');
                     if (key !== speciesVal) return false;
                 }
 
                 // DBH filter
-                var dbh = p.DBH;
+                var dbh = p.d;
                 if (!isNaN(dbhMin) && (dbh === null || dbh < dbhMin)) return false;
                 if (!isNaN(dbhMax) && (dbh === null || dbh > dbhMax)) return false;
 
@@ -649,50 +649,50 @@
         // Show tree details in panel/modal
         function showFeatureDetails(feature) {
             var p = feature.properties;
-            var genus = getGenus(p.SP_SCIEN);
-            var color = getColor(p.SP_SCIEN);
+            var genus = getGenus(p.s);
+            var color = getColor(p.s);
 
             var content = '<div class="panel-info">';
             content += '<div class="info-item"><div class="info-label">Common Name</div><div class="info-value">' +
-                (p.SP_COMM || 'Unknown') + '</div></div>';
+                (p.c || 'Unknown') + '</div></div>';
             content += '<div class="info-item"><div class="info-label">Scientific</div><div class="info-value"><em>' +
-                (p.SP_SCIEN || 'Unknown') + '</em></div></div>';
+                (p.s || 'Unknown') + '</em></div></div>';
             content += '<div class="info-item"><div class="info-label">Category</div><div class="info-value">' +
-                getCategory(p.SP_SCIEN) + '</div></div>';
+                getCategory(p.s) + '</div></div>';
             content += '<div class="info-item"><div class="info-label">Genus</div><div class="info-value">' +
                 '<span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:' +
                 color + ';margin-right:6px;vertical-align:middle;border:1px solid rgba(0,0,0,0.2)"></span>' +
                 genus + '</div></div>';
-            if (p.DBH !== null) {
+            if (p.d !== null) {
                 content += '<div class="info-item"><div class="info-label">Diameter</div><div class="info-value">' +
-                    (dbhLabels[p.DBH] || p.DBH) + '</div></div>';
+                    (dbhLabels[p.d] || p.d) + '</div></div>';
             }
-            if (p.INSTYR) {
+            if (p.y) {
                 content += '<div class="info-item"><div class="info-label">Planted</div><div class="info-value">' +
-                    p.INSTYR + '</div></div>';
+                    p.y + '</div></div>';
             }
-            if (p.LOCGEN) {
+            if (p.l) {
                 content += '<div class="info-item"><div class="info-label">Location</div><div class="info-value">' +
-                    p.LOCGEN + '</div></div>';
+                    p.l + '</div></div>';
             }
-            if (p.OWNER) {
+            if (p.o) {
                 content += '<div class="info-item"><div class="info-label">Owner</div><div class="info-value">' +
-                    p.OWNER + '</div></div>';
+                    p.o + '</div></div>';
             }
-            if (p.WIRES) {
+            if (p.w) {
                 content += '<div class="info-item"><div class="info-label">Near Wires</div><div class="info-value">' +
-                    (p.WIRES === 'Y' ? 'Yes' : 'No') + '</div></div>';
+                    (p.w === 'Y' ? 'Yes' : 'No') + '</div></div>';
             }
-            if (p.TREEID) {
+            if (p.t) {
                 content += '<div class="info-item"><div class="info-label">Tree ID</div><div class="info-value">' +
-                    p.TREEID + '</div></div>';
+                    p.t + '</div></div>';
             }
             content += '</div>';
 
             panelContent.innerHTML = content;
             modalBody.innerHTML = content;
 
-            var title = (p.SP_COMM || 'Unknown Tree');
+            var title = (p.c || 'Unknown Tree');
             document.querySelector('.panel-title').textContent = title;
             document.querySelector('.modal-title').textContent = title;
 
@@ -778,7 +778,7 @@
         });
 
         // Load data
-        fetch('/static/hfxtrees.json')
+        fetch('/static/hfxtrees-min.json')
             .then(function(r) { return r.json(); })
             .then(function(data) {
                 allData = data;
