@@ -1,0 +1,759 @@
+<html>
+<head>
+    <title>Public Trees in Halifax</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin=""/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style type="text/css">
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        body {
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+        #map {
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Filter controls */
+        .filter-control {
+            padding: 10px 14px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            font-size: 13px;
+            max-height: 60vh;
+            overflow-y: auto;
+            min-width: 200px;
+        }
+        .filter-control h4 {
+            margin: 0 0 8px 0;
+            font-size: 14px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 6px;
+        }
+        .filter-section {
+            margin-bottom: 10px;
+        }
+        .filter-section label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 4px;
+            font-size: 12px;
+            color: #555;
+        }
+        .filter-section select {
+            width: 100%;
+            padding: 4px 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        .dbh-slider-group {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .dbh-slider-group input[type="range"] {
+            flex: 1;
+            accent-color: #8ec9a0;
+        }
+        .dbh-range-label {
+            font-size: 11px;
+            color: #666;
+            margin-top: 3px;
+            text-align: center;
+        }
+        .filter-btn {
+            width: 100%;
+            padding: 6px;
+            margin-top: 4px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: #f8f8f8;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .filter-btn:hover { background: #eee; }
+        .tree-count {
+            margin-top: 8px;
+            font-size: 11px;
+            color: #888;
+            text-align: center;
+        }
+
+        /* Legend */
+        .legend-control {
+            padding: 10px 14px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            font-size: 12px;
+            max-height: 50vh;
+            overflow-y: auto;
+            min-width: 160px;
+        }
+        .legend-control h4 {
+            margin: 0 0 6px 0;
+            font-size: 13px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3px;
+            cursor: pointer;
+        }
+        .legend-item:hover { opacity: 0.7; }
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 6px;
+            flex-shrink: 0;
+            border: 1px solid rgba(0,0,0,0.2);
+        }
+        .legend-label {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Detail panel */
+        #detail-panel {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background-color: white;
+            box-shadow: -2px 0 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: right 0.2s ease-in-out;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        #detail-panel.open { right: 0; }
+        .panel-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .panel-close:hover { background-color: rgba(0,0,0,0.1); }
+        .panel-content { margin-top: 10px; }
+        .panel-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-right: 40px;
+        }
+        .panel-info { margin-bottom: 10px; }
+        .info-item {
+            display: flex;
+            margin-bottom: 8px;
+        }
+        .info-label {
+            font-weight: 600;
+            min-width: 100px;
+            margin-right: 10px;
+            color: #555;
+        }
+        .info-value { flex: 1; }
+
+        /* Mobile modal */
+        #mobile-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2000;
+            overflow: hidden;
+        }
+        .modal-content {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background-color: white;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            padding: 20px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: translateY(100%);
+            transition: transform 0.2s ease-in-out;
+        }
+        #mobile-modal.open .modal-content { transform: translateY(0); }
+        .modal-header {
+            position: relative;
+            text-align: center;
+            padding-bottom: 15px;
+        }
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0 30px;
+        }
+        .modal-close {
+            position: absolute;
+            right: 0;
+            top: 0;
+            background: transparent;
+            border: none;
+            font-size: 18px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-close:hover { background-color: rgba(0,0,0,0.1); }
+        .handle {
+            width: 40px;
+            height: 5px;
+            background-color: #ddd;
+            border-radius: 3px;
+            margin: 0 auto 15px;
+        }
+
+        @media screen and (max-width: 767px) {
+            #detail-panel { display: none; }
+            .filter-control { min-width: 170px; font-size: 12px; }
+            .legend-control { min-width: 140px; }
+        }
+        @media screen and (min-width: 768px) {
+            #mobile-modal { display: none !important; }
+            #map.panel-open { width: calc(100vw - 400px); }
+        }
+    </style>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+</head>
+<body>
+    <div id="map"></div>
+
+    <!-- Desktop slide-in panel -->
+    <div id="detail-panel">
+        <button class="panel-close" aria-label="Close panel">
+            <i class="fas fa-times"></i>
+        </button>
+        <h2 class="panel-title">Tree Details</h2>
+        <div class="panel-content"></div>
+    </div>
+
+    <!-- Mobile modal -->
+    <div id="mobile-modal">
+        <div class="modal-content">
+            <div class="handle"></div>
+            <div class="modal-header">
+                <h3 class="modal-title">Tree Details</h3>
+                <button class="modal-close" aria-label="Close modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body"></div>
+        </div>
+    </div>
+
+    <script>
+        // Genus color palette - distinct hues for top genera
+        var genusColors = {
+            'Acer':           '#dc8a84', // rose
+            'Tilia':          '#8ec9a0', // sage
+            'Quercus':        '#dbb87a', // sand
+            'Ulmus':          '#7da8c9', // sky blue
+            'Syringa':        '#cbaede', // lilac
+            'Picea':          '#6dab7e', // soft green
+            'Fraxinus':       '#8cccd8', // light teal
+            'Pinus':          '#82a06e', // fern
+            'Betula':         '#e8baba', // blush
+            'Pyrus':          '#d8c8ea', // lavender
+            'Celtis':         '#c4a07a', // caramel
+            'Ginkgo':         '#e8cf78', // golden
+            'Malus':          '#eba893', // peach
+            'Gleditisia':     '#b8ce8a', // spring green
+            'Amelanchier':    '#9ed4b8', // mint
+            'Thuja':          '#6dbcaa', // jade
+            'Platanus':       '#e2ccb0', // linen
+            'Populus':        '#a2b47e', // olive
+            'Fagus':          '#949ac4', // periwinkle
+            'Prunus':         '#de94a4', // pink
+            'Liriodendron':   '#ddd49e', // pale gold
+            'Sorbus':         '#dba07e', // sienna
+            'Juglans':        '#b09478', // taupe
+            'Robinia':        '#d4c07e', // wheat
+            'Zelkova':        '#a0a4ce', // soft violet
+        };
+        var otherColor = '#c0bcb6';
+
+        // Tree categories grouping genera
+        var treeCategories = {
+            'Maples':             ['Acer'],
+            'Oaks':               ['Quercus', 'Quercis'],
+            'Lindens':            ['Tilia'],
+            'Elms':               ['Ulmus', 'Elm', 'Zelkova'],
+            'Conifers':           ['Picea', 'Pinus', 'Thuja', 'Abies', 'Juniperus', 'Chamaecyparis',
+                                   'Tsuga', 'Larix', 'Taxus', 'Cedrus', 'Pseudotsuga', 'Sciadopitys',
+                                   'Metasequoia'],
+            'Ash':                ['Fraxinus'],
+            'Fruit & Flowering':  ['Syringa', 'Prunus', 'Malus', 'Pyrus', 'Amelanchier', 'Crataegus',
+                                   'Cartaegus', 'Magnolia', 'Cercis', 'Cornus', 'Sorbus', 'Hydrangea',
+                                   'Forsythia', 'Rhododendron', 'Weigela', 'Cydonia', 'Castanea'],
+            'Other Hardwoods':    ['Betula', 'Populus', 'Fagus', 'Celtis', 'Ginkgo', 'Gleditisia',
+                                   'Platanus', 'Robinia', 'Juglans', 'Liriodendron', 'Phellodendron',
+                                   'Ostrya', 'Carpinus', 'Gymnocladus', 'Catalpa', 'Salix', 'Morus',
+                                   'Liguidambar', 'Euonymus', 'Aesculus', 'Nyssa', 'Cercidiphyllum',
+                                   'Rhus', 'Cotinus', 'Diospyros', 'Sassafras']
+        };
+
+        // Build reverse lookup: genus -> category
+        var genusToCategory = {};
+        Object.keys(treeCategories).forEach(function(cat) {
+            treeCategories[cat].forEach(function(g) {
+                genusToCategory[g] = cat;
+            });
+        });
+
+        function getCategory(scientificName) {
+            var genus = getGenus(scientificName);
+            return genusToCategory[genus] || 'Other Hardwoods';
+        }
+
+        var dbhLabels = {
+            1: '0–7.9 cm',
+            2: '8–15.9 cm',
+            3: '16–30.9 cm',
+            4: '31–45.9 cm',
+            5: '46–60.9 cm',
+            6: '61–76.9 cm',
+            7: '77–90.9 cm',
+            8: '91–106.9 cm',
+            9: '>107 cm'
+        };
+
+        function getGenus(scientificName) {
+            if (!scientificName) return 'Unknown';
+            return scientificName.split(' ')[0];
+        }
+
+        function getColor(scientificName) {
+            var genus = getGenus(scientificName);
+            return genusColors[genus] || otherColor;
+        }
+
+        // Map setup
+        var map = L.map('map', { preferCanvas: true }).setView([44.651, -63.595], 13);
+        var treeLayer;
+        var allData;
+        var activeLayer = null;
+        var detailPanel = document.getElementById('detail-panel');
+        var mobileModal = document.getElementById('mobile-modal');
+        var panelContent = document.querySelector('.panel-content');
+        var modalBody = document.querySelector('.modal-body');
+        var isMobile = window.innerWidth < 768;
+
+        L.tileLayer(
+            'https://api.mapbox.com/styles/v1/mapbox/emerald-v8/tiles/{z}/{x}/{y}?access_token={{ token }}', {
+            tileSize: 512,
+            zoomOffset: -1,
+            attribution: '&copy; <a href="https://www.mapbox.com/">Mapbox</a> | Tree data: Halifax Open Data'
+        }).addTo(map);
+
+        // Filter control
+        var filterControl = L.control({ position: 'topright' });
+        filterControl.onAdd = function() {
+            var div = L.DomUtil.create('div', 'filter-control');
+            div.innerHTML = `
+                <h4><i class="fas fa-filter"></i> Filters</h4>
+                <div class="filter-section">
+                    <label>Category</label>
+                    <select id="category-filter">
+                        <option value="">All Categories</option>
+                        <option value="Maples">Maples</option>
+                        <option value="Oaks">Oaks</option>
+                        <option value="Lindens">Lindens</option>
+                        <option value="Elms">Elms</option>
+                        <option value="Conifers">Conifers</option>
+                        <option value="Ash">Ash</option>
+                        <option value="Fruit & Flowering">Fruit & Flowering</option>
+                        <option value="Other Hardwoods">Other Hardwoods</option>
+                    </select>
+                </div>
+                <div class="filter-section">
+                    <label>Species</label>
+                    <select id="species-filter">
+                        <option value="">All Species</option>
+                    </select>
+                </div>
+                <div class="filter-section">
+                    <label>Trunk Diameter (DBH)</label>
+                    <div class="dbh-slider-group">
+                        <span style="font-size:11px">Min</span>
+                        <input type="range" id="dbh-min" min="1" max="9" value="1">
+                    </div>
+                    <div class="dbh-range-label" id="dbh-min-label">0–7.9 cm</div>
+                    <div class="dbh-slider-group" style="margin-top:4px">
+                        <span style="font-size:11px">Max</span>
+                        <input type="range" id="dbh-max" min="1" max="9" value="9">
+                    </div>
+                    <div class="dbh-range-label" id="dbh-max-label">>107 cm</div>
+                </div>
+                <button class="filter-btn" id="apply-filter">Apply Filters</button>
+                <button class="filter-btn" id="reset-filter">Reset</button>
+                <div class="tree-count" id="tree-count"></div>
+            `;
+            L.DomEvent.disableClickPropagation(div);
+            L.DomEvent.disableScrollPropagation(div);
+            return div;
+        };
+        filterControl.addTo(map);
+
+        // Legend control
+        var legendControl = L.control({ position: 'bottomright' });
+        legendControl.onAdd = function() {
+            var div = L.DomUtil.create('div', 'legend-control');
+            var html = '<h4>Genus</h4>';
+            for (var genus in genusColors) {
+                html += '<div class="legend-item" data-genus="' + genus + '">' +
+                    '<span class="legend-dot" style="background:' + genusColors[genus] + '"></span>' +
+                    '<span class="legend-label">' + genus + '</span></div>';
+            }
+            html += '<div class="legend-item" data-genus="Other">' +
+                '<span class="legend-dot" style="background:' + otherColor + '"></span>' +
+                '<span class="legend-label">Other</span></div>';
+            div.innerHTML = html;
+            L.DomEvent.disableClickPropagation(div);
+            L.DomEvent.disableScrollPropagation(div);
+            return div;
+        };
+        legendControl.addTo(map);
+
+        // Populate species dropdown from data
+        function populateSpeciesFilter(data) {
+            var species = {};
+            data.features.forEach(function(f) {
+                var name = f.properties.SP_COMM || 'Unknown';
+                var sci = f.properties.SP_SCIEN || '';
+                var key = name + (sci ? ' (' + sci + ')' : '');
+                if (!species[key]) {
+                    species[key] = { count: 0, sci: sci };
+                }
+                species[key].count++;
+            });
+
+            var sorted = Object.entries(species).sort(function(a, b) { return b[1].count - a[1].count; });
+            var select = document.getElementById('species-filter');
+            sorted.forEach(function(item) {
+                var opt = document.createElement('option');
+                opt.value = item[0];
+                opt.textContent = item[0] + ' (' + item[1].count + ')';
+                opt.dataset.sci = item[1].sci;
+                select.appendChild(opt);
+            });
+        }
+
+        // Render trees on the map
+        function renderTrees(data) {
+            if (treeLayer) {
+                map.removeLayer(treeLayer);
+            }
+
+            treeLayer = L.geoJSON(data, {
+                pointToLayer: function(feature, latlng) {
+                    var dbh = feature.properties.DBH || 1;
+                    var baseRadius = Math.max(2, Math.min(dbh * 1.2, 10));
+                    return L.circleMarker(latlng, {
+                        radius: baseRadius,
+                        fillColor: getColor(feature.properties.SP_SCIEN),
+                        color: '#000',
+                        weight: 0.5,
+                        opacity: 0.8,
+                        fillOpacity: 0.7
+                    });
+                },
+                onEachFeature: function(feature, layer) {
+                    layer.on('click', function(e) {
+                        if (activeLayer && activeLayer !== layer) {
+                            activeLayer.setStyle({ weight: 0.5, color: '#000' });
+                        }
+                        activeLayer = layer;
+                        layer.setStyle({ weight: 3, color: '#ffff00' });
+                        showFeatureDetails(feature);
+                        L.DomEvent.stopPropagation(e);
+                    });
+                    layer.on({
+                        mouseover: function() {
+                            if (layer !== activeLayer) {
+                                layer.setStyle({ weight: 2, color: '#ffff00' });
+                            }
+                        },
+                        mouseout: function() {
+                            if (layer !== activeLayer) {
+                                layer.setStyle({ weight: 0.5, color: '#000' });
+                            }
+                        }
+                    });
+                }
+            }).addTo(map);
+
+            document.getElementById('tree-count').textContent =
+                data.features.length.toLocaleString() + ' trees shown';
+        }
+
+        // When category changes, filter the species dropdown to match
+        function updateSpeciesForCategory() {
+            var catVal = document.getElementById('category-filter').value;
+            var select = document.getElementById('species-filter');
+            select.value = '';
+            // Show/hide options based on category
+            Array.from(select.options).forEach(function(opt) {
+                if (!opt.value) { opt.style.display = ''; return; } // "All" always visible
+                if (!catVal) { opt.style.display = ''; return; } // no category = show all
+                var sci = opt.dataset.sci || '';
+                var genus = sci ? sci.split(' ')[0] : '';
+                var cat = genusToCategory[genus] || 'Other Hardwoods';
+                opt.style.display = (cat === catVal) ? '' : 'none';
+            });
+        }
+
+        // Apply filters
+        function applyFilters() {
+            if (!allData) return;
+
+            var catVal = document.getElementById('category-filter').value;
+            var speciesVal = document.getElementById('species-filter').value;
+            var dbhMin = parseInt(document.getElementById('dbh-min').value);
+            var dbhMax = parseInt(document.getElementById('dbh-max').value);
+
+            var filtered = allData.features.filter(function(f) {
+                var p = f.properties;
+
+                // Category filter
+                if (catVal) {
+                    if (getCategory(p.SP_SCIEN) !== catVal) return false;
+                }
+
+                // Species filter
+                if (speciesVal) {
+                    var name = p.SP_COMM || 'Unknown';
+                    var sci = p.SP_SCIEN || '';
+                    var key = name + (sci ? ' (' + sci + ')' : '');
+                    if (key !== speciesVal) return false;
+                }
+
+                // DBH filter
+                var dbh = p.DBH;
+                if (!isNaN(dbhMin) && (dbh === null || dbh < dbhMin)) return false;
+                if (!isNaN(dbhMax) && (dbh === null || dbh > dbhMax)) return false;
+
+                return true;
+            });
+
+            renderTrees({ type: 'FeatureCollection', features: filtered });
+        }
+
+        function resetFilters() {
+            document.getElementById('category-filter').value = '';
+            document.getElementById('species-filter').value = '';
+            document.getElementById('dbh-min').value = 1;
+            document.getElementById('dbh-max').value = 9;
+            document.getElementById('dbh-min-label').textContent = dbhLabels[1];
+            document.getElementById('dbh-max-label').textContent = dbhLabels[9];
+            updateSpeciesForCategory();
+            renderTrees(allData);
+        }
+
+        // Show tree details in panel/modal
+        function showFeatureDetails(feature) {
+            var p = feature.properties;
+            var genus = getGenus(p.SP_SCIEN);
+            var color = getColor(p.SP_SCIEN);
+
+            var content = '<div class="panel-info">';
+            content += '<div class="info-item"><div class="info-label">Common Name</div><div class="info-value">' +
+                (p.SP_COMM || 'Unknown') + '</div></div>';
+            content += '<div class="info-item"><div class="info-label">Scientific</div><div class="info-value"><em>' +
+                (p.SP_SCIEN || 'Unknown') + '</em></div></div>';
+            content += '<div class="info-item"><div class="info-label">Category</div><div class="info-value">' +
+                getCategory(p.SP_SCIEN) + '</div></div>';
+            content += '<div class="info-item"><div class="info-label">Genus</div><div class="info-value">' +
+                '<span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:' +
+                color + ';margin-right:6px;vertical-align:middle;border:1px solid rgba(0,0,0,0.2)"></span>' +
+                genus + '</div></div>';
+            if (p.DBH !== null) {
+                content += '<div class="info-item"><div class="info-label">Diameter</div><div class="info-value">' +
+                    (dbhLabels[p.DBH] || p.DBH) + '</div></div>';
+            }
+            if (p.INSTYR) {
+                content += '<div class="info-item"><div class="info-label">Planted</div><div class="info-value">' +
+                    p.INSTYR + '</div></div>';
+            }
+            if (p.LOCGEN) {
+                content += '<div class="info-item"><div class="info-label">Location</div><div class="info-value">' +
+                    p.LOCGEN + '</div></div>';
+            }
+            if (p.OWNER) {
+                content += '<div class="info-item"><div class="info-label">Owner</div><div class="info-value">' +
+                    p.OWNER + '</div></div>';
+            }
+            if (p.WIRES) {
+                content += '<div class="info-item"><div class="info-label">Near Wires</div><div class="info-value">' +
+                    (p.WIRES === 'Y' ? 'Yes' : 'No') + '</div></div>';
+            }
+            if (p.TREEID) {
+                content += '<div class="info-item"><div class="info-label">Tree ID</div><div class="info-value">' +
+                    p.TREEID + '</div></div>';
+            }
+            content += '</div>';
+
+            panelContent.innerHTML = content;
+            modalBody.innerHTML = content;
+
+            var title = (p.SP_COMM || 'Unknown Tree');
+            document.querySelector('.panel-title').textContent = title;
+            document.querySelector('.modal-title').textContent = title;
+
+            if (isMobile) {
+                mobileModal.classList.add('open');
+                mobileModal.style.display = 'block';
+            } else {
+                detailPanel.classList.add('open');
+                document.getElementById('map').classList.add('panel-open');
+                map.invalidateSize();
+            }
+        }
+
+        function closeDetails() {
+            detailPanel.classList.remove('open');
+            mobileModal.classList.remove('open');
+            document.getElementById('map').classList.remove('panel-open');
+            setTimeout(function() {
+                if (!mobileModal.classList.contains('open')) {
+                    mobileModal.style.display = 'none';
+                }
+            }, 300);
+            map.invalidateSize();
+            if (activeLayer) {
+                activeLayer.setStyle({ weight: 0.5, color: '#000' });
+                activeLayer = null;
+            }
+        }
+
+        // Event listeners
+        document.querySelector('.panel-close').addEventListener('click', closeDetails);
+        document.querySelector('.modal-close').addEventListener('click', closeDetails);
+        mobileModal.addEventListener('click', function(e) {
+            if (e.target === mobileModal) closeDetails();
+        });
+
+        window.addEventListener('resize', function() {
+            isMobile = window.innerWidth < 768;
+            if (isMobile && detailPanel.classList.contains('open')) {
+                detailPanel.classList.remove('open');
+                document.getElementById('map').classList.remove('panel-open');
+                if (activeLayer) {
+                    mobileModal.classList.add('open');
+                    mobileModal.style.display = 'block';
+                }
+            } else if (!isMobile && mobileModal.classList.contains('open')) {
+                mobileModal.classList.remove('open');
+                if (activeLayer) {
+                    detailPanel.classList.add('open');
+                    document.getElementById('map').classList.add('panel-open');
+                }
+            }
+            map.invalidateSize();
+        });
+
+        map.on('click', closeDetails);
+
+        // Legend click filters by genus
+        document.addEventListener('click', function(e) {
+            var item = e.target.closest('.legend-item');
+            if (!item) return;
+            var genus = item.dataset.genus;
+            if (!genus || !allData) return;
+
+            var select = document.getElementById('species-filter');
+            select.value = '';
+            document.getElementById('dbh-min').value = '';
+            document.getElementById('dbh-max').value = '';
+
+            if (genus === 'Other') {
+                var knownGenera = Object.keys(genusColors);
+                var filtered = allData.features.filter(function(f) {
+                    var g = getGenus(f.properties.SP_SCIEN);
+                    return knownGenera.indexOf(g) === -1;
+                });
+                renderTrees({ type: 'FeatureCollection', features: filtered });
+            } else {
+                var filtered = allData.features.filter(function(f) {
+                    return getGenus(f.properties.SP_SCIEN) === genus;
+                });
+                renderTrees({ type: 'FeatureCollection', features: filtered });
+            }
+        });
+
+        // Load data
+        fetch('/static/hfxtrees.json')
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                allData = data;
+                populateSpeciesFilter(data);
+                renderTrees(data);
+
+                document.getElementById('category-filter').addEventListener('change', function() {
+                    updateSpeciesForCategory();
+                    applyFilters();
+                });
+                document.getElementById('dbh-min').addEventListener('input', function() {
+                    document.getElementById('dbh-min-label').textContent = dbhLabels[this.value];
+                    if (parseInt(this.value) > parseInt(document.getElementById('dbh-max').value)) {
+                        document.getElementById('dbh-max').value = this.value;
+                        document.getElementById('dbh-max-label').textContent = dbhLabels[this.value];
+                    }
+                    applyFilters();
+                });
+                document.getElementById('dbh-max').addEventListener('input', function() {
+                    document.getElementById('dbh-max-label').textContent = dbhLabels[this.value];
+                    if (parseInt(this.value) < parseInt(document.getElementById('dbh-min').value)) {
+                        document.getElementById('dbh-min').value = this.value;
+                        document.getElementById('dbh-min-label').textContent = dbhLabels[this.value];
+                    }
+                    applyFilters();
+                });
+                document.querySelector('.filter-control').addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') applyFilters();
+                });
+                document.getElementById('apply-filter').addEventListener('click', applyFilters);
+                document.getElementById('reset-filter').addEventListener('click', resetFilters);
+            })
+            .catch(function(err) {
+                console.error('Error loading tree data:', err);
+            });
+    </script>
+</body>
+</html>
