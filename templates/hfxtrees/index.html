@@ -92,42 +92,6 @@
             text-align: center;
         }
 
-        /* Legend */
-        .legend-control {
-            padding: 10px 14px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-            font-size: 12px;
-            max-height: 50vh;
-            overflow-y: auto;
-            min-width: 160px;
-        }
-        .legend-control h4 {
-            margin: 0 0 6px 0;
-            font-size: 13px;
-        }
-        .legend-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 3px;
-            cursor: pointer;
-        }
-        .legend-item:hover { opacity: 0.7; }
-        .legend-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            margin-right: 6px;
-            flex-shrink: 0;
-            border: 1px solid rgba(0,0,0,0.2);
-        }
-        .legend-label {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
         /* Detail panel */
         #detail-panel {
             position: fixed;
@@ -258,19 +222,6 @@
                 margin-left: 4px;
                 font-size: 10px;
             }
-            .legend-control {
-                min-width: auto;
-                max-width: 140px;
-                padding: 6px 10px;
-                max-height: 30vh;
-                font-size: 11px;
-            }
-            .legend-control.collapsed .legend-body { display: none; }
-            .legend-control h4 {
-                margin: 0;
-                cursor: pointer;
-                font-size: 12px;
-            }
         }
         @media screen and (min-width: 768px) {
             #mobile-modal { display: none !important; }
@@ -336,6 +287,7 @@
             'Juglans':        '#b09478', // taupe
             'Robinia':        '#d4c07e', // wheat
             'Zelkova':        '#a0a4ce', // soft violet
+            'Magnolia':       '#f2b8c6', // soft pink
         };
         var otherColor = '#c0bcb6';
 
@@ -351,12 +303,13 @@
             'Ash':                ['Fraxinus'],
             'Fruit & Flowering':  ['Syringa', 'Prunus', 'Malus', 'Pyrus', 'Amelanchier', 'Crataegus',
                                    'Cartaegus', 'Magnolia', 'Cercis', 'Cornus', 'Sorbus', 'Hydrangea',
-                                   'Forsythia', 'Rhododendron', 'Weigela', 'Cydonia', 'Castanea'],
+                                   'Forsythia', 'Rhododendron', 'Weigela', 'Cydonia', 'Castanea',
+                                   'Aesculus', 'Corylus', 'Euonymus', 'Cotinus', 'Hamamelis'],
             'Other Hardwoods':    ['Betula', 'Populus', 'Fagus', 'Celtis', 'Ginkgo', 'Gleditisia',
                                    'Platanus', 'Robinia', 'Juglans', 'Liriodendron', 'Phellodendron',
                                    'Ostrya', 'Carpinus', 'Gymnocladus', 'Catalpa', 'Salix', 'Morus',
-                                   'Liguidambar', 'Euonymus', 'Aesculus', 'Nyssa', 'Cercidiphyllum',
-                                   'Rhus', 'Cotinus', 'Diospyros', 'Sassafras']
+                                   'Liguidambar', 'Nyssa', 'Cercidiphyllum',
+                                   'Rhus', 'Diospyros', 'Sassafras']
         };
 
         // Build reverse lookup: genus -> category
@@ -434,9 +387,9 @@
                     </select>
                 </div>
                 <div class="filter-section">
-                    <label>Species</label>
+                    <label>Genus</label>
                     <select id="species-filter">
-                        <option value="">All Species</option>
+                        <option value="">All Genera</option>
                     </select>
                 </div>
                 <div class="filter-section">
@@ -452,7 +405,6 @@
                     </div>
                     <div class="dbh-range-label" id="dbh-max-label">>107 cm</div>
                 </div>
-                <button class="filter-btn" id="apply-filter">Apply Filters</button>
                 <button class="filter-btn" id="reset-filter">Reset</button>
                 <div class="tree-count" id="tree-count"></div>
                 </div>
@@ -463,32 +415,12 @@
         };
         filterControl.addTo(map);
 
-        // Legend control
-        var legendControl = L.control({ position: 'bottomright' });
-        legendControl.onAdd = function() {
-            var div = L.DomUtil.create('div', 'legend-control');
-            var html = '<h4>Genus <i class="fas fa-chevron-down filter-toggle"></i></h4><div class="legend-body">';
-            for (var genus in genusColors) {
-                html += '<div class="legend-item" data-genus="' + genus + '">' +
-                    '<span class="legend-dot" style="background:' + genusColors[genus] + '"></span>' +
-                    '<span class="legend-label">' + genus + '</span></div>';
-            }
-            html += '<div class="legend-item" data-genus="Other">' +
-                '<span class="legend-dot" style="background:' + otherColor + '"></span>' +
-                '<span class="legend-label">Other</span></div></div>';
-            div.innerHTML = html;
-            L.DomEvent.disableClickPropagation(div);
-            L.DomEvent.disableScrollPropagation(div);
-            return div;
-        };
-        legendControl.addTo(map);
 
-        // Collapse filter & legend on mobile by default
+
+        // Collapse filter on mobile by default
         if (isMobile) {
             document.querySelector('.filter-control').classList.add('collapsed');
             document.querySelector('.filter-control .filter-toggle').classList.replace('fa-chevron-down', 'fa-chevron-right');
-            document.querySelector('.legend-control').classList.add('collapsed');
-            document.querySelector('.legend-control .filter-toggle').classList.replace('fa-chevron-down', 'fa-chevron-right');
         }
 
         // Toggle collapse on h4 click (mobile)
@@ -501,36 +433,24 @@
                 toggle.classList.toggle('fa-chevron-down', !ctrl.classList.contains('collapsed'));
             }
         });
-        document.querySelector('.legend-control h4').addEventListener('click', function() {
-            var ctrl = this.closest('.legend-control');
-            ctrl.classList.toggle('collapsed');
-            var toggle = this.querySelector('.filter-toggle');
-            if (toggle) {
-                toggle.classList.toggle('fa-chevron-right', ctrl.classList.contains('collapsed'));
-                toggle.classList.toggle('fa-chevron-down', !ctrl.classList.contains('collapsed'));
-            }
-        });
 
-        // Populate species dropdown from data
+
+        // Populate genus dropdown from data
         function populateSpeciesFilter(data) {
-            var species = {};
+            var genera = {};
             data.features.forEach(function(f) {
-                var name = f.properties.c || 'Unknown';
-                var sci = f.properties.s || '';
-                var key = name + (sci ? ' (' + sci + ')' : '');
-                if (!species[key]) {
-                    species[key] = { count: 0, sci: sci };
-                }
-                species[key].count++;
+                var genus = getGenus(f.properties.s);
+                if (!genera[genus]) genera[genus] = 0;
+                genera[genus]++;
             });
 
-            var sorted = Object.entries(species).sort(function(a, b) { return b[1].count - a[1].count; });
+            var sorted = Object.entries(genera).sort(function(a, b) { return b[1] - a[1]; });
             var select = document.getElementById('species-filter');
             sorted.forEach(function(item) {
                 var opt = document.createElement('option');
                 opt.value = item[0];
-                opt.textContent = item[0] + ' (' + item[1].count + ')';
-                opt.dataset.sci = item[1].sci;
+                opt.textContent = item[0] + ' (' + item[1] + ')';
+                opt.dataset.genus = item[0];
                 select.appendChild(opt);
             });
         }
@@ -583,17 +503,15 @@
                 data.features.length.toLocaleString() + ' trees shown';
         }
 
-        // When category changes, filter the species dropdown to match
+        // When category changes, filter the genus dropdown to match
         function updateSpeciesForCategory() {
             var catVal = document.getElementById('category-filter').value;
             var select = document.getElementById('species-filter');
             select.value = '';
-            // Show/hide options based on category
             Array.from(select.options).forEach(function(opt) {
-                if (!opt.value) { opt.style.display = ''; return; } // "All" always visible
-                if (!catVal) { opt.style.display = ''; return; } // no category = show all
-                var sci = opt.dataset.sci || '';
-                var genus = sci ? sci.split(' ')[0] : '';
+                if (!opt.value) { opt.style.display = ''; return; }
+                if (!catVal) { opt.style.display = ''; return; }
+                var genus = opt.dataset.genus || '';
                 var cat = genusToCategory[genus] || 'Other Hardwoods';
                 opt.style.display = (cat === catVal) ? '' : 'none';
             });
@@ -616,12 +534,9 @@
                     if (getCategory(p.s) !== catVal) return false;
                 }
 
-                // Species filter
+                // Genus filter
                 if (speciesVal) {
-                    var name = p.c || 'Unknown';
-                    var sci = p.s || '';
-                    var key = name + (sci ? ' (' + sci + ')' : '');
-                    if (key !== speciesVal) return false;
+                    if (getGenus(p.s) !== speciesVal) return false;
                 }
 
                 // DBH filter
@@ -750,32 +665,7 @@
 
         map.on('click', closeDetails);
 
-        // Legend click filters by genus
-        document.addEventListener('click', function(e) {
-            var item = e.target.closest('.legend-item');
-            if (!item) return;
-            var genus = item.dataset.genus;
-            if (!genus || !allData) return;
 
-            var select = document.getElementById('species-filter');
-            select.value = '';
-            document.getElementById('dbh-min').value = '';
-            document.getElementById('dbh-max').value = '';
-
-            if (genus === 'Other') {
-                var knownGenera = Object.keys(genusColors);
-                var filtered = allData.features.filter(function(f) {
-                    var g = getGenus(f.properties.SP_SCIEN);
-                    return knownGenera.indexOf(g) === -1;
-                });
-                renderTrees({ type: 'FeatureCollection', features: filtered });
-            } else {
-                var filtered = allData.features.filter(function(f) {
-                    return getGenus(f.properties.SP_SCIEN) === genus;
-                });
-                renderTrees({ type: 'FeatureCollection', features: filtered });
-            }
-        });
 
         // Load data
         fetch('/static/hfxtrees-min.json')
@@ -789,6 +679,7 @@
                     updateSpeciesForCategory();
                     applyFilters();
                 });
+                document.getElementById('species-filter').addEventListener('change', applyFilters);
                 document.getElementById('dbh-min').addEventListener('input', function() {
                     document.getElementById('dbh-min-label').textContent = dbhLabels[this.value];
                     if (parseInt(this.value) > parseInt(document.getElementById('dbh-max').value)) {
@@ -805,10 +696,6 @@
                     }
                     applyFilters();
                 });
-                document.querySelector('.filter-control').addEventListener('keydown', function(e) {
-                    if (e.key === 'Enter') applyFilters();
-                });
-                document.getElementById('apply-filter').addEventListener('click', applyFilters);
                 document.getElementById('reset-filter').addEventListener('click', resetFilters);
             })
             .catch(function(err) {
