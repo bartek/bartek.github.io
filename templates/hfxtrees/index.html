@@ -393,6 +393,19 @@
                     </select>
                 </div>
                 <div class="filter-section">
+                    <label>Year Planted</label>
+                    <div class="dbh-slider-group">
+                        <span style="font-size:11px">Min</span>
+                        <input type="range" id="year-min" min="2013" max="2025" value="2013">
+                    </div>
+                    <div class="dbh-range-label" id="year-min-label">2013</div>
+                    <div class="dbh-slider-group" style="margin-top:4px">
+                        <span style="font-size:11px">Max</span>
+                        <input type="range" id="year-max" min="2013" max="2025" value="2025">
+                    </div>
+                    <div class="dbh-range-label" id="year-max-label">2025</div>
+                </div>
+                <div class="filter-section">
                     <label>Trunk Diameter (DBH)</label>
                     <div class="dbh-slider-group">
                         <span style="font-size:11px">Min</span>
@@ -523,6 +536,9 @@
 
             var catVal = document.getElementById('category-filter').value;
             var speciesVal = document.getElementById('species-filter').value;
+            var yearMin = parseInt(document.getElementById('year-min').value);
+            var yearMax = parseInt(document.getElementById('year-max').value);
+            var yearActive = yearMin > 2013 || yearMax < 2025;
             var dbhMin = parseInt(document.getElementById('dbh-min').value);
             var dbhMax = parseInt(document.getElementById('dbh-max').value);
 
@@ -539,6 +555,13 @@
                     if (getGenus(p.s) !== speciesVal) return false;
                 }
 
+                // Year filter
+                if (yearActive) {
+                    var yr = p.y;
+                    if (!yr || yr < 2013 || yr > 2025) return false;
+                    if (yr < yearMin || yr > yearMax) return false;
+                }
+
                 // DBH filter
                 var dbh = p.d;
                 if (!isNaN(dbhMin) && (dbh === null || dbh < dbhMin)) return false;
@@ -553,6 +576,10 @@
         function resetFilters() {
             document.getElementById('category-filter').value = '';
             document.getElementById('species-filter').value = '';
+            document.getElementById('year-min').value = 2013;
+            document.getElementById('year-max').value = 2025;
+            document.getElementById('year-min-label').textContent = '2013';
+            document.getElementById('year-max-label').textContent = '2025';
             document.getElementById('dbh-min').value = 1;
             document.getElementById('dbh-max').value = 9;
             document.getElementById('dbh-min-label').textContent = dbhLabels[1];
@@ -680,6 +707,22 @@
                     applyFilters();
                 });
                 document.getElementById('species-filter').addEventListener('change', applyFilters);
+                document.getElementById('year-min').addEventListener('input', function() {
+                    document.getElementById('year-min-label').textContent = this.value;
+                    if (parseInt(this.value) > parseInt(document.getElementById('year-max').value)) {
+                        document.getElementById('year-max').value = this.value;
+                        document.getElementById('year-max-label').textContent = this.value;
+                    }
+                    applyFilters();
+                });
+                document.getElementById('year-max').addEventListener('input', function() {
+                    document.getElementById('year-max-label').textContent = this.value;
+                    if (parseInt(this.value) < parseInt(document.getElementById('year-min').value)) {
+                        document.getElementById('year-min').value = this.value;
+                        document.getElementById('year-min-label').textContent = this.value;
+                    }
+                    applyFilters();
+                });
                 document.getElementById('dbh-min').addEventListener('input', function() {
                     document.getElementById('dbh-min-label').textContent = dbhLabels[this.value];
                     if (parseInt(this.value) > parseInt(document.getElementById('dbh-max').value)) {
