@@ -44,6 +44,9 @@ jobs:
       - name: Copy hfxbikeparking GeoJSON to build directory
         run: |
           cp hfxbikeparking/data.geojson build/static/hfxbikeparking.geojson
+      - name: Copy counter_chnanels GeoJSON to build directory
+        run: |
+          cp hfxbikeparking/counter_channels.geojson build/static/counter_channels.geojson
       - name: Upload to droplet
         shell: bash
         run: |

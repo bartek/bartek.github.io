@@ -177,6 +177,9 @@
             box-shadow: 0 1px 5px rgba(0,0,0,0.4);
             line-height: 1.8;
         }
+        .leaflet-control-layers {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
 
         /* Media queries */
         @media screen and (max-width: 767px) {
@@ -235,6 +238,7 @@
     <script>
         var map = L.map('map').setView([44.641070, -63.582687], 13);
         var bikeLayer;
+        var counterLayer;
         var userMarker;
         var detailPanel = document.getElementById('detail-panel');
         var mobileModal = document.getElementById('mobile-modal');
@@ -344,9 +348,8 @@
         function updateMarkerSizes() {
             if (!bikeLayer) return;
             bikeLayer.eachLayer(function(layer) {
-                const baseSize = layer.feature.properties.Size !== undefined
-                    ? layer.feature.properties.Size
-                    : 3;
+                if (typeof layer.setRadius !== 'function') return;
+                const baseSize = parseFloat(layer.feature.properties.Size) || 3;
                 layer.setRadius(getRadiusForZoom(baseSize));
             });
         }
@@ -459,10 +462,11 @@
             
             // Reset active marker style if exists
             if (activeLayer) {
-                activeLayer.setStyle({
-                    weight: 1,
-                    color: '#000'
-                });
+                if (bikeLayer && bikeLayer.hasLayer(activeLayer)) {
+                    activeLayer.setStyle({ weight: 1, color: '#000' });
+                } else {
+                    activeLayer.setStyle({ weight: 2, color: '#fff' });
+                }
                 activeLayer = null;
             }
         }
@@ -542,10 +546,11 @@
         }
 
         // Load and display bike parking data
-        fetch('/static/hfxbikeparking.geojson')
-            .then(response => response.json())
-            .then(data => {
-                bikeLayer = L.geoJSON(data, {
+        Promise.all([
+            fetch('/static/hfxbikeparking.geojson').then(r => r.json()),
+            fetch('/static/counter_channels.geojson').then(r => r.json())
+        ]).then(([parkingData, counterData]) => {
+                bikeLayer = L.geoJSON(parkingData, {
                     pointToLayer: function(feature, latlng) {
                         let radius = feature.properties.Size !== undefined
                             ? feature.properties.Size
@@ -569,21 +574,21 @@
                                     color: '#000'
                                 });
                             }
-                            
+
                             // Set this layer as active and highlight it
                             activeLayer = layer;
                             layer.setStyle({
                                 weight: 3,
                                 color: '#ffff00' // Highlight with yellow border
                             });
-                            
+
                             // Show details in panel/modal
                             showFeatureDetails(feature);
-                            
+
                             // Stop propagation to prevent map click from closing panel
                             L.DomEvent.stopPropagation(e);
                         });
-                        
+
                         // Add hover effect (but don't show popup)
                         layer.on({
                             mouseover: function(e) {
@@ -611,6 +616,70 @@
                     }
                 }).addTo(map);
 
+                // Bike Counters layer
+                counterLayer = L.geoJSON(counterData, {
+                    pointToLayer: function(feature, latlng) {
+                        return L.circleMarker(latlng, {
+                            radius: 7,
+                            color: '#fff',
+                            weight: 2,
+                            opacity: 1,
+                            fillColor: '#2563eb',
+                            fillOpacity: 0.9
+                        });
+                    },
+                    onEachFeature: function(feature, layer) {
+                        var name = feature.properties.CHANNEL_NAME || 'Bike Counter';
+                        layer.on('click', function(e) {
+                            if (activeLayer && activeLayer !== layer) {
+                                // Reset previous active layer style
+                                var prev = activeLayer;
+                                activeLayer = null;
+                                if (bikeLayer.hasLayer(prev)) {
+                                    prev.setStyle({ weight: 1, color: '#000' });
+                                } else {
+                                    prev.setStyle({ weight: 2, color: '#fff' });
+                                }
+                            }
+                            activeLayer = layer;
+                            layer.setStyle({ weight: 3, color: '#ffff00' });
+
+                            var content = '<div class="panel-info">' +
+                                '<div class="info-item">' +
+                                    '<div class="info-label">Name:</div>' +
+                                    '<div class="info-value">' + name + '</div>' +
+                                '</div></div>';
+
+                            panelContent.innerHTML = content;
+                            modalBody.innerHTML = content;
+                            document.querySelector('.panel-title').textContent = 'Bike Counter';
+                            document.querySelector('.modal-title').textContent = 'Bike Counter';
+
+                            if (isMobile) {
+                                mobileModal.classList.add('open');
+                                mobileModal.style.display = 'block';
+                            } else {
+                                detailPanel.classList.add('open');
+                                document.getElementById('map').classList.add('panel-open');
+                                map.invalidateSize();
+                            }
+                            L.DomEvent.stopPropagation(e);
+                        });
+                        layer.on('mouseover', function() {
+                            if (layer !== activeLayer) layer.setStyle({ weight: 3, color: '#ffff00' });
+                        });
+                        layer.on('mouseout', function() {
+                            if (layer !== activeLayer) layer.setStyle({ weight: 2, color: '#fff' });
+                        });
+                    }
+                }).addTo(map);
+
+                // Layer control - parking is always on, counters are toggleable
+                var overlays = {
+                    'Bike Counters': counterLayer
+                };
+                L.control.layers(null, overlays, { collapsed: false }).addTo(map);
+
                 // Add event listeners for map movements
                 map.on('moveend', logVisiblePoints);
                 map.on('zoomend', logVisiblePoints);
@@ -620,7 +689,7 @@
                 map.on('click', closeDetails);
             })
             .catch(error => {
-                console.error('Error loading or parsing GeoJSON file:', error);
+                console.error('Error loading GeoJSON data:', error);
             });
     </script>
 </body>
