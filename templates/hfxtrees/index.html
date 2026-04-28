@@ -393,6 +393,12 @@
                     </select>
                 </div>
                 <div class="filter-section">
+                    <label>Common Name</label>
+                    <select id="common-name-filter">
+                        <option value="">All Common Names</option>
+                    </select>
+                </div>
+                <div class="filter-section">
                     <label>Year Planted</label>
                     <div class="dbh-slider-group">
                         <span style="font-size:11px">Min</span>
@@ -468,6 +474,47 @@
             });
         }
 
+        // Populate common name dropdown from data
+        function populateCommonNameFilter(data) {
+            var names = {};
+            data.features.forEach(function(f) {
+                var name = f.properties.c;
+                if (!name) return;
+                if (!names[name]) names[name] = { count: 0, genus: getGenus(f.properties.s) };
+                names[name].count++;
+            });
+
+            var sorted = Object.entries(names).sort(function(a, b) { return b[1].count - a[1].count; });
+            var select = document.getElementById('common-name-filter');
+            sorted.forEach(function(item) {
+                var opt = document.createElement('option');
+                opt.value = item[0];
+                opt.textContent = item[0] + ' (' + item[1].count + ')';
+                opt.dataset.genus = item[1].genus;
+                select.appendChild(opt);
+            });
+        }
+
+        // Update common name dropdown based on selected category/genus
+        function updateCommonNameOptions() {
+            var catVal = document.getElementById('category-filter').value;
+            var genusVal = document.getElementById('species-filter').value;
+            var select = document.getElementById('common-name-filter');
+            select.value = '';
+            Array.from(select.options).forEach(function(opt) {
+                if (!opt.value) { opt.style.display = ''; return; }
+                var genus = opt.dataset.genus || '';
+                if (genusVal) {
+                    opt.style.display = (genus === genusVal) ? '' : 'none';
+                } else if (catVal) {
+                    var cat = genusToCategory[genus] || 'Other Hardwoods';
+                    opt.style.display = (cat === catVal) ? '' : 'none';
+                } else {
+                    opt.style.display = '';
+                }
+            });
+        }
+
         // Render trees on the map
         function renderTrees(data) {
             if (treeLayer) {
@@ -528,6 +575,7 @@
                 var cat = genusToCategory[genus] || 'Other Hardwoods';
                 opt.style.display = (cat === catVal) ? '' : 'none';
             });
+            updateCommonNameOptions();
         }
 
         // Apply filters
@@ -536,6 +584,7 @@
 
             var catVal = document.getElementById('category-filter').value;
             var speciesVal = document.getElementById('species-filter').value;
+            var commonNameVal = document.getElementById('common-name-filter').value;
             var yearMin = parseInt(document.getElementById('year-min').value);
             var yearMax = parseInt(document.getElementById('year-max').value);
             var yearActive = yearMin > 2013 || yearMax < 2025;
@@ -553,6 +602,11 @@
                 // Genus filter
                 if (speciesVal) {
                     if (getGenus(p.s) !== speciesVal) return false;
+                }
+
+                // Common name filter
+                if (commonNameVal) {
+                    if (p.c !== commonNameVal) return false;
                 }
 
                 // Year filter
@@ -576,6 +630,7 @@
         function resetFilters() {
             document.getElementById('category-filter').value = '';
             document.getElementById('species-filter').value = '';
+            document.getElementById('common-name-filter').value = '';
             document.getElementById('year-min').value = 2013;
             document.getElementById('year-max').value = 2025;
             document.getElementById('year-min-label').textContent = '2013';
@@ -700,13 +755,18 @@
             .then(function(data) {
                 allData = data;
                 populateSpeciesFilter(data);
+                populateCommonNameFilter(data);
                 renderTrees(data);
 
                 document.getElementById('category-filter').addEventListener('change', function() {
                     updateSpeciesForCategory();
                     applyFilters();
                 });
-                document.getElementById('species-filter').addEventListener('change', applyFilters);
+                document.getElementById('species-filter').addEventListener('change', function() {
+                    updateCommonNameOptions();
+                    applyFilters();
+                });
+                document.getElementById('common-name-filter').addEventListener('change', applyFilters);
                 document.getElementById('year-min').addEventListener('input', function() {
                     document.getElementById('year-min-label').textContent = this.value;
                     if (parseInt(this.value) > parseInt(document.getElementById('year-max').value)) {
