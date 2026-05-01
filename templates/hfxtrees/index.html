@@ -609,11 +609,9 @@
                     if (p.c !== commonNameVal) return false;
                 }
 
-                // Year filter
-                if (yearActive) {
-                    var yr = p.y;
-                    if (!yr || yr < 2013 || yr > 2025) return false;
-                    if (yr < yearMin || yr > yearMax) return false;
+                // Year filter (skip trees with no year data)
+                if (yearActive && p.y) {
+                    if (p.y < yearMin || p.y > yearMax) return false;
                 }
 
                 // DBH filter
