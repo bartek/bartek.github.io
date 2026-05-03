@@ -1,8 +1,6 @@
-title: Books I've enjoyed
+title: Book Shelf
 data: data/books.yaml
 ---
-
-<h2>Book Shelf</h2>
 
 <div class='book-shelf'>
   {% for book in books|sort(attribute="date", reverse=True) %}
