@@ -1,5 +1,4 @@
 title: Books I've enjoyed
-date: 08-07-2024
 data: data/books.yaml
 ---
 
@@ -10,7 +9,7 @@ data: data/books.yaml
   <div class='book'>
     <a href='{{ book.goodreads_url }}'><img src='{{ book.cover_url }}'></a>
     <p>{{ book.title }}</p>
-    <p class='subtitle'>{{ book.category }} (Added {{ book.date }})</p>
+    <p class='subtitle'>{{ book.category }}{% if book.date %} (Added {{ book.date }}){% endif %}</p>
   </div>
   {% endfor %}
 </div>
