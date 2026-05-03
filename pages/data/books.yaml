@@ -318,3 +318,13 @@ books:
     pages: 231
     cover_url: "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1226891421i/560614.jpg"
     goodreads_url: "https://www.goodreads.com/book/show/560614.Shattered_City"
+
+  - title: "Everything in Its Place"
+    subtitle: "First Loves and Last Tales"
+    date: "2026-03-01"
+    author: "Oliver Sacks"
+    published: "4/1/2019"
+    category: "Nonfiction"
+    pages: 288
+    cover_url: "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1534045973i/41089239.jpg"
+    goodreads_url: "https://www.goodreads.com/book/show/41089239-everything-in-its-place"
