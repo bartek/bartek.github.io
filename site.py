@@ -49,6 +49,10 @@ def hfxbikeparking():
 def hfxtrees():
     return render_template("hfxtrees/index.html", token=os.environ.get('MAPBOX_TOKEN'))
 
+@app.route("/iwkmap/")
+def iwkmap():
+    return render_template("iwkmap/index.html")
+
 
 @app.route("/<path:path>/")
 def page(path):
