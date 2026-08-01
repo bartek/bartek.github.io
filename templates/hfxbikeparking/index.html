@@ -247,6 +247,14 @@
         var activeLayer = null;
         var isMobile = window.innerWidth < 768;
 
+        // ponytail: repair points are divIcon markers, not circles — setStyle() is circle-only
+        function safeStyle(layer, opts) {
+            if (typeof layer.setStyle === 'function') layer.setStyle(opts);
+        }
+        function isRepair(feature) {
+            return String(feature.properties.Type || '').toLowerCase() === 'repair';
+        }
+
         // Add map tiles
         L.tileLayer(
             'https://api.mapbox.com/styles/v1/mapbox/outdoors-v12/tiles/{z}/{x}/{y}?access_token={{ token }}', {
@@ -268,6 +276,7 @@
                 case 'Hanging Corral': return "#f2a4e8";
                 case 'Ornamental': return "#b0b06f";
                 case 'Locker': return "#7f7f7f";
+                case 'repair': return "#2563eb";
                 default: return "#a2a2a2";
             }
         }
@@ -294,6 +303,8 @@
                     '<i class="circle" style="background:' + getColor(categories[i]) + '"></i> ' +
                         (categories[i] ? categories[i] : '+'));
             }
+            labels.push(
+                '<i class="circle" style="border:1px solid #000;background:linear-gradient(135deg,#fff 0 50%,' + getColor('repair') + ' 50% 100%)"></i> Repair');
             div.innerHTML = labels.join('<br>');
             return div;
         }
@@ -463,9 +474,9 @@
             // Reset active marker style if exists
             if (activeLayer) {
                 if (bikeLayer && bikeLayer.hasLayer(activeLayer)) {
-                    activeLayer.setStyle({ weight: 1, color: '#000' });
+                    safeStyle(activeLayer, { weight: 1, color: '#000' });
                 } else {
-                    activeLayer.setStyle({ weight: 2, color: '#fff' });
+                    safeStyle(activeLayer, { weight: 2, color: '#fff' });
                 }
                 activeLayer = null;
             }
@@ -552,6 +563,17 @@
         ]).then(([parkingData, counterData]) => {
                 bikeLayer = L.geoJSON(parkingData, {
                     pointToLayer: function(feature, latlng) {
+                        if (isRepair(feature)) {
+                            return L.marker(latlng, {
+                                icon: L.divIcon({
+                                    className: 'repair-marker',
+                                    html: '<span style="display:block;width:14px;height:14px;border-radius:50%;border:1px solid #000;background:linear-gradient(135deg,#fff 0 50%,' + getColor('repair') + ' 50% 100%);"></span>',
+                                    iconSize: [16, 16],
+                                    iconAnchor: [8, 8]
+                                })
+                            });
+                        }
+
                         let radius = feature.properties.Size !== undefined
                             ? feature.properties.Size
                             : 3;
@@ -569,7 +591,7 @@
                         layer.on('click', function(e) {
                             // Reset style of previously active layer if exists
                             if (activeLayer && activeLayer !== layer) {
-                                activeLayer.setStyle({
+                                safeStyle(activeLayer, {
                                     weight: 1,
                                     color: '#000'
                                 });
@@ -577,7 +599,7 @@
 
                             // Set this layer as active and highlight it
                             activeLayer = layer;
-                            layer.setStyle({
+                            safeStyle(layer, {
                                 weight: 3,
                                 color: '#ffff00' // Highlight with yellow border
                             });
@@ -593,7 +615,7 @@
                         layer.on({
                             mouseover: function(e) {
                                 if (layer !== activeLayer) {
-                                    layer.setStyle({
+                                    safeStyle(layer, {
                                         weight: 2,
                                         color: '#ffff00' // Highlight with yellow border
                                     });
@@ -601,7 +623,7 @@
                             },
                             mouseout: function(e) {
                                 if (layer !== activeLayer) {
-                                    layer.setStyle({
+                                    safeStyle(layer, {
                                         weight: 1,
                                         color: '#000'
                                     });
@@ -636,9 +658,9 @@
                                 var prev = activeLayer;
                                 activeLayer = null;
                                 if (bikeLayer.hasLayer(prev)) {
-                                    prev.setStyle({ weight: 1, color: '#000' });
+                                    safeStyle(prev, { weight: 1, color: '#000' });
                                 } else {
-                                    prev.setStyle({ weight: 2, color: '#fff' });
+                                    safeStyle(prev, { weight: 2, color: '#fff' });
                                 }
                             }
                             activeLayer = layer;
