@@ -116,10 +116,10 @@ const LEVELS = [
 
 /* --------------------------------------------------------------------------- */
 (function () {
-  const GREEN = "#0071ce", ORANGE = "#c97a2b";
+  const BLUE = "#024B98", MAGENTA = "#B91995";
   const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
   const photosOf = s => Array.isArray(s.photos) ? s.photos.filter(Boolean) : (s.photo ? [s.photo] : []);
-  const color = s => s.covered ? GREEN : ORANGE;
+  const color = s => s.covered ? BLUE : MAGENTA;
 
   const frame = document.getElementById("bpk-frame");
   const openState = {};   // level key -> bool
@@ -155,8 +155,8 @@ const LEVELS = [
           : "";
         const label = ph[0] ? "" : "rack photo";
         const typeBadge = s.covered
-          ? `<span class="bpk-badge" style="background:rgba(0,113,206,.14);color:${GREEN}">Covered</span>`
-          : `<span class="bpk-badge" style="background:rgba(201,122,43,.16);color:${ORANGE}">Uncovered</span>`;
+          ? `<span class="bpk-badge" style="background:rgba(2,75,152,.14);color:${BLUE}">Covered</span>`
+          : `<span class="bpk-badge" style="background:rgba(185,25,149,.16);color:${MAGENTA}">Uncovered</span>`;
         const placeBadge = `<span class="bpk-badge" style="background:rgba(38,49,77,.06);color:#26314d">${s.indoor ? "Indoor" : "Outdoor"}</span>`;
         const capBadge = `<span class="bpk-badge" style="background:rgba(38,49,77,.06);color:#26314d">${+s.capacity || 0} bikes</span>`;
         return `<div class="bpk-card">
@@ -172,7 +172,7 @@ const LEVELS = [
 
       el.innerHTML = `
         <button class="bpk-head" type="button" data-toggle="${esc(String(lvl.key))}">
-          <span class="bpk-dot" style="background:${allCovered ? GREEN : ORANGE}"></span>
+          <span class="bpk-dot" style="background:${allCovered ? BLUE : MAGENTA}"></span>
           <span class="bpk-name">${esc(lvl.label)}</span>
           <span class="bpk-summary">${cap} spaces · ${spots.length} ${spots.length === 1 ? "area" : "areas"}</span>
           <span class="bpk-caret">›</span>
