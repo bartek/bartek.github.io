@@ -41,7 +41,6 @@ be added)
 ## Finances
 
 * If possible, pay yourself first (a dollar saved is ~$2 dollars earned)
-* 
 
 ## Career
 
@@ -65,6 +64,7 @@ be added)
 * Don't try to figure out what your life is about. It's too big a question. Just
   figure out what the next three years look like.
 * If you're not sure you can carry it all, take two trips. (apply to most things)
+* [Sturgeon's law](https://en.wikipedia.org/wiki/Sturgeon%27s_law) applies broadly - ninety percent of everything is crap.
 
 [^1]: https://fergus-mccullough.com/index.php/2021/04/09/against-alcohol/
 [^2]: https://www.theguardian.com/food/2021/jul/06/caffeine-coffee-tea-invisible-addiction-is-it-time-to-give-up
