@@ -428,6 +428,14 @@
                           </div>`;
             }
 
+            if (feature.geometry.type === 'Point') {
+                const [lng, lat] = feature.geometry.coordinates;
+                content += `<div class="info-item">
+                            <div class="info-label">Coordinates:</div>
+                            <div class="info-value">${lat.toFixed(5)}, ${lng.toFixed(5)}</div>
+                          </div>`;
+            }
+
             content += `</div>`;
 
             // Add description/note if available
