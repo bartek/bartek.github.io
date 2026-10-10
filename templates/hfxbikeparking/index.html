@@ -177,8 +177,46 @@
             box-shadow: 0 1px 5px rgba(0,0,0,0.4);
             line-height: 1.8;
         }
-        .leaflet-control-layers {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        .legend-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 12px;
+        }
+        .legend-actions a {
+            color: #2563eb;
+            text-decoration: none;
+            font-size: 0.9em;
+            cursor: pointer;
+        }
+        .legend-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .legend-row input {
+            margin: 0;
+            cursor: pointer;
+        }
+        .legend-row.off {
+            opacity: 0.4;
+        }
+        .legend-divider {
+            border-top: 1px solid #ddd;
+            margin: 4px 0;
+        }
+        .locate-control a {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            color: #333;
+            cursor: pointer;
+        }
+        .locate-control a.active {
+            color: #2563eb;
         }
 
         /* Media queries */
@@ -198,6 +236,9 @@
             }
             #map.panel-open {
                 width: calc(100vw - 400px);
+            }
+            .locate-control {
+                display: none;
             }
         }
     </style>
@@ -281,12 +322,55 @@
             }
         }
 
+        // Category filtering. Keys are parking Types, plus 'repair' and 'counters'.
+        var hiddenCategories = new Set();
+        var parkingLayers = [];
+
+        function categoryKey(feature) {
+            return isRepair(feature) ? 'repair' : feature.properties.Type;
+        }
+
+        function applyFilters() {
+            if (activeLayer) {
+                var key = counterLayer && counterLayer.hasLayer(activeLayer)
+                    ? 'counters'
+                    : categoryKey(activeLayer.feature);
+                if (hiddenCategories.has(key)) closeDetails();
+            }
+            if (bikeLayer) {
+                parkingLayers.forEach(function(layer) {
+                    var visible = !hiddenCategories.has(categoryKey(layer.feature));
+                    if (visible && !bikeLayer.hasLayer(layer)) bikeLayer.addLayer(layer);
+                    else if (!visible && bikeLayer.hasLayer(layer)) bikeLayer.removeLayer(layer);
+                });
+                updateMarkerSizes();
+            }
+            if (counterLayer) {
+                if (hiddenCategories.has('counters')) map.removeLayer(counterLayer);
+                else map.addLayer(counterLayer);
+            }
+            document.querySelectorAll('.legend-row').forEach(function(row) {
+                var on = !hiddenCategories.has(row.dataset.key);
+                row.querySelector('input').checked = on;
+                row.classList.toggle('off', !on);
+            });
+        }
+
         // Add legend
         var legend = L.control({position: 'topright'});
         legend.onAdd = function(map) {
             var div = L.DomUtil.create('div', 'legend');
-            labels = ['<strong>Categories</strong>'];
-            categories = [
+            L.DomEvent.disableClickPropagation(div);
+            L.DomEvent.disableScrollPropagation(div);
+            function row(key, dotStyle, name) {
+                return '<label class="legend-row" data-key="' + key + '">' +
+                    '<input type="checkbox" checked>' +
+                    '<i class="circle" style="' + dotStyle + '"></i> ' + name +
+                    '</label>';
+            }
+            var labels = ['<div class="legend-header"><strong>Categories</strong>' +
+                '<span class="legend-actions"><a data-action="all">All</a> <a data-action="none">None</a></span></div>'];
+            var categories = [
                 'Ring',
                 'Corral',
                 'U Ring',
@@ -299,16 +383,69 @@
                 'Locker',
             ];
             for (var i = 0; i < categories.length; i++) {
-                labels.push(
-                    '<i class="circle" style="background:' + getColor(categories[i]) + '"></i> ' +
-                        (categories[i] ? categories[i] : '+'));
+                labels.push(row(categories[i], 'background:' + getColor(categories[i]), categories[i]));
             }
-            labels.push(
-                '<i class="circle" style="border:1px solid #000;background:linear-gradient(135deg,#fff 0 50%,' + getColor('repair') + ' 50% 100%)"></i> Repair');
-            div.innerHTML = labels.join('<br>');
+            labels.push('<div class="legend-divider"></div>');
+            labels.push(row('repair',
+                'border:1px solid #000;background:linear-gradient(135deg,#fff 0 50%,' + getColor('repair') + ' 50% 100%)', 'Repair'));
+            labels.push(row('counters', 'background:#2563eb;box-shadow:0 0 0 2px #fff, 0 0 0 3px #bbb', 'Bike Counters'));
+            div.innerHTML = labels.join('');
+
+            var allKeys = categories.concat(['repair', 'counters']);
+            div.querySelectorAll('.legend-row input').forEach(function(input) {
+                input.addEventListener('change', function() {
+                    var key = input.closest('.legend-row').dataset.key;
+                    if (input.checked) hiddenCategories.delete(key);
+                    else hiddenCategories.add(key);
+                    applyFilters();
+                });
+            });
+            div.querySelector('[data-action="all"]').addEventListener('click', function() {
+                hiddenCategories.clear();
+                applyFilters();
+            });
+            div.querySelector('[data-action="none"]').addEventListener('click', function() {
+                allKeys.forEach(function(k) { hiddenCategories.add(k); });
+                applyFilters();
+            });
             return div;
         }
         legend.addTo(map);
+
+        // Locate button under the zoom controls (mobile only, hidden via CSS on desktop)
+        var locateControl = L.control({position: 'topleft'});
+        locateControl.onAdd = function(map) {
+            var div = L.DomUtil.create('div', 'leaflet-bar locate-control');
+            var btn = L.DomUtil.create('a', '', div);
+            btn.href = '#';
+            btn.title = 'Show my location';
+            btn.setAttribute('role', 'button');
+            btn.setAttribute('aria-label', 'Show my location');
+            btn.innerHTML = '<i class="fas fa-location-crosshairs"></i>';
+            L.DomEvent.disableClickPropagation(div);
+            L.DomEvent.on(btn, 'click', function(e) {
+                L.DomEvent.preventDefault(e);
+                if (!('geolocation' in navigator)) return;
+                var icon = btn.querySelector('i');
+                icon.classList.add('fa-spin');
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    icon.classList.remove('fa-spin');
+                    btn.classList.add('active');
+                    var latlng = [position.coords.latitude, position.coords.longitude];
+                    setUserMarker(latlng);
+                    map.setView(latlng, Math.max(map.getZoom(), 16));
+                }, function(error) {
+                    icon.classList.remove('fa-spin');
+                    locationError(error);
+                }, {
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 0
+                });
+            });
+            return div;
+        };
+        locateControl.addTo(map);
 
         // Handle location errors
         function locationError(error) {
@@ -365,16 +502,12 @@
             });
         }
 
-        // Function to handle successful location retrieval
-        function locationSuccess(position) {
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
-
-            // Create or update user location marker
+        // Create or update user location marker
+        function setUserMarker(latlng) {
             if (userMarker) {
-                userMarker.setLatLng([latitude, longitude]);
+                userMarker.setLatLng(latlng);
             } else {
-                userMarker = L.marker([latitude, longitude], {
+                userMarker = L.marker(latlng, {
                     title: 'Your Location',
                     icon: L.divIcon({
                         className: 'user-location',
@@ -382,6 +515,14 @@
                     })
                 }).addTo(map);
             }
+        }
+
+        // Function to handle successful location retrieval
+        function locationSuccess(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+
+            setUserMarker([latitude, longitude]);
 
             // Check if user is within Halifax bounds
             if (isWithinHalifaxBounds(latitude, longitude)) {
@@ -595,6 +736,8 @@
                         });
                     },
                     onEachFeature: function(feature, layer) {
+                        parkingLayers.push(layer);
+
                         // Instead of binding popup, add click handler
                         layer.on('click', function(e) {
                             // Reset style of previously active layer if exists
@@ -704,11 +847,7 @@
                     }
                 }).addTo(map);
 
-                // Layer control - parking is always on, counters are toggleable
-                var overlays = {
-                    'Bike Counters': counterLayer
-                };
-                L.control.layers(null, overlays, { collapsed: false }).addTo(map);
+                applyFilters();
 
                 // Add event listeners for map movements
                 map.on('moveend', logVisiblePoints);
