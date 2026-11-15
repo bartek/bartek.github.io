@@ -1,7 +1,12 @@
 __pycache__
+build/
 
 # Ignore all hidden files and directories...
 .*
 # ...except the ones the repo needs
 !.gitignore
 !.github/
+
+# Copied in from bartek/hfxbikeparking by CI; local copies are for dev only
+static/hfxbikeparking.geojson
+static/counter_channels.geojson
