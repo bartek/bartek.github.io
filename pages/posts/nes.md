@@ -31,6 +31,7 @@ way.
 - [NESmaker](https://www.thenew8bitheroes.com/)
 - [An Overview of NES
 Rendering](https://austinmorlan.com/posts/nes_rendering_overview/#pattern-table)
+- [Classic Games Programming for the NES](https://tony-cruise.github.io/ProgammingForTheNES.html)
 
 ## Reading
 
